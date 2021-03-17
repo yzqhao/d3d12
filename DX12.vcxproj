@@ -23,7 +23,11 @@
     <ClCompile Include="d3dUtil.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="GameTimer.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="GeometryGenerator.cpp" />
+    <ClCompile Include="main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="main_box.cpp" />
     <ClCompile Include="math\Color.cpp" />
     <ClCompile Include="math\Mat4.cpp" />
     <ClCompile Include="math\Vec2.cpp" />
@@ -36,6 +40,7 @@
     <ClInclude Include="d3dx12.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="GeometryGenerator.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\Mat4.h" />
@@ -44,6 +49,12 @@
     <ClInclude Include="math\Vec3.h" />
     <ClInclude Include="math\Vec4.h" />
     <ClInclude Include="platform\PlatformConfig.h" />
+    <ClInclude Include="UploadBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C4680F18-E037-4881-A760-CF9AC4C668C5}</ProjectGuid>

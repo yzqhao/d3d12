@@ -87,14 +87,14 @@ public:
 
     static Microsoft::WRL::ComPtr<ID3DBlob> LoadBinary(const std::wstring& filename);
 
-    static Microsoft::WRL::ComPtr<ID3D12Resource> CreateDefaultBuffer(
+    static ID3D12Resource* CreateDefaultBuffer(
         ID3D12Device* device,
         ID3D12GraphicsCommandList* cmdList,
         const void* initData,
         UINT64 byteSize,
-        Microsoft::WRL::ComPtr<ID3D12Resource>& uploadBuffer);
+        ID3D12Resource*& uploadBuffer);
 
-	static Microsoft::WRL::ComPtr<ID3DBlob> CompileShader(
+	static ID3DBlob* CompileShader(
 		const std::wstring& filename,
 		const D3D_SHADER_MACRO* defines,
 		const std::string& entrypoint,
@@ -137,14 +137,14 @@ struct MeshGeometry
 
 	// System memory copies.  Use Blobs because the vertex/index format can be generic.
 	// It is up to the client to cast appropriately.  
-	Microsoft::WRL::ComPtr<ID3DBlob> VertexBufferCPU = nullptr;
-	Microsoft::WRL::ComPtr<ID3DBlob> IndexBufferCPU  = nullptr;
+	ID3DBlob* VertexBufferCPU = nullptr;
+	ID3DBlob* IndexBufferCPU  = nullptr;
 
-	Microsoft::WRL::ComPtr<ID3D12Resource> VertexBufferGPU = nullptr;
-	Microsoft::WRL::ComPtr<ID3D12Resource> IndexBufferGPU = nullptr;
+	ID3D12Resource* VertexBufferGPU = nullptr;
+	ID3D12Resource* IndexBufferGPU = nullptr;
 
-	Microsoft::WRL::ComPtr<ID3D12Resource> VertexBufferUploader = nullptr;
-	Microsoft::WRL::ComPtr<ID3D12Resource> IndexBufferUploader = nullptr;
+	ID3D12Resource* VertexBufferUploader = nullptr;
+	ID3D12Resource* IndexBufferUploader = nullptr;
 
     // Data about the buffers.
 	uint VertexByteStride = 0;
