@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "platform/PlatformConfig.h"
+#include "../platform/PlatformConfig.h"
 
 #include <cassert>
 

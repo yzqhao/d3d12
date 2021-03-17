@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -18,6 +14,19 @@
     </Filter>
     <Filter Include="platform">
       <UniqueIdentifier>{fe59155e-14ee-4b7c-8b46-797988f6f520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="InitDirect3DApp">
+      <UniqueIdentifier>{d26b6efb-be86-4a61-8369-a4be2e0edc66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BoxApp">
+      <UniqueIdentifier>{ee280307-723b-4cc4-bce7-0769784788c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shapes">
+      <UniqueIdentifier>{5d4ef10e-7c1f-4b2d-9134-1a23bb31a4cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,20 +45,35 @@
     <ClCompile Include="math\Vec4.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="d3dApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="d3dUtil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTimer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DDSTextureLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="math\Color.cpp">
       <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="common\d3dApp.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\d3dUtil.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\DDSTextureLoader.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\GameTimer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\GeometryGenerator.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp">
+      <Filter>InitDirect3DApp</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxApp\BoxApp.cpp">
+      <Filter>BoxApp</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapesApp\FrameResource.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapesApp\ShapesApp.cpp">
+      <Filter>Shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,29 +92,55 @@
     <ClInclude Include="math\MathDefs.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="d3dApp.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="d3dUtil.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTimer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="d3dx12.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DDSTextureLoader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="math\Color.h">
       <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Macros.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="platform\PlatformConfig.h">
       <Filter>platform</Filter>
     </ClInclude>
+    <ClInclude Include="UploadBuffer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\d3dApp.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\d3dUtil.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\d3dx12.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\DDSTextureLoader.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\GameTimer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\GeometryGenerator.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Macros.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h">
+      <Filter>InitDirect3DApp</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxApp\BoxApp.h">
+      <Filter>BoxApp</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapesApp\FrameResource.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapesApp\ShapesApp.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\color.hlsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="BoxApp\color.hlsl">
+      <Filter>BoxApp</Filter>
+    </None>
   </ItemGroup>
 </Project>

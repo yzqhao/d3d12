@@ -19,24 +19,34 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="d3dApp.cpp" />
-    <ClCompile Include="d3dUtil.cpp" />
-    <ClCompile Include="DDSTextureLoader.cpp" />
-    <ClCompile Include="GameTimer.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="BoxApp\BoxApp.cpp" />
+    <ClCompile Include="common\d3dApp.cpp" />
+    <ClCompile Include="common\d3dUtil.cpp" />
+    <ClCompile Include="common\DDSTextureLoader.cpp" />
+    <ClCompile Include="common\GameTimer.cpp" />
+    <ClCompile Include="common\GeometryGenerator.cpp" />
+    <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
+    <ClCompile Include="main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="math\Color.cpp" />
     <ClCompile Include="math\Mat4.cpp" />
     <ClCompile Include="math\Vec2.cpp" />
     <ClCompile Include="math\Vec3.cpp" />
     <ClCompile Include="math\Vec4.cpp" />
+    <ClCompile Include="ShapesApp\FrameResource.cpp" />
+    <ClCompile Include="ShapesApp\ShapesApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="d3dApp.h" />
-    <ClInclude Include="d3dUtil.h" />
-    <ClInclude Include="d3dx12.h" />
-    <ClInclude Include="DDSTextureLoader.h" />
-    <ClInclude Include="GameTimer.h" />
-    <ClInclude Include="Macros.h" />
+    <ClInclude Include="BoxApp\BoxApp.h" />
+    <ClInclude Include="common\d3dApp.h" />
+    <ClInclude Include="common\d3dUtil.h" />
+    <ClInclude Include="common\d3dx12.h" />
+    <ClInclude Include="common\DDSTextureLoader.h" />
+    <ClInclude Include="common\GameTimer.h" />
+    <ClInclude Include="common\GeometryGenerator.h" />
+    <ClInclude Include="common\Macros.h" />
+    <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\Mat4.h" />
     <ClInclude Include="math\MathDefs.h" />
@@ -44,6 +54,19 @@
     <ClInclude Include="math\Vec3.h" />
     <ClInclude Include="math\Vec4.h" />
     <ClInclude Include="platform\PlatformConfig.h" />
+    <ClInclude Include="ShapesApp\FrameResource.h" />
+    <ClInclude Include="ShapesApp\ShapesApp.h" />
+    <ClInclude Include="UploadBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BoxApp\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C4680F18-E037-4881-A760-CF9AC4C668C5}</ProjectGuid>
