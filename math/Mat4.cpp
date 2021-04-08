@@ -117,6 +117,7 @@ void Mat4::createLookAt(float eyeX, float eyeY, float eyeZ, float targetX, float
 	up.normalize();
 
 	Vec3 zaxis = eye - target;
+    zaxis = -zaxis;  // dx
 	zaxis.normalize();
 
 	Vec3 xaxis = crossProduct(up, zaxis);
@@ -179,6 +180,7 @@ void Mat4::createPerspective(float fieldOfView, float aspectRatio, float zNearPl
 	dst->m[11] = -1.0f;
 	dst->m[14] = -2.0f * zFarPlane * zNearPlane * f_n;
 
+    // dx
 	dst->m[10] = (zFarPlane)*f_n;
     dst->m[11] = 1.0f;
 	dst->m[14] = -(zFarPlane * zNearPlane) * f_n;

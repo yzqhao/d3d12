@@ -68,6 +68,11 @@
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ShapesApp\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C4680F18-E037-4881-A760-CF9AC4C668C5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

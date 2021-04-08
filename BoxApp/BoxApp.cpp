@@ -86,6 +86,7 @@ void BoxApp::OnResize()
 	D3DApp::OnResize();
 
 	Math::Mat4::createPerspective(45, AspectRatio(), 1.0f, 1000.0f, &mProj);
+	mProj.transpose();
 }
 
 void BoxApp::Update(const GameTimer& gt)
@@ -102,16 +103,10 @@ void BoxApp::Update(const GameTimer& gt)
 	Math::Mat4::createLookAt(pos, target, up, &mView);
 	mView.transpose();
 
-	/*mView = Math::Mat4(1.000000, 0.000000, 0.000000, 0.000000, 
-		0.000000, 0.707107, -0.707107, 0.000000, 
-		0.000000, 0.707107, 0.707107, 0.000000, 
-		0.000000, 0.000000, 5.000000, 1.000000);*/
-
 	// Update the constant buffer with the latest worldViewProj matrix.
 	ObjectConstants objConstants;
 	objConstants.View = mView;
 	objConstants.Proj = mProj;
-	objConstants.Proj.transpose();
 	mObjectCB->CopyData(0, objConstants);
 }
 

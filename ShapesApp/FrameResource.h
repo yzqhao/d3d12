@@ -4,9 +4,11 @@
 #include "../common/UploadBuffer.h"
 #include "../math/Mat4.h"
 
+namespace Shapes {
+
 struct ObjectConstants
 {
-    DirectX::XMFLOAT4X4 World{};
+    Math::Mat4 World{};
 };
 
 struct PassConstants
@@ -30,7 +32,7 @@ struct PassConstants
 struct Vertex
 {
     Math::Vec3 Pos;
-    Math::Vec3 Color;
+    Math::Color Color;
 };
 
 // Stores the resources needed for the CPU to build the command lists
@@ -57,3 +59,5 @@ public:
     // check if these frame resources are still in use by the GPU.
     UINT64 Fence = 0;
 };
+
+}
