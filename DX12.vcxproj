@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoxAppTwoSlot\BoxAppTwoSlot.cpp" />
     <ClCompile Include="BoxApp\BoxApp.cpp" />
     <ClCompile Include="common\d3dApp.cpp" />
     <ClCompile Include="common\d3dUtil.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h" />
     <ClInclude Include="BoxApp\BoxApp.h" />
     <ClInclude Include="common\d3dApp.h" />
     <ClInclude Include="common\d3dUtil.h" />
@@ -70,6 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ShapesApp\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BoxAppTwoSlot\color.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

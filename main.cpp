@@ -2,6 +2,7 @@
 
 #include "InitDirect3DApp/InitDirect3DApp.h"
 #include "BoxApp/BoxApp.h"
+#include "BoxAppTwoSlot/BoxAppTwoSlot.h"
 #include "ShapesApp/ShapesApp.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
@@ -16,7 +17,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	{
 		//InitDirect3DApp theApp(hInstance);
 		//BoxApp theApp(hInstance);
-		ShapesApp theApp(hInstance);
+		BoxAppTwoSlot theApp(hInstance);
+		//ShapesApp theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

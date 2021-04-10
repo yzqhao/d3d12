@@ -1,16 +1,16 @@
 
-#include "BoxApp.h"
+#include "BoxAppTwoSlot.h"
 
-BoxApp::BoxApp(HINSTANCE hInstance)
+BoxAppTwoSlot::BoxAppTwoSlot(HINSTANCE hInstance)
 	: D3DApp(hInstance)
 {
 }
 
-BoxApp::~BoxApp()
+BoxAppTwoSlot::~BoxAppTwoSlot()
 {
 }
 
-bool BoxApp::Initialize()
+bool BoxAppTwoSlot::Initialize()
 {
 	if (!D3DApp::Initialize())
 		return false;
@@ -36,7 +36,7 @@ bool BoxApp::Initialize()
 	return true;
 }
 
-void BoxApp::OnMouseDown(WPARAM btnState, int x, int y)
+void BoxAppTwoSlot::OnMouseDown(WPARAM btnState, int x, int y)
 {
 	mLastMousePos.x = x;
 	mLastMousePos.y = y;
@@ -44,12 +44,12 @@ void BoxApp::OnMouseDown(WPARAM btnState, int x, int y)
 	SetCapture(mhMainWnd);
 }
 
-void BoxApp::OnMouseUp(WPARAM btnState, int x, int y)
+void BoxAppTwoSlot::OnMouseUp(WPARAM btnState, int x, int y)
 {
 	ReleaseCapture();
 }
 
-void BoxApp::OnMouseMove(WPARAM btnState, int x, int y)
+void BoxAppTwoSlot::OnMouseMove(WPARAM btnState, int x, int y)
 {
 	if ((btnState & MK_LBUTTON) != 0)
 	{
@@ -81,7 +81,7 @@ void BoxApp::OnMouseMove(WPARAM btnState, int x, int y)
 	mLastMousePos.y = y;
 }
 
-void BoxApp::OnResize()
+void BoxAppTwoSlot::OnResize()
 {
 	D3DApp::OnResize();
 
@@ -89,7 +89,7 @@ void BoxApp::OnResize()
 	mProj.transpose();
 }
 
-void BoxApp::Update(const GameTimer& gt)
+void BoxAppTwoSlot::Update(const GameTimer& gt)
 {
 	float x = mRadius * sinf(mPhi) * cosf(mTheta);
 	float z = mRadius * sinf(mPhi) * sinf(mTheta);
@@ -110,7 +110,7 @@ void BoxApp::Update(const GameTimer& gt)
 	mObjectCB->CopyData(0, objConstants);
 }
 
-void BoxApp::Draw(const GameTimer& gt)
+void BoxAppTwoSlot::Draw(const GameTimer& gt)
 {
 	// Reuse the memory associated with command recording.
 	// We can only reset when the associated command lists have finished execution on the GPU.
@@ -142,6 +142,7 @@ void BoxApp::Draw(const GameTimer& gt)
 		mCommandList->SetGraphicsRootSignature(mRootSignature);
 
 		mCommandList->IASetVertexBuffers(0, 1, &mBoxGeo->VertexBufferView());
+		mCommandList->IASetVertexBuffers(1, 1, &mBoxGeo->VertexBufferView2());
 		mCommandList->IASetIndexBuffer(&mBoxGeo->IndexBufferView());
 		mCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -176,19 +177,30 @@ void BoxApp::Draw(const GameTimer& gt)
 // 
 // app define
 //
-void BoxApp::BuildBoxGeometry()
+void BoxAppTwoSlot::BuildBoxGeometry()
 {
-    std::array<Vertex, 8> vertices =
-    {
-        Vertex({ Math::Vec3(-1.0f, -1.0f, -1.0f), Math::Color::WHITE }),
-		Vertex({ Math::Vec3(-1.0f, +1.0f, -1.0f), Math::Color::BLACK }),
-		Vertex({ Math::Vec3(+1.0f, +1.0f, -1.0f), Math::Color::RED }),
-		Vertex({ Math::Vec3(+1.0f, -1.0f, -1.0f), Math::Color::GREEN }),
-		Vertex({ Math::Vec3(-1.0f, -1.0f, +1.0f), Math::Color::BLUE }),
-		Vertex({ Math::Vec3(-1.0f, +1.0f, +1.0f), Math::Color::YELLOW }),
-		Vertex({ Math::Vec3(+1.0f, +1.0f, +1.0f), Math::Color(0, 1, 1, 1) }),
-		Vertex({ Math::Vec3(+1.0f, -1.0f, +1.0f), Math::Color(1, 0, 1, 1) })
-    };
+	std::array<VertexP, 8> pvertices =
+	{
+		VertexP({ Math::Vec3(-1.0f, -1.0f, -1.0f) }),
+		VertexP({ Math::Vec3(-1.0f, +1.0f, -1.0f) }),
+		VertexP({ Math::Vec3(+1.0f, +1.0f, -1.0f) }),
+		VertexP({ Math::Vec3(+1.0f, -1.0f, -1.0f) }),
+		VertexP({ Math::Vec3(-1.0f, -1.0f, +1.0f) }),
+		VertexP({ Math::Vec3(-1.0f, +1.0f, +1.0f) }),
+		VertexP({ Math::Vec3(+1.0f, +1.0f, +1.0f) }),
+		VertexP({ Math::Vec3(+1.0f, -1.0f, +1.0f) })
+	};
+	std::array<VertexC, 8> cvertices =
+	{
+		VertexC({ Math::Color::WHITE }),
+		VertexC({ Math::Color::BLACK }),
+		VertexC({ Math::Color::RED }),
+		VertexC({ Math::Color::GREEN }),
+		VertexC({ Math::Color::BLUE }),
+		VertexC({ Math::Color::YELLOW }),
+		VertexC({ Math::Color(0, 1, 1, 1) }),
+		VertexC({ Math::Color(1, 0, 1, 1) })
+	};
 
 	std::array<std::uint16_t, 36> indices =
 	{
@@ -217,26 +229,33 @@ void BoxApp::BuildBoxGeometry()
 		4, 3, 7
 	};
 
-    const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
+	const UINT pvbByteSize = (UINT)pvertices.size() * sizeof(VertexP);
+	const UINT cvbByteSize = (UINT)cvertices.size() * sizeof(VertexC);
 	const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
 
-	mBoxGeo = std::make_unique<MeshGeometry>();
+	mBoxGeo = std::make_unique<MeshGeometryVB2>();
 	mBoxGeo->Name = "boxGeo";
 
-	ThrowIfFailed(D3DCreateBlob(vbByteSize, &mBoxGeo->VertexBufferCPU));
-	CopyMemory(mBoxGeo->VertexBufferCPU->GetBufferPointer(), vertices.data(), vbByteSize);
+	ThrowIfFailed(D3DCreateBlob(pvbByteSize, &mBoxGeo->VertexBufferCPU));
+	CopyMemory(mBoxGeo->VertexBufferCPU->GetBufferPointer(), pvertices.data(), pvbByteSize);
+	ThrowIfFailed(D3DCreateBlob(cvbByteSize, &mBoxGeo->VertexBufferCPU2));
+	CopyMemory(mBoxGeo->VertexBufferCPU2->GetBufferPointer(), cvertices.data(), cvbByteSize);
 
 	ThrowIfFailed(D3DCreateBlob(ibByteSize, &mBoxGeo->IndexBufferCPU));
 	CopyMemory(mBoxGeo->IndexBufferCPU->GetBufferPointer(), indices.data(), ibByteSize);
 
 	mBoxGeo->VertexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice,
-		mCommandList, vertices.data(), vbByteSize, mBoxGeo->VertexBufferUploader);
+		mCommandList, pvertices.data(), pvbByteSize, mBoxGeo->VertexBufferUploader);
+	mBoxGeo->VertexBufferGPU2 = d3dUtil::CreateDefaultBuffer(md3dDevice,
+		mCommandList, cvertices.data(), cvbByteSize, mBoxGeo->VertexBufferUploader2);
 
 	mBoxGeo->IndexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice,
 		mCommandList, indices.data(), ibByteSize, mBoxGeo->IndexBufferUploader);
 
-	mBoxGeo->VertexByteStride = sizeof(Vertex);
-	mBoxGeo->VertexBufferByteSize = vbByteSize;
+	mBoxGeo->VertexByteStride = sizeof(VertexP);
+	mBoxGeo->VertexBufferByteSize = pvbByteSize;
+	mBoxGeo->VertexByteStride2 = sizeof(VertexC);
+	mBoxGeo->VertexBufferByteSize2 = cvbByteSize;
 	mBoxGeo->IndexFormat = DXGI_FORMAT_R16_UINT;
 	mBoxGeo->IndexBufferByteSize = ibByteSize;
 
@@ -248,26 +267,26 @@ void BoxApp::BuildBoxGeometry()
 	mBoxGeo->DrawArgs["box"] = submesh;
 }
 
-void BoxApp::BuildShadersAndInputLayout()
+void BoxAppTwoSlot::BuildShadersAndInputLayout()
 {
 	HRESULT hr = S_OK;
 
-	mvsByteCode = d3dUtil::CompileShader(L"BoxApp\\color.hlsl", nullptr, "VS", "vs_5_0");
-	mpsByteCode = d3dUtil::CompileShader(L"BoxApp\\color.hlsl", nullptr, "PS", "ps_5_0");
+	mvsByteCode = d3dUtil::CompileShader(L"BoxAppTwoSlot\\color.hlsl", nullptr, "VS", "vs_5_0");
+	mpsByteCode = d3dUtil::CompileShader(L"BoxAppTwoSlot\\color.hlsl", nullptr, "PS", "ps_5_0");
 
 	mInputLayout =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 	};
 
 }
 
-void BoxApp::BuildPSO()
+void BoxAppTwoSlot::BuildPSO()
 {
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc;
 	ZeroMemory(&psoDesc, sizeof(D3D12_GRAPHICS_PIPELINE_STATE_DESC));
-	psoDesc.InputLayout = { mInputLayout.data(), (uint)mInputLayout.size() };
+	psoDesc.InputLayout = { mInputLayout.data(), (UINT)mInputLayout.size() };
 	psoDesc.pRootSignature = mRootSignature;
 	psoDesc.VS =
 	{
@@ -292,7 +311,7 @@ void BoxApp::BuildPSO()
 	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&mPSO)));
 }
 
-void BoxApp::BuildDescriptorHeaps()
+void BoxAppTwoSlot::BuildDescriptorHeaps()
 {
 	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
 	cbvHeapDesc.NumDescriptors = 1;
@@ -303,7 +322,7 @@ void BoxApp::BuildDescriptorHeaps()
 		IID_PPV_ARGS(&mCbvHeap)));
 }
 
-void BoxApp::BuildConstantBuffers()
+void BoxAppTwoSlot::BuildConstantBuffers()
 {
 	mObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(md3dDevice, 1, true);
 
@@ -323,7 +342,7 @@ void BoxApp::BuildConstantBuffers()
 		mCbvHeap->GetCPUDescriptorHandleForHeapStart());
 }
 
-void BoxApp::BuildRootSignature()
+void BoxAppTwoSlot::BuildRootSignature()
 {
 	// Shader programs typically require resources as input (constant buffers,
 	// textures, samplers).  The root signature defines the resources the shader
