@@ -25,11 +25,14 @@
     <Filter Include="BoxApp">
       <UniqueIdentifier>{ee280307-723b-4cc4-bce7-0769784788c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shapes">
-      <UniqueIdentifier>{5d4ef10e-7c1f-4b2d-9134-1a23bb31a4cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="BoxAppTwoSlot">
       <UniqueIdentifier>{2dc79062-0b98-4bc8-a0d7-22bcde8227d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LandAndWaves">
+      <UniqueIdentifier>{9e857699-3aac-4e5b-a5ec-85331fe5c441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShapesApp">
+      <UniqueIdentifier>{5d4ef10e-7c1f-4b2d-9134-1a23bb31a4cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,13 +76,25 @@
       <Filter>BoxApp</Filter>
     </ClCompile>
     <ClCompile Include="ShapesApp\FrameResource.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>ShapesApp</Filter>
     </ClCompile>
     <ClCompile Include="ShapesApp\ShapesApp.cpp">
-      <Filter>Shapes</Filter>
+      <Filter>ShapesApp</Filter>
     </ClCompile>
     <ClCompile Include="BoxAppTwoSlot\BoxAppTwoSlot.cpp">
       <Filter>BoxAppTwoSlot</Filter>
+    </ClCompile>
+    <ClCompile Include="LandAndWaves\FrameResource.cpp">
+      <Filter>LandAndWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="LandAndWaves\LandAndWaves.cpp">
+      <Filter>LandAndWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="LandAndWaves\Waves.cpp">
+      <Filter>LandAndWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Random.cpp">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,13 +150,25 @@
       <Filter>BoxApp</Filter>
     </ClInclude>
     <ClInclude Include="ShapesApp\FrameResource.h">
-      <Filter>Shapes</Filter>
+      <Filter>ShapesApp</Filter>
     </ClInclude>
     <ClInclude Include="ShapesApp\ShapesApp.h">
-      <Filter>Shapes</Filter>
+      <Filter>ShapesApp</Filter>
     </ClInclude>
     <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h">
       <Filter>BoxAppTwoSlot</Filter>
+    </ClInclude>
+    <ClInclude Include="LandAndWaves\FrameResource.h">
+      <Filter>LandAndWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="LandAndWaves\LandAndWaves.h">
+      <Filter>LandAndWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="LandAndWaves\Waves.h">
+      <Filter>LandAndWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Random.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,10 +179,13 @@
       <Filter>BoxApp</Filter>
     </None>
     <None Include="ShapesApp\color.hlsl">
-      <Filter>Shapes</Filter>
+      <Filter>ShapesApp</Filter>
     </None>
     <None Include="BoxAppTwoSlot\color.hlsl">
       <Filter>BoxAppTwoSlot</Filter>
+    </None>
+    <None Include="LandAndWaves\color.hlsl">
+      <Filter>LandAndWaves</Filter>
     </None>
   </ItemGroup>
 </Project>

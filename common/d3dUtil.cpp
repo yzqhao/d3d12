@@ -101,7 +101,7 @@ ID3DBlob* d3dUtil::CompileShader(
 	HRESULT hr = S_OK;
 
 	ID3DBlob* byteCode = nullptr;
-	ID3DBlob* errors;
+	ID3DBlob* errors = nullptr;
 	hr = D3DCompileFromFile(filename.c_str(), defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		entrypoint.c_str(), target.c_str(), compileFlags, 0, &byteCode, &errors);
 

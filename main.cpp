@@ -4,6 +4,7 @@
 #include "BoxApp/BoxApp.h"
 #include "BoxAppTwoSlot/BoxAppTwoSlot.h"
 #include "ShapesApp/ShapesApp.h"
+#include "LandAndWaves/LandAndWaves.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -17,8 +18,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	{
 		//InitDirect3DApp theApp(hInstance);
 		//BoxApp theApp(hInstance);
-		BoxAppTwoSlot theApp(hInstance);
+		//BoxAppTwoSlot theApp(hInstance);
 		//ShapesApp theApp(hInstance);
+		LandAndWaves theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

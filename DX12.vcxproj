@@ -27,11 +27,15 @@
     <ClCompile Include="common\GameTimer.cpp" />
     <ClCompile Include="common\GeometryGenerator.cpp" />
     <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
+    <ClCompile Include="LandAndWaves\FrameResource.cpp" />
+    <ClCompile Include="LandAndWaves\LandAndWaves.cpp" />
+    <ClCompile Include="LandAndWaves\Waves.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="math\Color.cpp" />
     <ClCompile Include="math\Mat4.cpp" />
+    <ClCompile Include="math\Random.cpp" />
     <ClCompile Include="math\Vec2.cpp" />
     <ClCompile Include="math\Vec3.cpp" />
     <ClCompile Include="math\Vec4.cpp" />
@@ -49,9 +53,13 @@
     <ClInclude Include="common\GeometryGenerator.h" />
     <ClInclude Include="common\Macros.h" />
     <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
+    <ClInclude Include="LandAndWaves\FrameResource.h" />
+    <ClInclude Include="LandAndWaves\LandAndWaves.h" />
+    <ClInclude Include="LandAndWaves\Waves.h" />
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\Mat4.h" />
     <ClInclude Include="math\MathDefs.h" />
+    <ClInclude Include="math\Random.h" />
     <ClInclude Include="math\Vec2.h" />
     <ClInclude Include="math\Vec3.h" />
     <ClInclude Include="math\Vec4.h" />
@@ -77,6 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BoxAppTwoSlot\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LandAndWaves\color.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
@@ -162,6 +175,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

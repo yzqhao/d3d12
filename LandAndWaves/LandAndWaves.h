@@ -8,13 +8,14 @@
 #include "../common/UploadBuffer.h"
 
 #include "FrameResource.h"
+#include "Waves.h"
 
-class ShapesApp : public D3DApp
+class LandAndWaves : public D3DApp
 {
 	struct RenderItem;
 public:
-	ShapesApp(HINSTANCE hInstance);
-	~ShapesApp();
+	LandAndWaves(HINSTANCE hInstance);
+	~LandAndWaves();
 
 	virtual bool Initialize()override;
 
@@ -31,19 +32,30 @@ private:
 	void UpdateObjectCBs(const GameTimer& gt);
 	void UpdateMainPassCB(const GameTimer& gt);
 	void UpdateCamera(const GameTimer& gt);
+	void UpdateWaves(const GameTimer& gt);
 
 	void BuildShadersAndInputLayout();
 	void BuildPSO();
 
+	void BuildWavesGeometryBuffers();
 	void BuildRootSignature();
 
 	void BuildFrameResources();
 	void BuildRenderItems();
-	void BuildShapeGeometry();
+	void BuildLandGeometry();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
+
+	float GetHillsHeight(float x, float z)const;
+	Math::Vec3 GetHillsNormal(float x, float z)const;
 
 private:
 	static const int gNumFrameResources = 3;
+
+	enum class RenderLayer : int
+	{
+		Opaque = 0,
+		Count
+	};
 
 	struct RenderItem
 	{
@@ -66,7 +78,7 @@ private:
 		MeshGeometry* Geo = nullptr;
 
 		// Primitive topology.
-		D3D12_PRIMITIVE_TOPOLOGY PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+		D3D12_PRIMITIVE_TOPOLOGY PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
 		// DrawIndexedInstanced parameters.
 		uint IndexCount = 0;
@@ -75,22 +87,26 @@ private:
 	};
 
 	// FrameResource
-	std::vector<std::unique_ptr<Shapes::FrameResource>> mFrameResources;
-	Shapes::FrameResource* mCurrFrameResource = nullptr;
+	std::vector<std::unique_ptr<LandAndWavesFR::FrameResource>> mFrameResources;
+	LandAndWavesFR::FrameResource* mCurrFrameResource = nullptr;
 	int mCurrFrameResourceIndex = 0;
 
-	std::vector<std::unique_ptr<RenderItem>> mAllRitems;	// List of all the render items.
-	std::vector<RenderItem*> mOpaqueRitems;		// Render items divided by PSO.
+	uint mCbvSrvDescriptorSize = 0;
 
-	Shapes::PassConstants mMainPassCB;
+	std::vector<std::unique_ptr<RenderItem>> mAllRitems;	// List of all the render items.
+	RenderItem* mWavesRitem = nullptr;
+
+	std::vector<RenderItem*> mRitemLayer[(int)RenderLayer::Count];
+
+	std::unique_ptr<Waves> mWaves;
+
+	LandAndWavesFR::PassConstants mMainPassCB;
 
 	ID3D12RootSignature* mRootSignature = nullptr;
-	ID3D12DescriptorHeap* mCbvHeap = nullptr;
 
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>> mGeometries;
 
-	ID3DBlob* mvsByteCode = nullptr;
-	ID3DBlob* mpsByteCode = nullptr;
+	std::unordered_map<std::string, ID3DBlob*> mShaders;
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> mInputLayout;
 
@@ -101,8 +117,11 @@ private:
 	Math::Mat4 mProj{};
 
 	float mTheta = 1.5f * M_PI;
-	float mPhi = M_PI / 4;
-	float mRadius = 15.0f;
+	float mPhi = M_PI / 2 - 0.1f;
+	float mRadius = 50.0f;
+
+	float mSunTheta = 1.25f * M_PI;
+	float mSunPhi = M_PI / 4;
 
 	Math::Vec3 mEyePos = { 0.0f, 0.0f, 0.0f };
 
