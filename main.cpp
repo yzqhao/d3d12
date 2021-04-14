@@ -4,6 +4,7 @@
 #include "BoxApp/BoxApp.h"
 #include "BoxAppTwoSlot/BoxAppTwoSlot.h"
 #include "ShapesApp/ShapesApp.h"
+#include "ShapesSkullApp/ShapesSkullApp.h"
 #include "LandAndWaves/LandAndWaves.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
@@ -20,7 +21,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//BoxApp theApp(hInstance);
 		//BoxAppTwoSlot theApp(hInstance);
 		//ShapesApp theApp(hInstance);
-		LandAndWaves theApp(hInstance);
+		ShapesSkullApp theApp(hInstance);
+		//LandAndWaves theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

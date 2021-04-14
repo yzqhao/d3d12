@@ -34,6 +34,9 @@
     <Filter Include="ShapesApp">
       <UniqueIdentifier>{5d4ef10e-7c1f-4b2d-9134-1a23bb31a4cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShapesSkullApp">
+      <UniqueIdentifier>{981e7ab2-0d10-4300-a4f0-fd79f39bf692}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,6 +98,15 @@
     </ClCompile>
     <ClCompile Include="math\Random.cpp">
       <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapesSkullApp\FrameResource.cpp">
+      <Filter>ShapesSkullApp</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapesSkullApp\ShapesSkullApp.cpp">
+      <Filter>ShapesSkullApp</Filter>
+    </ClCompile>
+    <ClCompile Include="common\MeshLoader.cpp">
+      <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +182,15 @@
     <ClInclude Include="math\Random.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="ShapesSkullApp\FrameResource.h">
+      <Filter>ShapesSkullApp</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapesSkullApp\ShapesSkullApp.h">
+      <Filter>ShapesSkullApp</Filter>
+    </ClInclude>
+    <ClInclude Include="common\MeshLoader.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -186,6 +207,9 @@
     </None>
     <None Include="LandAndWaves\color.hlsl">
       <Filter>LandAndWaves</Filter>
+    </None>
+    <None Include="ShapesSkullApp\color.hlsl">
+      <Filter>ShapesSkullApp</Filter>
     </None>
   </ItemGroup>
 </Project>

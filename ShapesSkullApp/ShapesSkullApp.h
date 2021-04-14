@@ -9,12 +9,12 @@
 
 #include "FrameResource.h"
 
-class ShapesApp : public D3DApp
+class ShapesSkullApp : public D3DApp
 {
 	struct RenderItem;
 public:
-	ShapesApp(HINSTANCE hInstance);
-	~ShapesApp();
+	ShapesSkullApp(HINSTANCE hInstance);
+	~ShapesSkullApp();
 
 	virtual bool Initialize()override;
 
@@ -35,8 +35,6 @@ private:
 	void BuildShadersAndInputLayout();
 	void BuildPSO();
 
-	void BuildDescriptorHeaps();
-	void BuildConstantBuffers();
 	void BuildRootSignature();
 
 	void BuildFrameResources();
@@ -77,17 +75,16 @@ private:
 	};
 
 	// FrameResource
-	std::vector<std::unique_ptr<Shapes::FrameResource>> mFrameResources;
-	Shapes::FrameResource* mCurrFrameResource = nullptr;
+	std::vector<std::unique_ptr<ShapesSkullFR::FrameResource>> mFrameResources;
+	ShapesSkullFR::FrameResource* mCurrFrameResource = nullptr;
 	int mCurrFrameResourceIndex = 0;
 
 	std::vector<std::unique_ptr<RenderItem>> mAllRitems;	// List of all the render items.
 	std::vector<RenderItem*> mOpaqueRitems;		// Render items divided by PSO.
 
-	Shapes::PassConstants mMainPassCB;
+	ShapesSkullFR::PassConstants mMainPassCB;
 
 	ID3D12RootSignature* mRootSignature = nullptr;
-	ID3D12DescriptorHeap* mCbvHeap = nullptr;
 
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>> mGeometries;
 
@@ -111,8 +108,6 @@ private:
 	POINT mLastMousePos;
 
 	bool mIsWireframe{ false };
-
-	uint mPassCbvOffset = 0;
 
 };
 

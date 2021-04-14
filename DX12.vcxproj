@@ -26,6 +26,7 @@
     <ClCompile Include="common\DDSTextureLoader.cpp" />
     <ClCompile Include="common\GameTimer.cpp" />
     <ClCompile Include="common\GeometryGenerator.cpp" />
+    <ClCompile Include="common\MeshLoader.cpp" />
     <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
     <ClCompile Include="LandAndWaves\FrameResource.cpp" />
     <ClCompile Include="LandAndWaves\LandAndWaves.cpp" />
@@ -41,6 +42,8 @@
     <ClCompile Include="math\Vec4.cpp" />
     <ClCompile Include="ShapesApp\FrameResource.cpp" />
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
+    <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
+    <ClCompile Include="ShapesSkullApp\ShapesSkullApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h" />
@@ -52,6 +55,7 @@
     <ClInclude Include="common\GameTimer.h" />
     <ClInclude Include="common\GeometryGenerator.h" />
     <ClInclude Include="common\Macros.h" />
+    <ClInclude Include="common\MeshLoader.h" />
     <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
     <ClInclude Include="LandAndWaves\FrameResource.h" />
     <ClInclude Include="LandAndWaves\LandAndWaves.h" />
@@ -66,6 +70,8 @@
     <ClInclude Include="platform\PlatformConfig.h" />
     <ClInclude Include="ShapesApp\FrameResource.h" />
     <ClInclude Include="ShapesApp\ShapesApp.h" />
+    <ClInclude Include="ShapesSkullApp\FrameResource.h" />
+    <ClInclude Include="ShapesSkullApp\ShapesSkullApp.h" />
     <ClInclude Include="UploadBuffer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="LandAndWaves\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShapesSkullApp\color.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
