@@ -27,10 +27,12 @@
     <ClCompile Include="common\GameTimer.cpp" />
     <ClCompile Include="common\GeometryGenerator.cpp" />
     <ClCompile Include="common\MeshLoader.cpp" />
+    <ClCompile Include="common\Waves.cpp" />
     <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
     <ClCompile Include="LandAndWaves\FrameResource.cpp" />
     <ClCompile Include="LandAndWaves\LandAndWaves.cpp" />
-    <ClCompile Include="LandAndWaves\Waves.cpp" />
+    <ClCompile Include="LitWaves\FrameResource.cpp" />
+    <ClCompile Include="LitWaves\LitWaves.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -56,10 +58,12 @@
     <ClInclude Include="common\GeometryGenerator.h" />
     <ClInclude Include="common\Macros.h" />
     <ClInclude Include="common\MeshLoader.h" />
+    <ClInclude Include="common\Waves.h" />
     <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
     <ClInclude Include="LandAndWaves\FrameResource.h" />
     <ClInclude Include="LandAndWaves\LandAndWaves.h" />
-    <ClInclude Include="LandAndWaves\Waves.h" />
+    <ClInclude Include="LitWaves\FrameResource.h" />
+    <ClInclude Include="LitWaves\LitWaves.h" />
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\Mat4.h" />
     <ClInclude Include="math\MathDefs.h" />
@@ -101,6 +105,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ShapesSkullApp\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LitWaves\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="LitWaves\LightingUtil.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

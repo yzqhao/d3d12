@@ -6,6 +6,7 @@
 #include "ShapesApp/ShapesApp.h"
 #include "ShapesSkullApp/ShapesSkullApp.h"
 #include "LandAndWaves/LandAndWaves.h"
+#include "LitWaves/LitWaves.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -21,8 +22,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//BoxApp theApp(hInstance);
 		//BoxAppTwoSlot theApp(hInstance);
 		//ShapesApp theApp(hInstance);
-		ShapesSkullApp theApp(hInstance);
+		//ShapesSkullApp theApp(hInstance);
 		//LandAndWaves theApp(hInstance);
+		LitWaves theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

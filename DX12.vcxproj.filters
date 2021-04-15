@@ -37,6 +37,9 @@
     <Filter Include="ShapesSkullApp">
       <UniqueIdentifier>{981e7ab2-0d10-4300-a4f0-fd79f39bf692}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LitWaves">
+      <UniqueIdentifier>{325040f0-748e-443c-b108-0a2748058034}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,9 +96,6 @@
     <ClCompile Include="LandAndWaves\LandAndWaves.cpp">
       <Filter>LandAndWaves</Filter>
     </ClCompile>
-    <ClCompile Include="LandAndWaves\Waves.cpp">
-      <Filter>LandAndWaves</Filter>
-    </ClCompile>
     <ClCompile Include="math\Random.cpp">
       <Filter>math</Filter>
     </ClCompile>
@@ -106,6 +106,15 @@
       <Filter>ShapesSkullApp</Filter>
     </ClCompile>
     <ClCompile Include="common\MeshLoader.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="LitWaves\FrameResource.cpp">
+      <Filter>LitWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="LitWaves\LitWaves.cpp">
+      <Filter>LitWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="common\Waves.cpp">
       <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,9 +185,6 @@
     <ClInclude Include="LandAndWaves\LandAndWaves.h">
       <Filter>LandAndWaves</Filter>
     </ClInclude>
-    <ClInclude Include="LandAndWaves\Waves.h">
-      <Filter>LandAndWaves</Filter>
-    </ClInclude>
     <ClInclude Include="math\Random.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -189,6 +195,15 @@
       <Filter>ShapesSkullApp</Filter>
     </ClInclude>
     <ClInclude Include="common\MeshLoader.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="LitWaves\FrameResource.h">
+      <Filter>LitWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="LitWaves\LitWaves.h">
+      <Filter>LitWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Waves.h">
       <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -210,6 +225,12 @@
     </None>
     <None Include="ShapesSkullApp\color.hlsl">
       <Filter>ShapesSkullApp</Filter>
+    </None>
+    <None Include="LitWaves\Default.hlsl">
+      <Filter>LitWaves</Filter>
+    </None>
+    <None Include="LitWaves\LightingUtil.hlsl">
+      <Filter>LitWaves</Filter>
     </None>
   </ItemGroup>
 </Project>

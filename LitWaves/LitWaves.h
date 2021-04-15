@@ -10,12 +10,12 @@
 #include "FrameResource.h"
 #include "../common/Waves.h"
 
-class LandAndWaves : public D3DApp
+class LitWaves : public D3DApp
 {
 	struct RenderItem;
 public:
-	LandAndWaves(HINSTANCE hInstance);
-	~LandAndWaves();
+	LitWaves(HINSTANCE hInstance);
+	~LitWaves();
 
 	virtual bool Initialize()override;
 
@@ -31,6 +31,7 @@ private:
 	void OnKeyboardInput(const GameTimer& gt);
 	void UpdateObjectCBs(const GameTimer& gt);
 	void UpdateMainPassCB(const GameTimer& gt);
+	void UpdateMaterialCB(const GameTimer& gt);
 	void UpdateCamera(const GameTimer& gt);
 	void UpdateWaves(const GameTimer& gt);
 
@@ -41,6 +42,7 @@ private:
 	void BuildRootSignature();
 
 	void BuildFrameResources();
+	void BuildMaterials();
 	void BuildRenderItems();
 	void BuildLandGeometry();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
@@ -49,7 +51,7 @@ private:
 	Math::Vec3 GetHillsNormal(float x, float z)const;
 
 private:
-	static const int gNumFrameResources = 3;
+	//static const int gNumFrameResources = 3;
 
 	enum class RenderLayer : int
 	{
@@ -65,16 +67,18 @@ private:
 		// relative to the world space, which defines the position, orientation,
 		// and scale of the object in the world.
 		Math::Mat4 World{};
+		Math::Mat4 TexTransform{};
 
 		// Dirty flag indicating the object data has changed and we need to update the constant buffer.
 		// Because we have an object cbuffer for each FrameResource, we have to apply the
 		// update to each FrameResource.  Thus, when we modify obect data we should set 
 		// NumFramesDirty = gNumFrameResources so that each frame resource gets the update.
-		int NumFramesDirty = gNumFrameResources;
+		int NumFramesDirty = 3;
 
 		// Index into GPU constant buffer corresponding to the ObjectCB for this render item.
 		uint ObjCBIndex = -1;
 
+		Material* Mat = nullptr;
 		MeshGeometry* Geo = nullptr;
 
 		// Primitive topology.
@@ -87,8 +91,8 @@ private:
 	};
 
 	// FrameResource
-	std::vector<std::unique_ptr<LandAndWavesFR::FrameResource>> mFrameResources;
-	LandAndWavesFR::FrameResource* mCurrFrameResource = nullptr;
+	std::vector<std::unique_ptr<LitWavesFR::FrameResource>> mFrameResources;
+	LitWavesFR::FrameResource* mCurrFrameResource = nullptr;
 	int mCurrFrameResourceIndex = 0;
 
 	uint mCbvSrvDescriptorSize = 0;
@@ -100,12 +104,13 @@ private:
 
 	std::unique_ptr<Waves> mWaves;
 
-	LandAndWavesFR::PassConstants mMainPassCB;
+	LitWavesFR::PassConstants mMainPassCB;
 
 	ID3D12RootSignature* mRootSignature = nullptr;
 
 	std::unordered_map<std::string, std::unique_ptr<MeshGeometry>> mGeometries;
-
+	std::unordered_map<std::string, std::unique_ptr<Material>> mMaterials;
+	std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
 	std::unordered_map<std::string, ID3DBlob*> mShaders;
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> mInputLayout;
