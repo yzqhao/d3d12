@@ -8,6 +8,8 @@
 #include "LandAndWaves/LandAndWaves.h"
 #include "LitWaves/LitWaves.h"
 #include "LitColumns/LitColumns.h"
+#include "TexBox/TexBox.h"
+#include "TexWaves/TexWaves.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -26,7 +28,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//ShapesSkullApp theApp(hInstance);
 		//LandAndWaves theApp(hInstance);
 		//LitWaves theApp(hInstance);
-		LitColumns theApp(hInstance);
+		//LitColumns theApp(hInstance);
+		//TexBox theApp(hInstance);
+		TexWaves theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

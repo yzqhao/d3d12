@@ -43,6 +43,12 @@
     <Filter Include="LitColumns">
       <UniqueIdentifier>{f438cdac-fd09-4c82-a041-dfa866aebe2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TexBox">
+      <UniqueIdentifier>{608cc336-5fa3-4b75-8d1f-81848af14304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TexWaves">
+      <UniqueIdentifier>{001de38c-61c4-4aa5-af8b-f094dcb4c85c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -125,6 +131,15 @@
     </ClCompile>
     <ClCompile Include="LitColumns\LitColumns.cpp">
       <Filter>LitColumns</Filter>
+    </ClCompile>
+    <ClCompile Include="TexBox\TexBox.cpp">
+      <Filter>TexBox</Filter>
+    </ClCompile>
+    <ClCompile Include="TexWaves\FrameResource.cpp">
+      <Filter>TexWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="TexWaves\TexWaves.cpp">
+      <Filter>TexWaves</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +236,15 @@
     <ClInclude Include="LitColumns\LitColumns.h">
       <Filter>LitColumns</Filter>
     </ClInclude>
+    <ClInclude Include="TexBox\TexBox.h">
+      <Filter>TexBox</Filter>
+    </ClInclude>
+    <ClInclude Include="TexWaves\FrameResource.h">
+      <Filter>TexWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="TexWaves\TexWaves.h">
+      <Filter>TexWaves</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -252,6 +276,15 @@
     </None>
     <None Include="LitColumns\LightingUtil.hlsl">
       <Filter>LitColumns</Filter>
+    </None>
+    <None Include="TexBox\color.hlsl">
+      <Filter>TexBox</Filter>
+    </None>
+    <None Include="TexWaves\Default.hlsl">
+      <Filter>TexWaves</Filter>
+    </None>
+    <None Include="TexWaves\LightingUtil.hlsl">
+      <Filter>TexWaves</Filter>
     </None>
   </ItemGroup>
 </Project>
