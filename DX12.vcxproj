@@ -31,6 +31,8 @@
     <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
     <ClCompile Include="LandAndWaves\FrameResource.cpp" />
     <ClCompile Include="LandAndWaves\LandAndWaves.cpp" />
+    <ClCompile Include="LitColumns\FrameResource.cpp" />
+    <ClCompile Include="LitColumns\LitColumns.cpp" />
     <ClCompile Include="LitWaves\FrameResource.cpp" />
     <ClCompile Include="LitWaves\LitWaves.cpp" />
     <ClCompile Include="main.cpp">
@@ -62,6 +64,8 @@
     <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
     <ClInclude Include="LandAndWaves\FrameResource.h" />
     <ClInclude Include="LandAndWaves\LandAndWaves.h" />
+    <ClInclude Include="LitColumns\FrameResource.h" />
+    <ClInclude Include="LitColumns\LitColumns.h" />
     <ClInclude Include="LitWaves\FrameResource.h" />
     <ClInclude Include="LitWaves\LitWaves.h" />
     <ClInclude Include="math\Color.h" />
@@ -113,6 +117,14 @@
       <FileType>Document</FileType>
     </None>
     <None Include="LitWaves\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LitColumns\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="LitColumns\LightingUtil.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

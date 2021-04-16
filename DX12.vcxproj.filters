@@ -40,6 +40,9 @@
     <Filter Include="LitWaves">
       <UniqueIdentifier>{325040f0-748e-443c-b108-0a2748058034}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LitColumns">
+      <UniqueIdentifier>{f438cdac-fd09-4c82-a041-dfa866aebe2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -116,6 +119,12 @@
     </ClCompile>
     <ClCompile Include="common\Waves.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="LitColumns\FrameResource.cpp">
+      <Filter>LitColumns</Filter>
+    </ClCompile>
+    <ClCompile Include="LitColumns\LitColumns.cpp">
+      <Filter>LitColumns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +215,12 @@
     <ClInclude Include="common\Waves.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="LitColumns\FrameResource.h">
+      <Filter>LitColumns</Filter>
+    </ClInclude>
+    <ClInclude Include="LitColumns\LitColumns.h">
+      <Filter>LitColumns</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -231,6 +246,12 @@
     </None>
     <None Include="LitWaves\LightingUtil.hlsl">
       <Filter>LitWaves</Filter>
+    </None>
+    <None Include="LitColumns\Default.hlsl">
+      <Filter>LitColumns</Filter>
+    </None>
+    <None Include="LitColumns\LightingUtil.hlsl">
+      <Filter>LitColumns</Filter>
     </None>
   </ItemGroup>
 </Project>
