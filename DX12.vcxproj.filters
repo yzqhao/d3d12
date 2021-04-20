@@ -49,6 +49,9 @@
     <Filter Include="TexWaves">
       <UniqueIdentifier>{001de38c-61c4-4aa5-af8b-f094dcb4c85c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BlendWaves">
+      <UniqueIdentifier>{51f62c86-8600-4c2f-9dc5-1ef1f3506788}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,6 +143,12 @@
     </ClCompile>
     <ClCompile Include="TexWaves\TexWaves.cpp">
       <Filter>TexWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendWaves\FrameResource.cpp">
+      <Filter>BlendWaves</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendWaves\BlendWaves.cpp">
+      <Filter>BlendWaves</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +254,12 @@
     <ClInclude Include="TexWaves\TexWaves.h">
       <Filter>TexWaves</Filter>
     </ClInclude>
+    <ClInclude Include="BlendWaves\FrameResource.h">
+      <Filter>BlendWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendWaves\BlendWaves.h">
+      <Filter>BlendWaves</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -285,6 +300,12 @@
     </None>
     <None Include="TexWaves\LightingUtil.hlsl">
       <Filter>TexWaves</Filter>
+    </None>
+    <None Include="BlendWaves\Default.hlsl">
+      <Filter>BlendWaves</Filter>
+    </None>
+    <None Include="BlendWaves\LightingUtil.hlsl">
+      <Filter>BlendWaves</Filter>
     </None>
   </ItemGroup>
 </Project>

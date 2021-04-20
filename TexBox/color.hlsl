@@ -13,16 +13,17 @@ cbuffer cbPerObject : register(b0)
 struct VertexIn
 {
 	float3 PosL  : POSITION;
-    float4 Color : COLOR;
+	float2 TexC    : TEXCOORD;
 };
 
 struct VertexOut
 {
 	float4 PosH  : SV_POSITION;
-    float4 Color : COLOR;
+	float2 TexC    : TEXCOORD;
 };
 
 Texture2D    gDiffuseMap : register(t0);
+SamplerState gsamLinear  : register(s0);
 
 VertexOut VS(VertexIn vin)
 {
@@ -32,15 +33,14 @@ VertexOut VS(VertexIn vin)
 	vout.PosH = mul(mul(float4(vin.PosL, 1.0f), gView), gProj);
 	//vout.PosH = mul(gProj, mul(gView, float4(vin.PosL, 1.0f)));
 	
-	// Just pass vertex color into the pixel shader.
-    vout.Color = vin.Color;
+	vout.TexC = vin.TexC;
     
     return vout;
 }
 
 float4 PS(VertexOut pin) : SV_Target
 {
-    return pin.Color;
+    return gDiffuseMap.Sample(gsamLinear, pin.TexC);
 }
 
 

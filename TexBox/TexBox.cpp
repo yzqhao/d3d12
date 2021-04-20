@@ -194,14 +194,14 @@ void TexBox::BuildBoxGeometry()
 {
     std::array<Vertex, 8> vertices =
     {
-        Vertex({ Math::Vec3(-1.0f, -1.0f, -1.0f), Math::Color::WHITE }),
-		Vertex({ Math::Vec3(-1.0f, +1.0f, -1.0f), Math::Color::BLACK }),
-		Vertex({ Math::Vec3(+1.0f, +1.0f, -1.0f), Math::Color::RED }),
-		Vertex({ Math::Vec3(+1.0f, -1.0f, -1.0f), Math::Color::GREEN }),
-		Vertex({ Math::Vec3(-1.0f, -1.0f, +1.0f), Math::Color::BLUE }),
-		Vertex({ Math::Vec3(-1.0f, +1.0f, +1.0f), Math::Color::YELLOW }),
-		Vertex({ Math::Vec3(+1.0f, +1.0f, +1.0f), Math::Color(0, 1, 1, 1) }),
-		Vertex({ Math::Vec3(+1.0f, -1.0f, +1.0f), Math::Color(1, 0, 1, 1) })
+        Vertex({ Math::Vec3(-1.0f, -1.0f, -1.0f), Math::Vec2{0, 0} }),
+		Vertex({ Math::Vec3(-1.0f, +1.0f, -1.0f), Math::Vec2{0, 1} }),
+		Vertex({ Math::Vec3(+1.0f, +1.0f, -1.0f), Math::Vec2{1, 1} }),
+		Vertex({ Math::Vec3(+1.0f, -1.0f, -1.0f), Math::Vec2{0, 0} }),
+		Vertex({ Math::Vec3(-1.0f, -1.0f, +1.0f), Math::Vec2{0, 0} }),
+		Vertex({ Math::Vec3(-1.0f, +1.0f, +1.0f), Math::Vec2{0, 1} }),
+		Vertex({ Math::Vec3(+1.0f, +1.0f, +1.0f), Math::Vec2{1, 1} }),
+		Vertex({ Math::Vec3(+1.0f, -1.0f, +1.0f), Math::Vec2{1, 0} })
     };
 
 	std::array<std::uint16_t, 36> indices =
@@ -272,7 +272,7 @@ void TexBox::BuildShadersAndInputLayout()
 	mInputLayout =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 	};
 
 }
@@ -368,6 +368,8 @@ void TexBox::BuildRootSignature()
 	cbvTable[1].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 	slotRootParameter[0].InitAsDescriptorTable(1, &cbvTable[0]);
 	slotRootParameter[1].InitAsDescriptorTable(1, &cbvTable[1], D3D12_SHADER_VISIBILITY_PIXEL);
+
+	D3D12_STATIC_SAMPLER_DESC sampler;
 
 	// A root signature is an array of root parameters.
 	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(2, slotRootParameter, 0, nullptr,

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlendWaves\FrameResource.cpp" />
+    <ClCompile Include="BlendWaves\BlendWaves.cpp" />
     <ClCompile Include="BoxAppTwoSlot\BoxAppTwoSlot.cpp" />
     <ClCompile Include="BoxApp\BoxApp.cpp" />
     <ClCompile Include="common\d3dApp.cpp" />
@@ -53,6 +55,8 @@
     <ClCompile Include="TexWaves\TexWaves.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlendWaves\FrameResource.h" />
+    <ClInclude Include="BlendWaves\BlendWaves.h" />
     <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h" />
     <ClInclude Include="BoxApp\BoxApp.h" />
     <ClInclude Include="common\d3dApp.h" />
@@ -144,6 +148,14 @@
       <FileType>Document</FileType>
     </None>
     <None Include="TexWaves\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BlendWaves\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="BlendWaves\LightingUtil.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

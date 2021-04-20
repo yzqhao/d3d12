@@ -10,6 +10,7 @@
 #include "LitColumns/LitColumns.h"
 #include "TexBox/TexBox.h"
 #include "TexWaves/TexWaves.h"
+#include "BlendWaves/BlendWaves.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -29,8 +30,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//LandAndWaves theApp(hInstance);
 		//LitWaves theApp(hInstance);
 		//LitColumns theApp(hInstance);
-		//TexBox theApp(hInstance);
-		TexWaves theApp(hInstance);
+		TexBox theApp(hInstance);
+		//TexWaves theApp(hInstance);
+		//BlendWaves theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

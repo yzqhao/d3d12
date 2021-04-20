@@ -37,7 +37,7 @@ private:
 	struct Vertex
 	{
 		Math::Vec3 Pos;
-		Math::Color Color;
+		Math::Vec2 UV;
 	}; 
 
 	struct ObjectConstants
