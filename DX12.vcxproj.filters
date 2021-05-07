@@ -150,6 +150,9 @@
     <ClCompile Include="BlendWaves\BlendWaves.cpp">
       <Filter>BlendWaves</Filter>
     </ClCompile>
+    <ClCompile Include="common\BundleReader.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Mat4.h">
@@ -259,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="BlendWaves\BlendWaves.h">
       <Filter>BlendWaves</Filter>
+    </ClInclude>
+    <ClInclude Include="common\BundleReader.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

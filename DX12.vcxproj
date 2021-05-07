@@ -23,6 +23,7 @@
     <ClCompile Include="BlendWaves\BlendWaves.cpp" />
     <ClCompile Include="BoxAppTwoSlot\BoxAppTwoSlot.cpp" />
     <ClCompile Include="BoxApp\BoxApp.cpp" />
+    <ClCompile Include="common\BundleReader.cpp" />
     <ClCompile Include="common\d3dApp.cpp" />
     <ClCompile Include="common\d3dUtil.cpp" />
     <ClCompile Include="common\DDSTextureLoader.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="BlendWaves\BlendWaves.h" />
     <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h" />
     <ClInclude Include="BoxApp\BoxApp.h" />
+    <ClInclude Include="common\BundleReader.h" />
     <ClInclude Include="common\d3dApp.h" />
     <ClInclude Include="common\d3dUtil.h" />
     <ClInclude Include="common\d3dx12.h" />

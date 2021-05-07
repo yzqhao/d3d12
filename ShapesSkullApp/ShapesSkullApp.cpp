@@ -446,8 +446,10 @@ void ShapesSkullApp::BuildRenderItems()
 void ShapesSkullApp::BuildShapeGeometry()
 {
 	// skull
-	TexModel model;
-	LoadModleSkull("Models/skull.txt", model);
+	//TexModel model;
+	//LoadModleSkull("Models/skull.txt", model);
+	GLCModel model;
+	LoadModleGMB("Models/w8_3l.gmb", model);
 
 	GeometryGenerator geoGen;
 	GeometryGenerator::MeshData box = geoGen.CreateBox(1.5f, 0.5f, 1.5f, 3);
@@ -498,7 +500,7 @@ void ShapesSkullApp::BuildShapeGeometry()
 	cylinderSubmesh.BaseVertexLocation = cylinderVertexOffset;
 
 	SubmeshGeometry skullSubmesh;
-	skullSubmesh.IndexCount = (uint)model.indices.size();
+	skullSubmesh.IndexCount = (uint)model.mIndices.size();
 	skullSubmesh.StartIndexLocation = skullIndexOffset;
 	skullSubmesh.BaseVertexLocation = skullVertexOffset;
 
@@ -512,7 +514,7 @@ void ShapesSkullApp::BuildShapeGeometry()
 		grid.Vertices.size() +
 		sphere.Vertices.size() +
 		cylinder.Vertices.size() +
-		model.vertex.size();
+		model.mMesh.size();
 
 	std::vector<ShapesSkullFR::Vertex> vertices(totalVertexCount);
 
@@ -541,9 +543,9 @@ void ShapesSkullApp::BuildShapeGeometry()
 		vertices[k].Color = { 0.274509817f, 0.509803951f, 0.705882370f, 1.0 };
 	}
 
-	for (size_t i = 0; i < model.vertex.size(); ++i, ++k)
+	for (size_t i = 0; i < model.mMesh.size(); ++i, ++k)
 	{
-		vertices[k].Pos = model.vertex[i].Pos;
+		vertices[k].Pos = model.mMesh[i].Pos;
 		vertices[k].Color = { 0.999f, 0.0, 0.0, 1.0 };
 	}
 
@@ -552,7 +554,7 @@ void ShapesSkullApp::BuildShapeGeometry()
 	indices.insert(indices.end(), std::begin(grid.GetIndices16()), std::end(grid.GetIndices16()));
 	indices.insert(indices.end(), std::begin(sphere.GetIndices16()), std::end(sphere.GetIndices16()));
 	indices.insert(indices.end(), std::begin(cylinder.GetIndices16()), std::end(cylinder.GetIndices16()));
-	indices.insert(indices.end(), std::begin(model.indices), std::end(model.indices));	// skull
+	indices.insert(indices.end(), std::begin(model.mIndices), std::end(model.mIndices));	// skull
 
 	const uint vbByteSize = (uint)vertices.size() * sizeof(ShapesSkullFR::Vertex);
 	const uint ibByteSize = (uint)indices.size() * sizeof(std::uint16_t);

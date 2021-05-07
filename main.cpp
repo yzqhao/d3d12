@@ -11,6 +11,7 @@
 #include "TexBox/TexBox.h"
 #include "TexWaves/TexWaves.h"
 #include "BlendWaves/BlendWaves.h"
+#include "common/MeshLoader.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -19,18 +20,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
-
 	try
 	{
 		//InitDirect3DApp theApp(hInstance);
 		//BoxApp theApp(hInstance);
 		//BoxAppTwoSlot theApp(hInstance);
 		//ShapesApp theApp(hInstance);
-		//ShapesSkullApp theApp(hInstance);
+		ShapesSkullApp theApp(hInstance);
 		//LandAndWaves theApp(hInstance);
 		//LitWaves theApp(hInstance);
 		//LitColumns theApp(hInstance);
-		TexBox theApp(hInstance);
+		//TexBox theApp(hInstance);
 		//TexWaves theApp(hInstance);
 		//BlendWaves theApp(hInstance);
 		if (!theApp.Initialize())
