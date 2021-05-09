@@ -1,6 +1,6 @@
 
 #include "TexBox.h"
-#include "../common/DDSTextureLoader.h"
+#include "../common/GeometryGenerator.h"
 
 TexBox::TexBox(HINSTANCE hInstance)
 	: D3DApp(hInstance)
@@ -85,14 +85,30 @@ void TexBox::OnMouseMove(WPARAM btnState, int x, int y)
 
 void TexBox::LoadTextures()
 {
-	auto woodCrateTex = std::make_unique<Texture>();
-	woodCrateTex->Name = "woodCrateTex";
-	woodCrateTex->Filename = L"Textures/WoodCrate01.dds";
+	auto grassTex = std::make_unique<Texture>();
+	grassTex->Name = "grassTex";
+	grassTex->Filename = L"Textures/grass.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice,
-		mCommandList, woodCrateTex->Filename.c_str(),
-		woodCrateTex->Resource, woodCrateTex->UploadHeap));
+		mCommandList, grassTex->Filename.c_str(),
+		grassTex->Resource, grassTex->UploadHeap));
 
-	mTextures[woodCrateTex->Name] = std::move(woodCrateTex);
+	auto waterTex = std::make_unique<Texture>();
+	waterTex->Name = "waterTex";
+	waterTex->Filename = L"Textures/water1.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice,
+		mCommandList, waterTex->Filename.c_str(),
+		waterTex->Resource, waterTex->UploadHeap));
+
+	auto fenceTex = std::make_unique<Texture>();
+	fenceTex->Name = "fenceTex";
+	fenceTex->Filename = L"Textures/WoodCrate01.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice,
+		mCommandList, fenceTex->Filename.c_str(),
+		fenceTex->Resource, fenceTex->UploadHeap));
+
+	mTextures[grassTex->Name] = std::move(grassTex);
+	mTextures[waterTex->Name] = std::move(waterTex);
+	mTextures[fenceTex->Name] = std::move(fenceTex);
 }
 
 void TexBox::OnResize()
@@ -161,9 +177,12 @@ void TexBox::Draw(const GameTimer& gt)
 
 		mCommandList->SetGraphicsRootDescriptorTable(0, mCbvHeap->GetGPUDescriptorHandleForHeapStart());
 
-		mCommandList->DrawIndexedInstanced(
-			mBoxGeo->DrawArgs["box"].IndexCount,
-			1, 0, 0, 0);
+		// ÉèÖÃsrv
+		ID3D12DescriptorHeap* descriptorHeaps2[] = { mSrvDescriptorHeap };
+		mCommandList->SetDescriptorHeaps(_countof(descriptorHeaps2), descriptorHeaps2);
+		mCommandList->SetGraphicsRootDescriptorTable(1, mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
+
+		mCommandList->DrawIndexedInstanced(mBoxGeo->DrawArgs["box"].IndexCount, 1, 0, 0, 0);
 	}
 
 	// Indicate a state transition on the resource usage.
@@ -192,46 +211,19 @@ void TexBox::Draw(const GameTimer& gt)
 //
 void TexBox::BuildBoxGeometry()
 {
-    std::array<Vertex, 8> vertices =
-    {
-        Vertex({ Math::Vec3(-1.0f, -1.0f, -1.0f), Math::Vec2{0, 0} }),
-		Vertex({ Math::Vec3(-1.0f, +1.0f, -1.0f), Math::Vec2{0, 1} }),
-		Vertex({ Math::Vec3(+1.0f, +1.0f, -1.0f), Math::Vec2{1, 1} }),
-		Vertex({ Math::Vec3(+1.0f, -1.0f, -1.0f), Math::Vec2{0, 0} }),
-		Vertex({ Math::Vec3(-1.0f, -1.0f, +1.0f), Math::Vec2{0, 0} }),
-		Vertex({ Math::Vec3(-1.0f, +1.0f, +1.0f), Math::Vec2{0, 1} }),
-		Vertex({ Math::Vec3(+1.0f, +1.0f, +1.0f), Math::Vec2{1, 1} }),
-		Vertex({ Math::Vec3(+1.0f, -1.0f, +1.0f), Math::Vec2{1, 0} })
-    };
+	GeometryGenerator geoGen;
+	GeometryGenerator::MeshData box = geoGen.CreateBox(8.0f, 8.0f, 8.0f, 3);
 
-	std::array<std::uint16_t, 36> indices =
+	std::vector<Vertex> vertices(box.Vertices.size());
+	for (size_t i = 0; i < box.Vertices.size(); ++i)
 	{
-		// front face
-		0, 1, 2,
-		0, 2, 3,
+		auto& p = box.Vertices[i].Position;
+		vertices[i].Pos = p / 5;
+		vertices[i].TexC = box.Vertices[i].TexC;
+	}
 
-		// back face
-		4, 6, 5,
-		4, 7, 6,
-
-		// left face
-		4, 5, 1,
-		4, 1, 0,
-
-		// right face
-		3, 2, 6,
-		3, 6, 7,
-
-		// top face
-		1, 5, 6,
-		1, 6, 2,
-
-		// bottom face
-		4, 0, 3,
-		4, 3, 7
-	};
-
-    const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
+	std::vector<std::uint16_t> indices = box.GetIndices16();
+	const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
 	const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
 
 	mBoxGeo = std::make_unique<MeshGeometry>();
@@ -316,19 +308,28 @@ void TexBox::BuildDescriptorHeaps()
 	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&cbvHeapDesc,
 		IID_PPV_ARGS(&mCbvHeap)));
 
-	CD3DX12_CPU_DESCRIPTOR_HANDLE hDescriptor(mCbvHeap->GetCPUDescriptorHandleForHeapStart());
+	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
+	srvHeapDesc.NumDescriptors = 3;
+	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvDescriptorHeap)));
 
-	auto woodCrateTex = mTextures["woodCrateTex"]->Resource;
+	//
+	// Fill out the heap with actual descriptors.
+	//
+	CD3DX12_CPU_DESCRIPTOR_HANDLE hDescriptor(mSrvDescriptorHeap->GetCPUDescriptorHandleForHeapStart());
+
+	auto grassTex = mTextures["grassTex"]->Resource;
+	auto waterTex = mTextures["waterTex"]->Resource;
+	auto fenceTex = mTextures["fenceTex"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.Format = woodCrateTex->GetDesc().Format;
+	srvDesc.Format = fenceTex->GetDesc().Format;
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MostDetailedMip = 0;
-	srvDesc.Texture2D.MipLevels = woodCrateTex->GetDesc().MipLevels;
-	srvDesc.Texture2D.ResourceMinLODClamp = 0.0f;
-
-	md3dDevice->CreateShaderResourceView(woodCrateTex, &srvDesc, hDescriptor);
+	srvDesc.Texture2D.MipLevels = -1;
+	md3dDevice->CreateShaderResourceView(fenceTex, &srvDesc, hDescriptor);
 }
 
 void TexBox::BuildConstantBuffers()
@@ -363,16 +364,18 @@ void TexBox::BuildRootSignature()
 	CD3DX12_ROOT_PARAMETER slotRootParameter[2];
 
 	// Create a single descriptor table of CBVs.
-	CD3DX12_DESCRIPTOR_RANGE cbvTable[2];
-	cbvTable[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 1, 0);
-	cbvTable[1].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
-	slotRootParameter[0].InitAsDescriptorTable(1, &cbvTable[0]);
-	slotRootParameter[1].InitAsDescriptorTable(1, &cbvTable[1], D3D12_SHADER_VISIBILITY_PIXEL);
+	CD3DX12_DESCRIPTOR_RANGE cbvTable;
+	cbvTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 1, 0);
 
-	D3D12_STATIC_SAMPLER_DESC sampler;
+	CD3DX12_DESCRIPTOR_RANGE texTable;
+	texTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+
+	slotRootParameter[0].InitAsDescriptorTable(1, &cbvTable);
+	slotRootParameter[1].InitAsDescriptorTable(1, &texTable, D3D12_SHADER_VISIBILITY_PIXEL);
 
 	// A root signature is an array of root parameters.
-	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(2, slotRootParameter, 0, nullptr,
+	auto staticSamplers = GetStaticSamplers();
+	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(2, slotRootParameter, staticSamplers.size(), staticSamplers.data(),
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 	// create a root signature with a single slot which points to a descriptor range consisting of a single constant buffer
@@ -392,4 +395,61 @@ void TexBox::BuildRootSignature()
 		serializedRootSig->GetBufferPointer(),
 		serializedRootSig->GetBufferSize(),
 		IID_PPV_ARGS(&mRootSignature)));
+}
+
+std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> TexBox::GetStaticSamplers()
+{
+	// Applications usually only need a handful of samplers.  So just define them all up front
+	// and keep them available as part of the root signature.  
+
+	const CD3DX12_STATIC_SAMPLER_DESC pointWrap(
+		0, // shaderRegister
+		D3D12_FILTER_MIN_MAG_MIP_POINT, // filter
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressU
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressV
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP); // addressW
+
+	const CD3DX12_STATIC_SAMPLER_DESC pointClamp(
+		1, // shaderRegister
+		D3D12_FILTER_MIN_MAG_MIP_POINT, // filter
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressU
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressV
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP); // addressW
+
+	const CD3DX12_STATIC_SAMPLER_DESC linearWrap(
+		2, // shaderRegister
+		D3D12_FILTER_MIN_MAG_MIP_LINEAR, // filter
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressU
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressV
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP); // addressW
+
+	const CD3DX12_STATIC_SAMPLER_DESC linearClamp(
+		3, // shaderRegister
+		D3D12_FILTER_MIN_MAG_MIP_LINEAR, // filter
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressU
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressV
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP); // addressW
+
+	const CD3DX12_STATIC_SAMPLER_DESC anisotropicWrap(
+		4, // shaderRegister
+		D3D12_FILTER_ANISOTROPIC, // filter
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressU
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressV
+		D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressW
+		0.0f,                             // mipLODBias
+		8);                               // maxAnisotropy
+
+	const CD3DX12_STATIC_SAMPLER_DESC anisotropicClamp(
+		5, // shaderRegister
+		D3D12_FILTER_ANISOTROPIC, // filter
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressU
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressV
+		D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressW
+		0.0f,                              // mipLODBias
+		8);                                // maxAnisotropy
+
+	return {
+		pointWrap, pointClamp,
+		linearWrap, linearClamp,
+		anisotropicWrap, anisotropicClamp };
 }

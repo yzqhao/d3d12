@@ -33,11 +33,13 @@ private:
 	void BuildConstantBuffers();
 	void BuildRootSignature();
 
+	std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
+
 private:
 	struct Vertex
 	{
 		Math::Vec3 Pos;
-		Math::Vec2 UV;
+		Math::Vec2 TexC;
 	}; 
 
 	struct ObjectConstants
@@ -48,6 +50,7 @@ private:
 
 	ID3D12RootSignature* mRootSignature = nullptr;
 	ID3D12DescriptorHeap* mCbvHeap = nullptr;
+	ID3D12DescriptorHeap* mSrvDescriptorHeap = nullptr;
 
 	std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
 
