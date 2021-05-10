@@ -1,22 +1,24 @@
 
-#include "TexBox.h"
+#include "MultiTexBox.h"
 #include "../common/GeometryGenerator.h"
 
-TexBox::TexBox(HINSTANCE hInstance)
+MultiTexBox::MultiTexBox(HINSTANCE hInstance)
 	: D3DApp(hInstance)
 {
 }
 
-TexBox::~TexBox()
+MultiTexBox::~MultiTexBox()
 {
 }
 
-bool TexBox::Initialize()
+bool MultiTexBox::Initialize()
 {
 	if (!D3DApp::Initialize())
 		return false;
 
 	ThrowIfFailed(mCommandList->Reset(mDirectCmdListAlloc, nullptr));
+
+	mCbvSrvDescriptorSize = md3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	LoadTextures();
 	BuildDescriptorHeaps();
@@ -38,7 +40,7 @@ bool TexBox::Initialize()
 	return true;
 }
 
-void TexBox::OnMouseDown(WPARAM btnState, int x, int y)
+void MultiTexBox::OnMouseDown(WPARAM btnState, int x, int y)
 {
 	mLastMousePos.x = x;
 	mLastMousePos.y = y;
@@ -46,12 +48,12 @@ void TexBox::OnMouseDown(WPARAM btnState, int x, int y)
 	SetCapture(mhMainWnd);
 }
 
-void TexBox::OnMouseUp(WPARAM btnState, int x, int y)
+void MultiTexBox::OnMouseUp(WPARAM btnState, int x, int y)
 {
 	ReleaseCapture();
 }
 
-void TexBox::OnMouseMove(WPARAM btnState, int x, int y)
+void MultiTexBox::OnMouseMove(WPARAM btnState, int x, int y)
 {
 	if ((btnState & MK_LBUTTON) != 0)
 	{
@@ -83,19 +85,27 @@ void TexBox::OnMouseMove(WPARAM btnState, int x, int y)
 	mLastMousePos.y = y;
 }
 
-void TexBox::LoadTextures()
+void MultiTexBox::LoadTextures()
 {
-	auto fenceTex = std::make_unique<Texture>();
-	fenceTex->Name = "fenceTex";
-	fenceTex->Filename = L"Textures/WoodCrate01.dds";
+	auto tex1 = std::make_unique<Texture>();
+	tex1->Name = "tex1";
+	tex1->Filename = L"Textures/tile.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice,
-		mCommandList, fenceTex->Filename.c_str(),
-		fenceTex->Resource, fenceTex->UploadHeap));
+		mCommandList, tex1->Filename.c_str(),
+		tex1->Resource, tex1->UploadHeap));
 
-	mTextures[fenceTex->Name] = std::move(fenceTex);
+	auto tex2 = std::make_unique<Texture>();
+	tex2->Name = "tex2";
+	tex2->Filename = L"Textures/WoodCrate01.dds";
+	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice,
+		mCommandList, tex2->Filename.c_str(),
+		tex2->Resource, tex2->UploadHeap));
+
+	mTextures[tex1->Name] = std::move(tex1);
+	mTextures[tex2->Name] = std::move(tex2);
 }
 
-void TexBox::OnResize()
+void MultiTexBox::OnResize()
 {
 	D3DApp::OnResize();
 
@@ -103,7 +113,7 @@ void TexBox::OnResize()
 	mProj.transpose();
 }
 
-void TexBox::Update(const GameTimer& gt)
+void MultiTexBox::Update(const GameTimer& gt)
 {
 	float x = mRadius * sinf(mPhi) * cosf(mTheta);
 	float z = mRadius * sinf(mPhi) * sinf(mTheta);
@@ -121,10 +131,11 @@ void TexBox::Update(const GameTimer& gt)
 	ObjectConstants objConstants;
 	objConstants.View = mView;
 	objConstants.Proj = mProj;
+	objConstants.TotalTime = gt.TotalTime();
 	mObjectCB->CopyData(0, objConstants);
 }
 
-void TexBox::Draw(const GameTimer& gt)
+void MultiTexBox::Draw(const GameTimer& gt)
 {
 	// Reuse the memory associated with command recording.
 	// We can only reset when the associated command lists have finished execution on the GPU.
@@ -159,10 +170,13 @@ void TexBox::Draw(const GameTimer& gt)
 		mCommandList->IASetIndexBuffer(&mBoxGeo->IndexBufferView());
 		mCommandList->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		mCommandList->SetGraphicsRootDescriptorTable(0, mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
+		CD3DX12_GPU_DESCRIPTOR_HANDLE tex(mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
+		mCommandList->SetGraphicsRootDescriptorTable(0, tex);
+		tex.Offset(mCbvSrvDescriptorSize);
+		mCommandList->SetGraphicsRootDescriptorTable(1, tex);
 
 		auto passCB = mObjectCB->Resource();
-		mCommandList->SetGraphicsRootConstantBufferView(1, passCB->GetGPUVirtualAddress());
+		mCommandList->SetGraphicsRootConstantBufferView(2, passCB->GetGPUVirtualAddress());
 
 		mCommandList->DrawIndexedInstanced(mBoxGeo->DrawArgs["box"].IndexCount, 1, 0, 0, 0);
 	}
@@ -191,7 +205,7 @@ void TexBox::Draw(const GameTimer& gt)
 // 
 // app define
 //
-void TexBox::BuildBoxGeometry()
+void MultiTexBox::BuildBoxGeometry()
 {
 	GeometryGenerator geoGen;
 	GeometryGenerator::MeshData box = geoGen.CreateBox(8.0f, 8.0f, 8.0f, 3);
@@ -236,12 +250,12 @@ void TexBox::BuildBoxGeometry()
 	mBoxGeo->DrawArgs["box"] = submesh;
 }
 
-void TexBox::BuildShadersAndInputLayout()
+void MultiTexBox::BuildShadersAndInputLayout()
 {
 	HRESULT hr = S_OK;
 
-	mvsByteCode = d3dUtil::CompileShader(L"TexBox\\color.hlsl", nullptr, "VS", "vs_5_0");
-	mpsByteCode = d3dUtil::CompileShader(L"TexBox\\color.hlsl", nullptr, "PS", "ps_5_0");
+	mvsByteCode = d3dUtil::CompileShader(L"MultiTexBox\\color.hlsl", nullptr, "VS", "vs_5_0");
+	mpsByteCode = d3dUtil::CompileShader(L"MultiTexBox\\color.hlsl", nullptr, "PS", "ps_5_0");
 
 	mInputLayout =
 	{
@@ -251,7 +265,7 @@ void TexBox::BuildShadersAndInputLayout()
 
 }
 
-void TexBox::BuildPSO()
+void MultiTexBox::BuildPSO()
 {
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc;
 	ZeroMemory(&psoDesc, sizeof(D3D12_GRAPHICS_PIPELINE_STATE_DESC));
@@ -280,10 +294,10 @@ void TexBox::BuildPSO()
 	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&mPSO)));
 }
 
-void TexBox::BuildDescriptorHeaps()
+void MultiTexBox::BuildDescriptorHeaps()
 {
 	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
-	srvHeapDesc.NumDescriptors = 1;
+	srvHeapDesc.NumDescriptors = 2;
 	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 	ThrowIfFailed(md3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(&mSrvDescriptorHeap)));
@@ -293,23 +307,34 @@ void TexBox::BuildDescriptorHeaps()
 	//
 	CD3DX12_CPU_DESCRIPTOR_HANDLE hDescriptor(mSrvDescriptorHeap->GetCPUDescriptorHandleForHeapStart());
 
-	auto fenceTex = mTextures["fenceTex"]->Resource;
+	auto tex1 = mTextures["tex1"]->Resource;
+	auto tex2 = mTextures["tex2"]->Resource;
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.Format = fenceTex->GetDesc().Format;
+	srvDesc.Format = tex1->GetDesc().Format;
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MostDetailedMip = 0;
 	srvDesc.Texture2D.MipLevels = -1;
-	md3dDevice->CreateShaderResourceView(fenceTex, &srvDesc, hDescriptor);
+	md3dDevice->CreateShaderResourceView(tex1, &srvDesc, hDescriptor);
+
+	// next descriptor
+	hDescriptor.Offset(1, mCbvSrvDescriptorSize);
+
+	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc.Format = tex2->GetDesc().Format;
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = -1;
+	md3dDevice->CreateShaderResourceView(tex2, &srvDesc, hDescriptor);
 }
 
-void TexBox::BuildConstantBuffers()
+void MultiTexBox::BuildConstantBuffers()
 {
 	mObjectCB = std::make_unique<UploadBuffer<ObjectConstants>>(md3dDevice, 1, true);
 }
 
-void TexBox::BuildRootSignature()
+void MultiTexBox::BuildRootSignature()
 {
 	// Shader programs typically require resources as input (constant buffers,
 	// textures, samplers).  The root signature defines the resources the shader
@@ -318,17 +343,21 @@ void TexBox::BuildRootSignature()
 	// thought of as defining the function signature.  
 
 	// Root parameter can be a table, root descriptor or root constants.
-	CD3DX12_ROOT_PARAMETER slotRootParameter[2];
+	CD3DX12_ROOT_PARAMETER slotRootParameter[3];
 
-	CD3DX12_DESCRIPTOR_RANGE texTable;
-	texTable.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+	CD3DX12_DESCRIPTOR_RANGE texTable1;
+	texTable1.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 
-	slotRootParameter[0].InitAsDescriptorTable(1, &texTable, D3D12_SHADER_VISIBILITY_PIXEL);
-	slotRootParameter[1].InitAsConstantBufferView(0);
+	CD3DX12_DESCRIPTOR_RANGE texTable2;
+	texTable2.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 1);
+
+	slotRootParameter[0].InitAsDescriptorTable(1, &texTable1, D3D12_SHADER_VISIBILITY_PIXEL);
+	slotRootParameter[1].InitAsDescriptorTable(1, &texTable2, D3D12_SHADER_VISIBILITY_PIXEL);
+	slotRootParameter[2].InitAsConstantBufferView(0);
 
 	// A root signature is an array of root parameters.
 	auto staticSamplers = GetStaticSamplers();
-	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(2, slotRootParameter, staticSamplers.size(), staticSamplers.data(),
+	CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(3, slotRootParameter, staticSamplers.size(), staticSamplers.data(),
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 	// create a root signature with a single slot which points to a descriptor range consisting of a single constant buffer
@@ -350,7 +379,7 @@ void TexBox::BuildRootSignature()
 		IID_PPV_ARGS(&mRootSignature)));
 }
 
-std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> TexBox::GetStaticSamplers()
+std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> MultiTexBox::GetStaticSamplers()
 {
 	// Applications usually only need a handful of samplers.  So just define them all up front
 	// and keep them available as part of the root signature.  

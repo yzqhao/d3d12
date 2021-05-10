@@ -7,11 +7,11 @@
 #include "../common/d3dUtil.h"
 #include "../common/UploadBuffer.h"
 
-class TexBox : public D3DApp
+class MultiTexBox : public D3DApp
 {
 public:
-	TexBox(HINSTANCE hInstance);
-	~TexBox();
+	MultiTexBox(HINSTANCE hInstance);
+	~MultiTexBox();
 
 	virtual bool Initialize()override;
 
@@ -40,16 +40,19 @@ private:
 	{
 		Math::Vec3 Pos;
 		Math::Vec2 TexC;
-	}; 
+	};
 
 	struct ObjectConstants
 	{
 		Math::Mat4 View;
 		Math::Mat4 Proj;
+		float TotalTime;
 	};
 
 	ID3D12RootSignature* mRootSignature = nullptr;
 	ID3D12DescriptorHeap* mSrvDescriptorHeap = nullptr;
+
+	uint mCbvSrvDescriptorSize = 0;
 
 	std::unordered_map<std::string, std::unique_ptr<Texture>> mTextures;
 

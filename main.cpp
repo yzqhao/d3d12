@@ -11,7 +11,7 @@
 #include "TexBox/TexBox.h"
 #include "TexWaves/TexWaves.h"
 #include "BlendWaves/BlendWaves.h"
-#include "common/MeshLoader.h"
+#include "MultiTexBox/MultiTexBox.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -26,13 +26,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//BoxApp theApp(hInstance);
 		//BoxAppTwoSlot theApp(hInstance);
 		//ShapesApp theApp(hInstance);
-		ShapesSkullApp theApp(hInstance);
+		//ShapesSkullApp theApp(hInstance);
 		//LandAndWaves theApp(hInstance);
 		//LitWaves theApp(hInstance);
 		//LitColumns theApp(hInstance);
 		//TexBox theApp(hInstance);
 		//TexWaves theApp(hInstance);
 		//BlendWaves theApp(hInstance);
+		MultiTexBox theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

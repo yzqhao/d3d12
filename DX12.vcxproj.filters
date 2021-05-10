@@ -52,6 +52,9 @@
     <Filter Include="BlendWaves">
       <UniqueIdentifier>{51f62c86-8600-4c2f-9dc5-1ef1f3506788}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MultiTexBox">
+      <UniqueIdentifier>{a6d79b06-ece9-4f2e-91d4-5e14bb4d92a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -152,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="common\BundleReader.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTexBox\MultiTexBox.cpp">
+      <Filter>MultiTexBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +272,9 @@
     <ClInclude Include="common\BundleReader.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="MultiTexBox\MultiTexBox.h">
+      <Filter>MultiTexBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -312,6 +321,9 @@
     </None>
     <None Include="BlendWaves\LightingUtil.hlsl">
       <Filter>BlendWaves</Filter>
+    </None>
+    <None Include="MultiTexBox\color.hlsl">
+      <Filter>MultiTexBox</Filter>
     </None>
   </ItemGroup>
 </Project>

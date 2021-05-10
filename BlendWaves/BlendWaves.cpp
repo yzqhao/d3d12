@@ -673,15 +673,15 @@ void BlendWaves::BuildMaterials()
 	water->Name = "water";
 	water->MatCBIndex = 1;
 	water->DiffuseSrvHeapIndex = 1;
-	water->DiffuseAlbedo.set(1.0f, 1.0f, 1.0f, 1.0f);
-	water->FresnelR0.set(0.2f, 0.2f, 0.2f);
+	water->DiffuseAlbedo.set(1.0f, 1.0f, 1.0f, 0.5f);
+	water->FresnelR0.set(0.1f, 0.1f, 0.1f);
 	water->Roughness = 0.0f;
 
 	auto wirefence = std::make_unique<Material>();
 	wirefence->Name = "wirefence";
 	wirefence->MatCBIndex = 2;
 	wirefence->DiffuseSrvHeapIndex = 2;
-	wirefence->DiffuseAlbedo.set(1.0f, 1.0f, 1.0f, 0.5f);
+	wirefence->DiffuseAlbedo.set(1.0f, 1.0f, 1.0f, 1.0f);
 	wirefence->FresnelR0.set(0.1f, 0.1f, 0.1f);
 	wirefence->Roughness = 0.25f;
 
