@@ -55,6 +55,9 @@
     <Filter Include="MultiTexBox">
       <UniqueIdentifier>{a6d79b06-ece9-4f2e-91d4-5e14bb4d92a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TexColumns">
+      <UniqueIdentifier>{b9241bfa-63dc-40d8-bfd6-59260a2cab4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -158,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="MultiTexBox\MultiTexBox.cpp">
       <Filter>MultiTexBox</Filter>
+    </ClCompile>
+    <ClCompile Include="TexColumns\FrameResource.cpp">
+      <Filter>TexColumns</Filter>
+    </ClCompile>
+    <ClCompile Include="TexColumns\TexColumns.cpp">
+      <Filter>TexColumns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +284,12 @@
     <ClInclude Include="MultiTexBox\MultiTexBox.h">
       <Filter>MultiTexBox</Filter>
     </ClInclude>
+    <ClInclude Include="TexColumns\FrameResource.h">
+      <Filter>TexColumns</Filter>
+    </ClInclude>
+    <ClInclude Include="TexColumns\TexColumns.h">
+      <Filter>TexColumns</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -324,6 +339,12 @@
     </None>
     <None Include="MultiTexBox\color.hlsl">
       <Filter>MultiTexBox</Filter>
+    </None>
+    <None Include="TexColumns\Default.hlsl">
+      <Filter>TexColumns</Filter>
+    </None>
+    <None Include="TexColumns\LightingUtil.hlsl">
+      <Filter>TexColumns</Filter>
     </None>
   </ItemGroup>
 </Project>

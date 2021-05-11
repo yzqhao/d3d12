@@ -8,6 +8,7 @@
 #include "LandAndWaves/LandAndWaves.h"
 #include "LitWaves/LitWaves.h"
 #include "LitColumns/LitColumns.h"
+#include "TexColumns/TexColumns.h"
 #include "TexBox/TexBox.h"
 #include "TexWaves/TexWaves.h"
 #include "BlendWaves/BlendWaves.h"
@@ -32,8 +33,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//LitColumns theApp(hInstance);
 		//TexBox theApp(hInstance);
 		//TexWaves theApp(hInstance);
+		TexColumns theApp(hInstance);
 		//BlendWaves theApp(hInstance);
-		MultiTexBox theApp(hInstance);
+		//MultiTexBox theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

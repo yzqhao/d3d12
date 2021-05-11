@@ -132,11 +132,9 @@ GeometryGenerator::MeshData GeometryGenerator::CreateSphere(float radius, uint32
 			v.TangentU.y = 0.0f;
 			v.TangentU.z = +radius*sinf(phi)*cosf(theta);
 
-			Math::Vec3 T(v.TangentU);
-			T.normalize();
+			v.TangentU.normalize();
 
-			Math::Vec3 p(v.Position);
-			p.normalize();
+			v.Normal = v.Position.getNormalized();
 
 			v.TexC.x = theta / M_PI / 2;
 			v.TexC.y = phi / M_PI;

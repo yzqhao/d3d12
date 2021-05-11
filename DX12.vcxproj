@@ -53,6 +53,8 @@
     <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
     <ClCompile Include="ShapesSkullApp\ShapesSkullApp.cpp" />
     <ClCompile Include="TexBox\TexBox.cpp" />
+    <ClCompile Include="TexColumns\FrameResource.cpp" />
+    <ClCompile Include="TexColumns\TexColumns.cpp" />
     <ClCompile Include="TexWaves\FrameResource.cpp" />
     <ClCompile Include="TexWaves\TexWaves.cpp" />
   </ItemGroup>
@@ -92,6 +94,8 @@
     <ClInclude Include="ShapesSkullApp\FrameResource.h" />
     <ClInclude Include="ShapesSkullApp\ShapesSkullApp.h" />
     <ClInclude Include="TexBox\TexBox.h" />
+    <ClInclude Include="TexColumns\FrameResource.h" />
+    <ClInclude Include="TexColumns\TexColumns.h" />
     <ClInclude Include="TexWaves\FrameResource.h" />
     <ClInclude Include="TexWaves\TexWaves.h" />
     <ClInclude Include="UploadBuffer.h" />
@@ -165,6 +169,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MultiTexBox\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TexColumns\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="TexColumns\LightingUtil.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
