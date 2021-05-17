@@ -169,6 +169,19 @@ void Camera::RotateY(float angle)
 	mViewDirty = true;
 }
 
+void Camera::Roll(float angle)
+{
+	// Rotate the basis vectors about the world y-axis.
+
+	Math::Mat4 R;
+	R.rotateY(-angle);
+
+	mRight *= R;
+	mUp *= R;
+
+	mViewDirty = true;
+}
+
 void Camera::UpdateViewMatrix()
 {
 	if(mViewDirty)

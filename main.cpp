@@ -15,6 +15,7 @@
 #include "MultiTexBox/MultiTexBox.h"
 #include "StencilDemo/StencilDemo.h"
 #include "CameraAndDynamicIndexingApp/CameraAndDynamicIndexingApp.h"
+#include "InstancingAndCulling/InstancingAndCulling.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -39,7 +40,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//BlendWaves theApp(hInstance);
 		//MultiTexBox theApp(hInstance);
 		//StencilDemo theApp(hInstance);
-		CameraAndDynamicIndexingApp theApp(hInstance);
+		//CameraAndDynamicIndexingApp theApp(hInstance);
+		InstancingAndCulling theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

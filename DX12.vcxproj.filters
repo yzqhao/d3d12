@@ -64,6 +64,9 @@
     <Filter Include="CameraAndDynamicIndexingApp">
       <UniqueIdentifier>{b66cbc59-4def-45c3-b374-25c9726f7278}</UniqueIdentifier>
     </Filter>
+    <Filter Include="InstancingAndCulling">
+      <UniqueIdentifier>{952a1ce6-fe59-4ca9-b63a-b5a1d3b0ab3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -188,6 +191,12 @@
     </ClCompile>
     <ClCompile Include="common\Camera.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingAndCulling\FrameResource.cpp">
+      <Filter>InstancingAndCulling</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingAndCulling\InstancingAndCulling.cpp">
+      <Filter>InstancingAndCulling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +335,12 @@
     <ClInclude Include="common\Camera.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="InstancingAndCulling\FrameResource.h">
+      <Filter>InstancingAndCulling</Filter>
+    </ClInclude>
+    <ClInclude Include="InstancingAndCulling\InstancingAndCulling.h">
+      <Filter>InstancingAndCulling</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -393,6 +408,12 @@
     </None>
     <None Include="CameraAndDynamicIndexingApp\LightingUtil.hlsl">
       <Filter>CameraAndDynamicIndexingApp</Filter>
+    </None>
+    <None Include="InstancingAndCulling\Default.hlsl">
+      <Filter>InstancingAndCulling</Filter>
+    </None>
+    <None Include="InstancingAndCulling\LightingUtil.hlsl">
+      <Filter>InstancingAndCulling</Filter>
     </None>
   </ItemGroup>
 </Project>

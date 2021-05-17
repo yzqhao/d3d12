@@ -1,20 +1,20 @@
 
-#include "CameraAndDynamicIndexingApp.h"
-#include "../CameraAndDynamicIndexingApp/FrameResource.h"
+#include "InstancingAndCulling.h"
+#include "../InstancingAndCulling/FrameResource.h"
 #include "../common/GeometryGenerator.h"
 #include "../common/MeshLoader.h"
 #include "../common/DDSTextureLoader.h"
 
-CameraAndDynamicIndexingApp::CameraAndDynamicIndexingApp(HINSTANCE hInstance)
+InstancingAndCulling::InstancingAndCulling(HINSTANCE hInstance)
 	: D3DApp(hInstance)
 {
 }
 
-CameraAndDynamicIndexingApp::~CameraAndDynamicIndexingApp()
+InstancingAndCulling::~InstancingAndCulling()
 {
 }
 
-bool CameraAndDynamicIndexingApp::Initialize()
+bool InstancingAndCulling::Initialize()
 {
 	if (!D3DApp::Initialize())
 		return false;
@@ -47,7 +47,7 @@ bool CameraAndDynamicIndexingApp::Initialize()
 	return true;
 }
 
-void CameraAndDynamicIndexingApp::OnMouseDown(WPARAM btnState, int x, int y)
+void InstancingAndCulling::OnMouseDown(WPARAM btnState, int x, int y)
 {
 	mLastMousePos.x = x;
 	mLastMousePos.y = y;
@@ -55,12 +55,12 @@ void CameraAndDynamicIndexingApp::OnMouseDown(WPARAM btnState, int x, int y)
 	SetCapture(mhMainWnd);
 }
 
-void CameraAndDynamicIndexingApp::OnMouseUp(WPARAM btnState, int x, int y)
+void InstancingAndCulling::OnMouseUp(WPARAM btnState, int x, int y)
 {
 	ReleaseCapture();
 }
 
-void CameraAndDynamicIndexingApp::OnMouseMove(WPARAM btnState, int x, int y)
+void InstancingAndCulling::OnMouseMove(WPARAM btnState, int x, int y)
 {
 	if ((btnState & MK_LBUTTON) != 0)
 	{
@@ -76,14 +76,14 @@ void CameraAndDynamicIndexingApp::OnMouseMove(WPARAM btnState, int x, int y)
 	mLastMousePos.y = y;
 }
 
-void CameraAndDynamicIndexingApp::OnResize()
+void InstancingAndCulling::OnResize()
 {
 	D3DApp::OnResize();
 
 	mCamera.SetLens(0.25f*M_PI, AspectRatio(), 1.0f, 1000.0f);
 }
 
-void CameraAndDynamicIndexingApp::Update(const GameTimer& gt)
+void InstancingAndCulling::Update(const GameTimer& gt)
 {
 	OnKeyboardInput(gt);
 
@@ -106,7 +106,7 @@ void CameraAndDynamicIndexingApp::Update(const GameTimer& gt)
 	UpdateMainPassCB(gt);
 }
 
-void CameraAndDynamicIndexingApp::LoadTextures()
+void InstancingAndCulling::LoadTextures()
 {
 	auto bricksTex = std::make_unique<Texture>();
 	bricksTex->Name = "bricksTex";
@@ -142,7 +142,7 @@ void CameraAndDynamicIndexingApp::LoadTextures()
 	mTextures[crateTex->Name] = std::move(crateTex);
 }
 
-void CameraAndDynamicIndexingApp::OnKeyboardInput(const GameTimer& gt)
+void InstancingAndCulling::OnKeyboardInput(const GameTimer& gt)
 {
 	const float dt = gt.DeltaTime();
 
@@ -161,7 +161,7 @@ void CameraAndDynamicIndexingApp::OnKeyboardInput(const GameTimer& gt)
 	mCamera.UpdateViewMatrix();
 }
 
-void CameraAndDynamicIndexingApp::UpdateObjectCBs(const GameTimer& gt)
+void InstancingAndCulling::UpdateObjectCBs(const GameTimer& gt)
 {
 	auto currObjectCB = mCurrFrameResource->ObjectCB.get();
 	for (auto& e : mAllRitems)
@@ -170,7 +170,7 @@ void CameraAndDynamicIndexingApp::UpdateObjectCBs(const GameTimer& gt)
 		// This needs to be tracked per frame resource.
 		if (e->NumFramesDirty > 0)
 		{
-			CameraAndDynamicIndexingAppFR::ObjectConstants objConstants;
+			InstancingAndCullingFR::ObjectConstants objConstants;
 			objConstants.World = e->World;
 			objConstants.TexTransform = e->TexTransform;
 			objConstants.MaterialIndex = e->Mat->MatCBIndex;
@@ -183,7 +183,7 @@ void CameraAndDynamicIndexingApp::UpdateObjectCBs(const GameTimer& gt)
 	}
 }
 
-void CameraAndDynamicIndexingApp::UpdateMainPassCB(const GameTimer& gt)
+void InstancingAndCulling::UpdateMainPassCB(const GameTimer& gt)
 {
 	mMainPassCB.View = mCamera.GetView();
 	mMainPassCB.Proj = mCamera.GetProj();
@@ -212,7 +212,7 @@ void CameraAndDynamicIndexingApp::UpdateMainPassCB(const GameTimer& gt)
 	currPassCB->CopyData(0, mMainPassCB);
 }
 
-void CameraAndDynamicIndexingApp::UpdateMaterialBuffer(const GameTimer& gt)
+void InstancingAndCulling::UpdateMaterialBuffer(const GameTimer& gt)
 {
 	auto currMaterialBufer = mCurrFrameResource->MaterialBuffer.get();
 	for (auto& e : mMaterials)
@@ -220,7 +220,7 @@ void CameraAndDynamicIndexingApp::UpdateMaterialBuffer(const GameTimer& gt)
 		Material* mat = e.second.get();
 		if (mat->NumFramesDirty > 0)
 		{
-			CameraAndDynamicIndexingAppFR::MaterialData matData;
+			InstancingAndCullingFR::MaterialData matData;
 			matData.DiffuseAlbedo = mat->DiffuseAlbedo;
 			matData.FresnelR0 = mat->FresnelR0;
 			matData.Roughness = mat->Roughness;
@@ -235,7 +235,7 @@ void CameraAndDynamicIndexingApp::UpdateMaterialBuffer(const GameTimer& gt)
 	}
 }
 
-void CameraAndDynamicIndexingApp::Draw(const GameTimer& gt)
+void InstancingAndCulling::Draw(const GameTimer& gt)
 {
 	// Reuse the memory associated with command recording.
 	// We can only reset when the associated command lists have finished execution on the GPU.
@@ -307,12 +307,12 @@ void CameraAndDynamicIndexingApp::Draw(const GameTimer& gt)
 // app define
 //
 
-void CameraAndDynamicIndexingApp::BuildShadersAndInputLayout()
+void InstancingAndCulling::BuildShadersAndInputLayout()
 {
 	HRESULT hr = S_OK;
 
-	mShaders["standardVS"] = d3dUtil::CompileShader(L"CameraAndDynamicIndexingApp\\Default.hlsl", nullptr, "VS", "vs_5_1");
-	mShaders["opaquePS"] = d3dUtil::CompileShader(L"CameraAndDynamicIndexingApp\\Default.hlsl", nullptr, "PS", "ps_5_1");
+	mShaders["standardVS"] = d3dUtil::CompileShader(L"InstancingAndCulling\\Default.hlsl", nullptr, "VS", "vs_5_1");
+	mShaders["opaquePS"] = d3dUtil::CompileShader(L"InstancingAndCulling\\Default.hlsl", nullptr, "PS", "ps_5_1");
 
 	mInputLayout =
 	{
@@ -323,7 +323,7 @@ void CameraAndDynamicIndexingApp::BuildShadersAndInputLayout()
 
 }
 
-void CameraAndDynamicIndexingApp::BuildPSO()
+void InstancingAndCulling::BuildPSO()
 {
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc;
 	ZeroMemory(&psoDesc, sizeof(D3D12_GRAPHICS_PIPELINE_STATE_DESC));
@@ -353,7 +353,7 @@ void CameraAndDynamicIndexingApp::BuildPSO()
 	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&mPSOs["opaque"])));
 }
 
-void CameraAndDynamicIndexingApp::BuildRootSignature()
+void InstancingAndCulling::BuildRootSignature()
 {
 	// Root parameter can be a table, root descriptor or root constants.
 	CD3DX12_ROOT_PARAMETER slotRootParameter[4];
@@ -391,7 +391,7 @@ void CameraAndDynamicIndexingApp::BuildRootSignature()
 		IID_PPV_ARGS(&mRootSignature)));
 }
 
-void CameraAndDynamicIndexingApp::BuildDescriptorHeaps()
+void InstancingAndCulling::BuildDescriptorHeaps()
 {
 	//
 	// Create the SRV heap.
@@ -443,16 +443,16 @@ void CameraAndDynamicIndexingApp::BuildDescriptorHeaps()
 	md3dDevice->CreateShaderResourceView(crateTex, &srvDesc, hDescriptor);
 }
 
-void CameraAndDynamicIndexingApp::BuildFrameResources()
+void InstancingAndCulling::BuildFrameResources()
 {
 	for (int i = 0; i < gNumFrameResources; ++i)
 	{
-		mFrameResources.push_back(std::make_unique<CameraAndDynamicIndexingAppFR::FrameResource>(md3dDevice,
+		mFrameResources.push_back(std::make_unique<InstancingAndCullingFR::FrameResource>(md3dDevice,
 			1, (uint)mAllRitems.size(), (uint)mMaterials.size()));
 	}
 }
 
-void CameraAndDynamicIndexingApp::BuildMaterials()
+void InstancingAndCulling::BuildMaterials()
 {
 	auto bricks0 = std::make_unique<Material>();
 	bricks0->Name = "bricks0";
@@ -492,7 +492,7 @@ void CameraAndDynamicIndexingApp::BuildMaterials()
 	mMaterials["crate0"] = std::move(crate0);
 }
 
-void CameraAndDynamicIndexingApp::BuildRenderItems()
+void InstancingAndCulling::BuildRenderItems()
 {
 	std::unique_ptr<RenderItem> boxRitem = std::make_unique<RenderItem>();
 	boxRitem->World.scale(2.0f, 2.0f, 2.0f);
@@ -590,7 +590,7 @@ void CameraAndDynamicIndexingApp::BuildRenderItems()
 		mOpaqueRitems.push_back(e.get());
 }
 
-void CameraAndDynamicIndexingApp::BuildShapeGeometry()
+void InstancingAndCulling::BuildShapeGeometry()
 {
 	GeometryGenerator geoGen;
 	GeometryGenerator::MeshData box = geoGen.CreateBox(1.0f, 1.0f, 1.0f, 3);
@@ -649,7 +649,7 @@ void CameraAndDynamicIndexingApp::BuildShapeGeometry()
 		sphere.Vertices.size() +
 		cylinder.Vertices.size();
 
-	std::vector<CameraAndDynamicIndexingAppFR::Vertex> vertices(totalVertexCount);
+	std::vector<InstancingAndCullingFR::Vertex> vertices(totalVertexCount);
 
 	uint k = 0;
 	for (size_t i = 0; i < box.Vertices.size(); ++i, ++k)
@@ -686,7 +686,7 @@ void CameraAndDynamicIndexingApp::BuildShapeGeometry()
 	indices.insert(indices.end(), std::begin(sphere.GetIndices16()), std::end(sphere.GetIndices16()));
 	indices.insert(indices.end(), std::begin(cylinder.GetIndices16()), std::end(cylinder.GetIndices16()));
 
-	const uint vbByteSize = (uint)vertices.size() * sizeof(CameraAndDynamicIndexingAppFR::Vertex);
+	const uint vbByteSize = (uint)vertices.size() * sizeof(InstancingAndCullingFR::Vertex);
 	const uint ibByteSize = (uint)indices.size() * sizeof(std::uint16_t);
 
 	auto geo = std::make_unique<MeshGeometry>();
@@ -704,7 +704,7 @@ void CameraAndDynamicIndexingApp::BuildShapeGeometry()
 	geo->IndexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice,
 		mCommandList, indices.data(), ibByteSize, geo->IndexBufferUploader);
 
-	geo->VertexByteStride = sizeof(CameraAndDynamicIndexingAppFR::Vertex);
+	geo->VertexByteStride = sizeof(InstancingAndCullingFR::Vertex);
 	geo->VertexBufferByteSize = vbByteSize;
 	geo->IndexFormat = DXGI_FORMAT_R16_UINT;
 	geo->IndexBufferByteSize = ibByteSize;
@@ -717,9 +717,9 @@ void CameraAndDynamicIndexingApp::BuildShapeGeometry()
 	mGeometries[geo->Name] = std::move(geo);
 }
 
-void CameraAndDynamicIndexingApp::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)
+void InstancingAndCulling::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)
 {
-	uint objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(CameraAndDynamicIndexingAppFR::ObjectConstants));
+	uint objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(InstancingAndCullingFR::ObjectConstants));
 
 	auto objectCB = mCurrFrameResource->ObjectCB->Resource();
 
@@ -740,7 +740,7 @@ void CameraAndDynamicIndexingApp::DrawRenderItems(ID3D12GraphicsCommandList* cmd
 	}
 }
 
-std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> CameraAndDynamicIndexingApp::GetStaticSamplers()
+std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> InstancingAndCulling::GetStaticSamplers()
 {
 	// Applications usually only need a handful of samplers.  So just define them all up front
 	// and keep them available as part of the root signature.  

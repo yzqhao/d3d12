@@ -51,6 +51,7 @@ public:
 	// Rotate the camera.
 	void Pitch(float angle);
 	void RotateY(float angle);
+	void Roll(float angle);		// 习题，游戏中不常用
 
 	// After modifying camera position/orientation, call to rebuild the view matrix.
 	void UpdateViewMatrix();
