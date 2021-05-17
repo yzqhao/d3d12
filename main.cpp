@@ -13,6 +13,8 @@
 #include "TexWaves/TexWaves.h"
 #include "BlendWaves/BlendWaves.h"
 #include "MultiTexBox/MultiTexBox.h"
+#include "StencilDemo/StencilDemo.h"
+#include "CameraAndDynamicIndexingApp/CameraAndDynamicIndexingApp.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -33,9 +35,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//LitColumns theApp(hInstance);
 		//TexBox theApp(hInstance);
 		//TexWaves theApp(hInstance);
-		TexColumns theApp(hInstance);
+		//TexColumns theApp(hInstance);
 		//BlendWaves theApp(hInstance);
 		//MultiTexBox theApp(hInstance);
+		//StencilDemo theApp(hInstance);
+		CameraAndDynamicIndexingApp theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

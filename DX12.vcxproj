@@ -23,7 +23,10 @@
     <ClCompile Include="BlendWaves\BlendWaves.cpp" />
     <ClCompile Include="BoxAppTwoSlot\BoxAppTwoSlot.cpp" />
     <ClCompile Include="BoxApp\BoxApp.cpp" />
+    <ClCompile Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.cpp" />
+    <ClCompile Include="CameraAndDynamicIndexingApp\FrameResource.cpp" />
     <ClCompile Include="common\BundleReader.cpp" />
+    <ClCompile Include="common\Camera.cpp" />
     <ClCompile Include="common\d3dApp.cpp" />
     <ClCompile Include="common\d3dUtil.cpp" />
     <ClCompile Include="common\DDSTextureLoader.cpp" />
@@ -52,6 +55,8 @@
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
     <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
     <ClCompile Include="ShapesSkullApp\ShapesSkullApp.cpp" />
+    <ClCompile Include="StencilDemo\FrameResource.cpp" />
+    <ClCompile Include="StencilDemo\StencilDemo.cpp" />
     <ClCompile Include="TexBox\TexBox.cpp" />
     <ClCompile Include="TexColumns\FrameResource.cpp" />
     <ClCompile Include="TexColumns\TexColumns.cpp" />
@@ -63,7 +68,10 @@
     <ClInclude Include="BlendWaves\BlendWaves.h" />
     <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h" />
     <ClInclude Include="BoxApp\BoxApp.h" />
+    <ClInclude Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.h" />
+    <ClInclude Include="CameraAndDynamicIndexingApp\FrameResource.h" />
     <ClInclude Include="common\BundleReader.h" />
+    <ClInclude Include="common\Camera.h" />
     <ClInclude Include="common\d3dApp.h" />
     <ClInclude Include="common\d3dUtil.h" />
     <ClInclude Include="common\d3dx12.h" />
@@ -93,6 +101,8 @@
     <ClInclude Include="ShapesApp\ShapesApp.h" />
     <ClInclude Include="ShapesSkullApp\FrameResource.h" />
     <ClInclude Include="ShapesSkullApp\ShapesSkullApp.h" />
+    <ClInclude Include="StencilDemo\FrameResource.h" />
+    <ClInclude Include="StencilDemo\StencilDemo.h" />
     <ClInclude Include="TexBox\TexBox.h" />
     <ClInclude Include="TexColumns\FrameResource.h" />
     <ClInclude Include="TexColumns\TexColumns.h" />
@@ -177,6 +187,22 @@
       <FileType>Document</FileType>
     </None>
     <None Include="TexColumns\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StencilDemo\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="StencilDemo\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CameraAndDynamicIndexingApp\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="CameraAndDynamicIndexingApp\LightingUtil.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

@@ -58,6 +58,12 @@
     <Filter Include="TexColumns">
       <UniqueIdentifier>{b9241bfa-63dc-40d8-bfd6-59260a2cab4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StencilDemo">
+      <UniqueIdentifier>{b1c4991a-404b-4abe-a8a7-744c8ae5dce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CameraAndDynamicIndexingApp">
+      <UniqueIdentifier>{b66cbc59-4def-45c3-b374-25c9726f7278}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -167,6 +173,21 @@
     </ClCompile>
     <ClCompile Include="TexColumns\TexColumns.cpp">
       <Filter>TexColumns</Filter>
+    </ClCompile>
+    <ClCompile Include="StencilDemo\FrameResource.cpp">
+      <Filter>StencilDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="StencilDemo\StencilDemo.cpp">
+      <Filter>StencilDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.cpp">
+      <Filter>CameraAndDynamicIndexingApp</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraAndDynamicIndexingApp\FrameResource.cpp">
+      <Filter>CameraAndDynamicIndexingApp</Filter>
+    </ClCompile>
+    <ClCompile Include="common\Camera.cpp">
+      <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,6 +311,21 @@
     <ClInclude Include="TexColumns\TexColumns.h">
       <Filter>TexColumns</Filter>
     </ClInclude>
+    <ClInclude Include="StencilDemo\FrameResource.h">
+      <Filter>StencilDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="StencilDemo\StencilDemo.h">
+      <Filter>StencilDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.h">
+      <Filter>CameraAndDynamicIndexingApp</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraAndDynamicIndexingApp\FrameResource.h">
+      <Filter>CameraAndDynamicIndexingApp</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Camera.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -345,6 +381,18 @@
     </None>
     <None Include="TexColumns\LightingUtil.hlsl">
       <Filter>TexColumns</Filter>
+    </None>
+    <None Include="StencilDemo\Default.hlsl">
+      <Filter>StencilDemo</Filter>
+    </None>
+    <None Include="StencilDemo\LightingUtil.hlsl">
+      <Filter>StencilDemo</Filter>
+    </None>
+    <None Include="CameraAndDynamicIndexingApp\Default.hlsl">
+      <Filter>CameraAndDynamicIndexingApp</Filter>
+    </None>
+    <None Include="CameraAndDynamicIndexingApp\LightingUtil.hlsl">
+      <Filter>CameraAndDynamicIndexingApp</Filter>
     </None>
   </ItemGroup>
 </Project>
