@@ -6,14 +6,14 @@
 
 namespace InstancingAndCullingFR {
 
-struct ObjectConstants
+struct InstanceData
 {
 	Math::Mat4 World{};
     Math::Mat4 TexTransform{};
 	UINT     MaterialIndex;
-	UINT     ObjPad0;
-	UINT     ObjPad1;
-	UINT     ObjPad2;
+	UINT     InstancePad0;
+	UINT     InstancePad1;
+	UINT     InstancePad2;
 };
 
 struct PassConstants
@@ -70,7 +70,7 @@ struct FrameResource
 {
 public:
     
-	FrameResource(ID3D12Device* device, UINT passCount, UINT objectCount, UINT materialCount);
+	FrameResource(ID3D12Device* device, UINT passCount, UINT maxInstanceCount, UINT materialCount);
     FrameResource(const FrameResource& rhs) = delete;
     FrameResource& operator=(const FrameResource& rhs) = delete;
     ~FrameResource();
@@ -82,7 +82,7 @@ public:
     // We cannot update a cbuffer until the GPU is done processing the commands
     // that reference it.  So each frame needs their own cbuffers.
     std::unique_ptr<UploadBuffer<PassConstants>> PassCB = nullptr;
-    std::unique_ptr<UploadBuffer<ObjectConstants>> ObjectCB = nullptr;
+    std::unique_ptr<UploadBuffer<InstanceData>> InstanceBuffer = nullptr;
     //std::unique_ptr<UploadBuffer<MaterialConstants>> MaterialCB = nullptr;
 	std::unique_ptr<UploadBuffer<MaterialData>> MaterialBuffer = nullptr;
 

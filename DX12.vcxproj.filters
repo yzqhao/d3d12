@@ -198,6 +198,9 @@
     <ClCompile Include="InstancingAndCulling\InstancingAndCulling.cpp">
       <Filter>InstancingAndCulling</Filter>
     </ClCompile>
+    <ClCompile Include="math\AABB.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Mat4.h">
@@ -340,6 +343,9 @@
     </ClInclude>
     <ClInclude Include="InstancingAndCulling\InstancingAndCulling.h">
       <Filter>InstancingAndCulling</Filter>
+    </ClInclude>
+    <ClInclude Include="math\AABB.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

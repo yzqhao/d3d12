@@ -41,7 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//MultiTexBox theApp(hInstance);
 		//StencilDemo theApp(hInstance);
 		//CameraAndDynamicIndexingApp theApp(hInstance);
-		InstancingAndCulling theApp(hInstance);
+		InstancingAndCulling theApp(hInstance);		// TODO : ÊÓ×¶ÌåÌÞ³ý
 		if (!theApp.Initialize())
 			return 0;
 

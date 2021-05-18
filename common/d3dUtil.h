@@ -29,6 +29,7 @@
 #include "../math/Vec4.h"
 #include "../math/Mat4.h"
 #include "../math/Color.h"
+#include "../math/AABB.h"
 
 inline void d3dSetDebugName(IDXGIObject* obj, const char* name)
 {
@@ -125,7 +126,7 @@ struct SubmeshGeometry
 
     // Bounding box of the geometry defined by this submesh. 
     // This is used in later chapters of the book.
-	DirectX::BoundingBox Bounds;
+	Math::AABB Bounds;
 };
 
 struct MeshGeometry

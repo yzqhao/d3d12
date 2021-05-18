@@ -46,6 +46,7 @@
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="math\AABB.cpp" />
     <ClCompile Include="math\Color.cpp" />
     <ClCompile Include="math\Mat4.cpp" />
     <ClCompile Include="math\Random.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="LitColumns\LitColumns.h" />
     <ClInclude Include="LitWaves\FrameResource.h" />
     <ClInclude Include="LitWaves\LitWaves.h" />
+    <ClInclude Include="math\AABB.h" />
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\Mat4.h" />
     <ClInclude Include="math\MathDefs.h" />

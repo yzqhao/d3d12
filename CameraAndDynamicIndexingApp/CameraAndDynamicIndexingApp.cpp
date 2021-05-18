@@ -189,7 +189,7 @@ void CameraAndDynamicIndexingApp::UpdateMainPassCB(const GameTimer& gt)
 	mMainPassCB.Proj = mCamera.GetProj();
 	mMainPassCB.ViewProj = mMainPassCB.View * mMainPassCB.Proj;
 	mMainPassCB.InvView = mMainPassCB.View.getInversed();
-	mMainPassCB.InvProj = mMainPassCB.View.getInversed();
+	mMainPassCB.InvProj = mMainPassCB.Proj.getInversed();
 	mMainPassCB.InvViewProj = mMainPassCB.ViewProj.getInversed();
 
 	mMainPassCB.EyePosW = mCamera.GetPosition();

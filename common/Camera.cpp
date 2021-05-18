@@ -12,7 +12,7 @@ Camera::~Camera()
 
 Math::Vec3 Camera::GetPosition()const
 {
-	return mPosition;
+	return Math::Vec3(mPosition.x, -mPosition.y, mPosition.z);
 }
 
 void Camera::SetPosition(float x, float y, float z)

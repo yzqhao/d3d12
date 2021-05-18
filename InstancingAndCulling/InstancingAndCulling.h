@@ -4,6 +4,7 @@
 #include "../math/Color.h"
 #include "../math/Vec3.h"
 #include "../math/Vec4.h"
+#include "../math/AABB.h"
 #include "../common/d3dUtil.h"
 #include "../common/UploadBuffer.h"
 #include "../common/Camera.h"
@@ -29,7 +30,7 @@ private:
 	virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
 
 	void OnKeyboardInput(const GameTimer& gt);
-	void UpdateObjectCBs(const GameTimer& gt);
+	void UpdateInstanceData(const GameTimer& gt);
 	void UpdateMainPassCB(const GameTimer& gt);
 	void UpdateMaterialBuffer(const GameTimer& gt);
 
@@ -43,7 +44,7 @@ private:
 	void BuildFrameResources();
 	void BuildMaterials();
 	void BuildRenderItems();
-	void BuildShapeGeometry();
+	void BuildSkullGeometry();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 
 	std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
@@ -76,8 +77,12 @@ private:
 		// Primitive topology.
 		D3D12_PRIMITIVE_TOPOLOGY PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
+		std::vector<InstancingAndCullingFR::InstanceData> Instances;
+		Math::AABB Bounds;
+
 		// DrawIndexedInstanced parameters.
 		uint IndexCount = 0;
+		UINT InstanceCount = 0;
 		uint StartIndexLocation = 0;
 		int BaseVertexLocation = 0;
 	};
@@ -107,6 +112,8 @@ private:
 	std::unordered_map<std::string, ID3D12PipelineState*> mPSOs;
 
 	Camera mCamera;
+
+	bool mFrustumCullingEnabled = true;
 
 	POINT mLastMousePos;
 
