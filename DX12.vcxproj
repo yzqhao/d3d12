@@ -34,6 +34,8 @@
     <ClCompile Include="common\GeometryGenerator.cpp" />
     <ClCompile Include="common\MeshLoader.cpp" />
     <ClCompile Include="common\Waves.cpp" />
+    <ClCompile Include="CubeMap\CubeMap.cpp" />
+    <ClCompile Include="CubeMap\FrameResource.cpp" />
     <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
     <ClCompile Include="InstancingAndCulling\FrameResource.cpp" />
     <ClCompile Include="InstancingAndCulling\InstancingAndCulling.cpp" />
@@ -84,6 +86,8 @@
     <ClInclude Include="common\Macros.h" />
     <ClInclude Include="common\MeshLoader.h" />
     <ClInclude Include="common\Waves.h" />
+    <ClInclude Include="CubeMap\CubeMap.h" />
+    <ClInclude Include="CubeMap\FrameResource.h" />
     <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
     <ClInclude Include="InstancingAndCulling\FrameResource.h" />
     <ClInclude Include="InstancingAndCulling\InstancingAndCulling.h" />
@@ -217,6 +221,24 @@
       <FileType>Document</FileType>
     </None>
     <None Include="InstancingAndCulling\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CubeMap\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="CubeMap\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CubeMap\Common.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CubeMap\Sky.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

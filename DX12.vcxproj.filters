@@ -67,6 +67,9 @@
     <Filter Include="InstancingAndCulling">
       <UniqueIdentifier>{952a1ce6-fe59-4ca9-b63a-b5a1d3b0ab3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CubeMap">
+      <UniqueIdentifier>{b550cff5-ea08-43e6-82e7-5eb13fd08b58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -200,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="math\AABB.cpp">
       <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMap\CubeMap.cpp">
+      <Filter>CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMap\FrameResource.cpp">
+      <Filter>CubeMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +356,12 @@
     <ClInclude Include="math\AABB.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="CubeMap\CubeMap.h">
+      <Filter>CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMap\FrameResource.h">
+      <Filter>CubeMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -420,6 +435,18 @@
     </None>
     <None Include="InstancingAndCulling\LightingUtil.hlsl">
       <Filter>InstancingAndCulling</Filter>
+    </None>
+    <None Include="CubeMap\Default.hlsl">
+      <Filter>CubeMap</Filter>
+    </None>
+    <None Include="CubeMap\LightingUtil.hlsl">
+      <Filter>CubeMap</Filter>
+    </None>
+    <None Include="CubeMap\Common.hlsl">
+      <Filter>CubeMap</Filter>
+    </None>
+    <None Include="CubeMap\Sky.hlsl">
+      <Filter>CubeMap</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@
 #include "StencilDemo/StencilDemo.h"
 #include "CameraAndDynamicIndexingApp/CameraAndDynamicIndexingApp.h"
 #include "InstancingAndCulling/InstancingAndCulling.h"
+#include "CubeMap/CubeMap.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -41,7 +42,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//MultiTexBox theApp(hInstance);
 		//StencilDemo theApp(hInstance);
 		//CameraAndDynamicIndexingApp theApp(hInstance);
-		InstancingAndCulling theApp(hInstance);		// TODO : 视锥体剔除
+		//InstancingAndCulling theApp(hInstance);		// TODO : 视锥体剔除
+		CubeMap theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 
