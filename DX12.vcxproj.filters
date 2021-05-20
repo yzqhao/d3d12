@@ -70,6 +70,9 @@
     <Filter Include="CubeMap">
       <UniqueIdentifier>{b550cff5-ea08-43e6-82e7-5eb13fd08b58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DynamicCube">
+      <UniqueIdentifier>{82583fc6-8f6a-4d4a-b1fe-1f65ac39d4ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -209,6 +212,15 @@
     </ClCompile>
     <ClCompile Include="CubeMap\FrameResource.cpp">
       <Filter>CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicCube\DynamicCube.cpp">
+      <Filter>DynamicCube</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicCube\FrameResource.cpp">
+      <Filter>DynamicCube</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicCube\CubeRenderTarget.cpp">
+      <Filter>DynamicCube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -362,6 +374,15 @@
     <ClInclude Include="CubeMap\FrameResource.h">
       <Filter>CubeMap</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicCube\DynamicCube.h">
+      <Filter>DynamicCube</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicCube\FrameResource.h">
+      <Filter>DynamicCube</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicCube\CubeRenderTarget.h">
+      <Filter>DynamicCube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -447,6 +468,18 @@
     </None>
     <None Include="CubeMap\Sky.hlsl">
       <Filter>CubeMap</Filter>
+    </None>
+    <None Include="DynamicCube\Common.hlsl">
+      <Filter>DynamicCube</Filter>
+    </None>
+    <None Include="DynamicCube\Default.hlsl">
+      <Filter>DynamicCube</Filter>
+    </None>
+    <None Include="DynamicCube\Sky.hlsl">
+      <Filter>DynamicCube</Filter>
+    </None>
+    <None Include="DynamicCube\LightingUtil.hlsl">
+      <Filter>DynamicCube</Filter>
     </None>
   </ItemGroup>
 </Project>

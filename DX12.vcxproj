@@ -36,6 +36,9 @@
     <ClCompile Include="common\Waves.cpp" />
     <ClCompile Include="CubeMap\CubeMap.cpp" />
     <ClCompile Include="CubeMap\FrameResource.cpp" />
+    <ClCompile Include="DynamicCube\CubeRenderTarget.cpp" />
+    <ClCompile Include="DynamicCube\DynamicCube.cpp" />
+    <ClCompile Include="DynamicCube\FrameResource.cpp" />
     <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
     <ClCompile Include="InstancingAndCulling\FrameResource.cpp" />
     <ClCompile Include="InstancingAndCulling\InstancingAndCulling.cpp" />
@@ -88,6 +91,9 @@
     <ClInclude Include="common\Waves.h" />
     <ClInclude Include="CubeMap\CubeMap.h" />
     <ClInclude Include="CubeMap\FrameResource.h" />
+    <ClInclude Include="DynamicCube\CubeRenderTarget.h" />
+    <ClInclude Include="DynamicCube\DynamicCube.h" />
+    <ClInclude Include="DynamicCube\FrameResource.h" />
     <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
     <ClInclude Include="InstancingAndCulling\FrameResource.h" />
     <ClInclude Include="InstancingAndCulling\InstancingAndCulling.h" />
@@ -239,6 +245,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CubeMap\Sky.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DynamicCube\Common.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="DynamicCube\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="DynamicCube\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="DynamicCube\Sky.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

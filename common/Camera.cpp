@@ -109,7 +109,7 @@ void Camera::LookAt(const Math::Vec3& pos, const Math::Vec3& target, const Math:
 	Math::Vec3 R = Math::crossProduct(L, up).getNormalized();
 	Math::Vec3 U = Math::crossProduct(R, L);
 
-	mPosition = pos;
+	SetPosition(pos.x, pos.y, pos.z);
 	mLook = L;
 	mRight = R;
 	mUp = U;
