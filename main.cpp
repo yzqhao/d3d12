@@ -18,6 +18,7 @@
 #include "InstancingAndCulling/InstancingAndCulling.h"
 #include "CubeMap/CubeMap.h"
 #include "DynamicCube/DynamicCube.h"
+#include "NormalMap/NormalMap.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -45,7 +46,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//CameraAndDynamicIndexingApp theApp(hInstance);
 		//InstancingAndCulling theApp(hInstance);		// TODO : ÊÓ×¶ÌåÌÞ³ý
 		//CubeMap theApp(hInstance);
-		DynamicCube theApp(hInstance);
+		//DynamicCube theApp(hInstance);
+		NormalMap theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 
