@@ -76,6 +76,9 @@
     <Filter Include="NormalMap">
       <UniqueIdentifier>{7dae9799-d558-4522-b0c1-c041d44c984e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PickApp">
+      <UniqueIdentifier>{452ff411-c16f-44df-b4f5-cdacb44438ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -230,6 +233,12 @@
     </ClCompile>
     <ClCompile Include="NormalMap\NormalMap.cpp">
       <Filter>NormalMap</Filter>
+    </ClCompile>
+    <ClCompile Include="PickApp\FrameResource.cpp">
+      <Filter>PickApp</Filter>
+    </ClCompile>
+    <ClCompile Include="PickApp\PickApp.cpp">
+      <Filter>PickApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +407,12 @@
     <ClInclude Include="NormalMap\NormalMap.h">
       <Filter>NormalMap</Filter>
     </ClInclude>
+    <ClInclude Include="PickApp\FrameResource.h">
+      <Filter>PickApp</Filter>
+    </ClInclude>
+    <ClInclude Include="PickApp\PickApp.h">
+      <Filter>PickApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -507,6 +522,12 @@
     </None>
     <None Include="NormalMap\Sky.hlsl">
       <Filter>NormalMap</Filter>
+    </None>
+    <None Include="PickApp\Default.hlsl">
+      <Filter>PickApp</Filter>
+    </None>
+    <None Include="PickApp\LightingUtil.hlsl">
+      <Filter>PickApp</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -61,6 +61,8 @@
     <ClCompile Include="MultiTexBox\MultiTexBox.cpp" />
     <ClCompile Include="NormalMap\FrameResource.cpp" />
     <ClCompile Include="NormalMap\NormalMap.cpp" />
+    <ClCompile Include="PickApp\FrameResource.cpp" />
+    <ClCompile Include="PickApp\PickApp.cpp" />
     <ClCompile Include="ShapesApp\FrameResource.cpp" />
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
     <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
@@ -116,6 +118,8 @@
     <ClInclude Include="MultiTexBox\MultiTexBox.h" />
     <ClInclude Include="NormalMap\FrameResource.h" />
     <ClInclude Include="NormalMap\NormalMap.h" />
+    <ClInclude Include="PickApp\FrameResource.h" />
+    <ClInclude Include="PickApp\PickApp.h" />
     <ClInclude Include="platform\PlatformConfig.h" />
     <ClInclude Include="ShapesApp\FrameResource.h" />
     <ClInclude Include="ShapesApp\ShapesApp.h" />
@@ -277,6 +281,14 @@
       <FileType>Document</FileType>
     </None>
     <None Include="NormalMap\Sky.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PickApp\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="PickApp\LightingUtil.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
