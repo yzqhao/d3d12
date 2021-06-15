@@ -79,6 +79,9 @@
     <Filter Include="PickApp">
       <UniqueIdentifier>{452ff411-c16f-44df-b4f5-cdacb44438ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RHI">
+      <UniqueIdentifier>{b4e792dd-792c-4776-8fca-8cda996905a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -239,6 +242,9 @@
     </ClCompile>
     <ClCompile Include="PickApp\PickApp.cpp">
       <Filter>PickApp</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIGrahpicSystem.cpp">
+      <Filter>RHI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="PickApp\PickApp.h">
       <Filter>PickApp</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIGrahpicSystem.h">
+      <Filter>RHI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

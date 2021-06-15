@@ -63,6 +63,7 @@
     <ClCompile Include="NormalMap\NormalMap.cpp" />
     <ClCompile Include="PickApp\FrameResource.cpp" />
     <ClCompile Include="PickApp\PickApp.cpp" />
+    <ClCompile Include="RHI\RHIGrahpicSystem.cpp" />
     <ClCompile Include="ShapesApp\FrameResource.cpp" />
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
     <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="PickApp\FrameResource.h" />
     <ClInclude Include="PickApp\PickApp.h" />
     <ClInclude Include="platform\PlatformConfig.h" />
+    <ClInclude Include="RHI\RHIGrahpicSystem.h" />
     <ClInclude Include="ShapesApp\FrameResource.h" />
     <ClInclude Include="ShapesApp\ShapesApp.h" />
     <ClInclude Include="ShapesSkullApp\FrameResource.h" />
