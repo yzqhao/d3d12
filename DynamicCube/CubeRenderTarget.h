@@ -6,6 +6,7 @@
 
 #include "../Common/d3dUtil.h"
 
+/*
 enum class CubeMapFace : int
 {
 	PositiveX = 0,
@@ -15,6 +16,7 @@ enum class CubeMapFace : int
 	PositiveZ = 4,
 	NegativeZ = 5
 };
+*/
 
 class CubeRenderTarget
 {

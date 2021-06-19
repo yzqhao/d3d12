@@ -4,6 +4,7 @@
 
 #include "d3dApp.h"
 #include <WindowsX.h>
+#include "../RHI/d3d12/RHID3D12.h"
 
 using Microsoft::WRL::ComPtr;
 using namespace std;
@@ -30,7 +31,7 @@ D3DApp::D3DApp(HINSTANCE hInstance)
     assert(mApp == nullptr);
     mApp = this;
 
-	mRHI = new RHIGrahpicSystem();
+	mRHI = new RHID3D12();
 }
 
 D3DApp::~D3DApp()
@@ -93,18 +94,18 @@ bool D3DApp::Initialize()
 	if(!InitMainWindow())
 		return false;
 
-	if(!mRHI->InitDirect3D(mhMainWnd))
+	if(!mRHI->Init(mhMainWnd))
 		return false;
 
     // Do the initial resize code.
-	mRHI->OnResize();
+	mRHI->OnResize(mClientWidth, mClientHeight);
 
 	return true;
 }
 
 void D3DApp::OnResize()
 {
-	mRHI->OnResize();
+	mRHI->OnResize(mClientWidth, mClientHeight);
 }
  
 LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -145,7 +146,7 @@ LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				mAppPaused = false;
 				mMinimized = false;
 				mMaximized = true;
-				mRHI->OnResize();
+				OnResize();
 			}
 			else if( wParam == SIZE_RESTORED )
 			{
@@ -155,7 +156,7 @@ LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					mAppPaused = false;
 					mMinimized = false;
-					mRHI->OnResize();
+					OnResize();
 				}
 
 				// Restoring from maximized state?
@@ -163,7 +164,7 @@ LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 					mAppPaused = false;
 					mMaximized = false;
-					mRHI->OnResize();
+					OnResize();
 				}
 				else if( mResizing )
 				{
@@ -178,7 +179,7 @@ LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				}
 				else // API call such as SetWindowPos or mSwapChain->SetFullscreenState.
 				{
-					mRHI->OnResize();
+					OnResize();
 				}
 			}
 		}
@@ -197,7 +198,7 @@ LRESULT D3DApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		mAppPaused = false;
 		mResizing  = false;
 		mTimer.Start();
-		mRHI->OnResize();
+		OnResize();
 		return 0;
  
 	// WM_DESTROY is sent when the window is being destroyed.

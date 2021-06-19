@@ -30,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 #endif
 	try
 	{
-		//InitDirect3DApp theApp(hInstance);
+		InitDirect3DApp theApp(hInstance);
 		//BoxApp theApp(hInstance);
 		//BoxAppTwoSlot theApp(hInstance);
 		//ShapesApp theApp(hInstance);
@@ -49,7 +49,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//CubeMap theApp(hInstance);
 		//DynamicCube theApp(hInstance);
 		//NormalMap theApp(hInstance);
-		PickApp theApp(hInstance);
+		//PickApp theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

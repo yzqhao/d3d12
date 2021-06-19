@@ -6,8 +6,11 @@
 #include "../math/Vec3.h"
 #include "../math/Vec4.h"
 #include "../math/Mat4.h"
-#include "../common/d3dUtil.h"
-#include "../common/UploadBuffer.h"
+#include "RHIShader.h"
+
+class RHIResourceIdentifier;
+class RHIVSShader;
+class RHIPSShader;
 
 class RHIGrahpicSystem
 {
@@ -15,71 +18,27 @@ public:
 	RHIGrahpicSystem();
 	~RHIGrahpicSystem();
 
-	bool InitDirect3D(HWND window);
-	void CreateCommandObjects();
-	void CreateSwapChain();
-	void CreateRtvAndDsvDescriptorHeaps();
+	virtual bool Init(HWND window) = 0;
 
-	void FlushCommandQueue();
+	virtual void OnResize(int w, int h) = 0;
 
-	ID3D12Resource* CurrentBackBuffer()const;
-	D3D12_CPU_DESCRIPTOR_HANDLE CurrentBackBufferView()const;
-	D3D12_CPU_DESCRIPTOR_HANDLE DepthStencilView()const;
+	virtual void BeginRender() = 0;
+	virtual void EndRender() = 0;
 
-	void OnResize();
+	virtual bool Get4xMsaaState()const = 0;
+	virtual void Set4xMsaaState(bool value) = 0;
 
-	void BeginRender();
-	void EndRender();
+	virtual bool IsLostDevice() = 0;
 
-	bool Get4xMsaaState()const;
-	void Set4xMsaaState(bool value);
+	virtual bool BMsaaState() = 0;
 
-	void LogAdapters();
-	void LogAdapterOutputs(IDXGIAdapter* adapter);
-	void LogOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format);
+	virtual bool OnLoadVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnReleaseVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
 
-	bool IsLostDevice() { return md3dDevice == nullptr; }
-	bool BMsaaState() { return m4xMsaaState; }
+	virtual bool OnLoadPShaderProgram(RHIPSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnReleasePShaderProgram(RHIPSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
 
-private:
+protected:
 
-	HWND      mhMainWnd = nullptr; // main window handle
 
-	bool      m4xMsaaState = false;    // 4X MSAA enabled
-	UINT      m4xMsaaQuality = 0;      // quality level of 4X MSAA
-
-	IDXGIFactory4* mdxgiFactory{};
-	IDXGISwapChain* mSwapChain{};
-	ID3D12Device* md3dDevice{};
-
-	ID3D12Fence* mFence{};
-	UINT64 mCurrentFence = 0;
-
-	ID3D12CommandQueue* mCommandQueue{};
-	ID3D12CommandAllocator* mDirectCmdListAlloc{};
-	ID3D12GraphicsCommandList* mCommandList{};
-
-	static const int SwapChainBufferCount = 2;
-	int mCurrBackBuffer = 0;
-	ID3D12Resource* mSwapChainBuffer[SwapChainBufferCount]{};
-	ID3D12Resource* mDepthStencilBuffer{};
-
-	ID3D12DescriptorHeap* mRtvHeap{};
-	ID3D12DescriptorHeap* mDsvHeap{};
-
-	D3D12_VIEWPORT mScreenViewport;
-	D3D12_RECT mScissorRect;
-
-	UINT mRtvDescriptorSize = 0;
-	UINT mDsvDescriptorSize = 0;
-	UINT mCbvSrvUavDescriptorSize = 0;
-
-	D3D_DRIVER_TYPE md3dDriverType = D3D_DRIVER_TYPE_HARDWARE;
-	DXGI_FORMAT mBackBufferFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
-	DXGI_FORMAT mDepthStencilFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
-
-	ID3D12PipelineState* mPSO = nullptr;
-
-	int mClientWidth = 800;
-	int mClientHeight = 600;
 };

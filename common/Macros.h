@@ -2,6 +2,8 @@
 #pragma once
 
 #include "../platform/PlatformConfig.h"
+#include "../thiry/fasthash/fasthash.h"
+#include "../thiry/fasthash/fasthash.inl"
 
 #include <cassert>
 
@@ -71,8 +73,23 @@ typedef int					sint;
 typedef long long			int64;
 typedef unsigned long long	uint64;
 typedef unsigned int		handle;
+typedef unsigned int		THash;
 
 #define nullhandle ((uint)-1)
 #define nullid ((uint64)-1)
+
+#ifndef JYLOG 
+#define JYLOG(x) 
+#endif
+
+#ifndef JYERROR 
+#define JYERROR(x) 
+#endif
+
+template<size_t length>
+inline THash ComputeSmallHash(const void* data, UINT seed = 666)
+{
+	return fasthash::fasthash32<length>(data, seed);
+}
 
 NS_JYE_END
