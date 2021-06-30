@@ -30,6 +30,7 @@
 #include "../math/Mat4.h"
 #include "../math/Color.h"
 #include "../math/AABB.h"
+#include "../math/Quaternion.h"
 
 inline void d3dSetDebugName(IDXGIObject* obj, const char* name)
 {

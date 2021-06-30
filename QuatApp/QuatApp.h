@@ -4,20 +4,19 @@
 #include "../math/Color.h"
 #include "../math/Vec3.h"
 #include "../math/Vec4.h"
-#include "../math/AABB.h"
-#include "../math/Frustum.h"
 #include "../common/d3dUtil.h"
 #include "../common/UploadBuffer.h"
 #include "../common/Camera.h"
 
 #include "FrameResource.h"
+#include "AnimationHelper.h"
 
-class InstancingAndCulling : public D3DApp
+class QuatApp : public D3DApp
 {
 	struct RenderItem;
 public:
-	InstancingAndCulling(HINSTANCE hInstance);
-	~InstancingAndCulling();
+	QuatApp(HINSTANCE hInstance);
+	~QuatApp();
 
 	virtual bool Initialize()override;
 
@@ -31,10 +30,11 @@ private:
 	virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
 
 	void OnKeyboardInput(const GameTimer& gt);
-	void UpdateInstanceData(const GameTimer& gt);
+	void UpdateObjectCBs(const GameTimer& gt);
 	void UpdateMainPassCB(const GameTimer& gt);
 	void UpdateMaterialBuffer(const GameTimer& gt);
 
+	void DefineSkullAnimation();
 	void LoadTextures();
 	void BuildShadersAndInputLayout();
 	void BuildPSO();
@@ -45,6 +45,7 @@ private:
 	void BuildFrameResources();
 	void BuildMaterials();
 	void BuildRenderItems();
+	void BuildShapeGeometry();
 	void BuildSkullGeometry();
 	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 
@@ -78,27 +79,34 @@ private:
 		// Primitive topology.
 		D3D12_PRIMITIVE_TOPOLOGY PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
-		std::vector<InstancingAndCullingFR::InstanceData> Instances;
-		Math::AABB Bounds;
-
 		// DrawIndexedInstanced parameters.
 		uint IndexCount = 0;
-		UINT InstanceCount = 0;
 		uint StartIndexLocation = 0;
 		int BaseVertexLocation = 0;
 	};
 
+	enum class RenderLayer : int
+	{
+		Opaque = 0,
+		Sky,
+		Count
+	};
+
 	// FrameResource
-	std::vector<std::unique_ptr<InstancingAndCullingFR::FrameResource>> mFrameResources;
-	InstancingAndCullingFR::FrameResource* mCurrFrameResource = nullptr;
+	std::vector<std::unique_ptr<QuatAppFR::FrameResource>> mFrameResources;
+	QuatAppFR::FrameResource* mCurrFrameResource = nullptr;
 	int mCurrFrameResourceIndex = 0;
 
 	uint mCbvSrvDescriptorSize = 0;
 
 	std::vector<std::unique_ptr<RenderItem>> mAllRitems;	// List of all the render items.
-	std::vector<RenderItem*> mOpaqueRitems;		// Render items divided by PSO.
+	std::vector<RenderItem*> mRitemLayer[(int)RenderLayer::Count];
 
-	InstancingAndCullingFR::PassConstants mMainPassCB;
+	RenderItem* mSkullRitem = nullptr;
+
+	UINT mSkyTexHeapIndex = 0;
+
+	QuatAppFR::PassConstants mMainPassCB;
 
 	ID3D12RootSignature* mRootSignature = nullptr;
 	ID3D12DescriptorHeap* mSrvDescriptorHeap = nullptr;
@@ -114,9 +122,8 @@ private:
 
 	Camera mCamera;
 
-	bool mFrustumCullingEnabled = true;
-
-	Math::Frustum mCamFrustum;
+	float mAnimTimePos = 0.0f;
+	QuatAppAH::BoneAnimation mSkullAnimation;
 
 	POINT mLastMousePos;
 

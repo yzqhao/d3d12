@@ -79,6 +79,9 @@
     <Filter Include="PickApp">
       <UniqueIdentifier>{452ff411-c16f-44df-b4f5-cdacb44438ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="QuatApp">
+      <UniqueIdentifier>{de9ddbda-9b58-4ec8-bc5a-315753e157f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -239,6 +242,30 @@
     </ClCompile>
     <ClCompile Include="PickApp\PickApp.cpp">
       <Filter>PickApp</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Frustum.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Plane.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\MathUtil.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Quaternion.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Ray.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="QuatApp\FrameResource.cpp">
+      <Filter>QuatApp</Filter>
+    </ClCompile>
+    <ClCompile Include="QuatApp\QuatApp.cpp">
+      <Filter>QuatApp</Filter>
+    </ClCompile>
+    <ClCompile Include="QuatApp\AnimationHelper.cpp">
+      <Filter>QuatApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -413,6 +440,33 @@
     <ClInclude Include="PickApp\PickApp.h">
       <Filter>PickApp</Filter>
     </ClInclude>
+    <ClInclude Include="math\Frustum.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Plane.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\MathUtil.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Quaternion.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Ray.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="QuatApp\FrameResource.h">
+      <Filter>QuatApp</Filter>
+    </ClInclude>
+    <ClInclude Include="QuatApp\QuatApp.h">
+      <Filter>QuatApp</Filter>
+    </ClInclude>
+    <ClInclude Include="QuatApp\LightingUtil.hlsl">
+      <Filter>QuatApp</Filter>
+    </ClInclude>
+    <ClInclude Include="QuatApp\AnimationHelper.h">
+      <Filter>QuatApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -528,6 +582,15 @@
     </None>
     <None Include="PickApp\LightingUtil.hlsl">
       <Filter>PickApp</Filter>
+    </None>
+    <None Include="QuatApp\Common.hlsl">
+      <Filter>QuatApp</Filter>
+    </None>
+    <None Include="QuatApp\Default.hlsl">
+      <Filter>QuatApp</Filter>
+    </None>
+    <None Include="QuatApp\Sky.hlsl">
+      <Filter>QuatApp</Filter>
     </None>
   </ItemGroup>
 </Project>

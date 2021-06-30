@@ -53,8 +53,13 @@
     </ClCompile>
     <ClCompile Include="math\AABB.cpp" />
     <ClCompile Include="math\Color.cpp" />
+    <ClCompile Include="math\Frustum.cpp" />
     <ClCompile Include="math\Mat4.cpp" />
+    <ClCompile Include="math\MathUtil.cpp" />
+    <ClCompile Include="math\Plane.cpp" />
+    <ClCompile Include="math\Quaternion.cpp" />
     <ClCompile Include="math\Random.cpp" />
+    <ClCompile Include="math\Ray.cpp" />
     <ClCompile Include="math\Vec2.cpp" />
     <ClCompile Include="math\Vec3.cpp" />
     <ClCompile Include="math\Vec4.cpp" />
@@ -63,6 +68,9 @@
     <ClCompile Include="NormalMap\NormalMap.cpp" />
     <ClCompile Include="PickApp\FrameResource.cpp" />
     <ClCompile Include="PickApp\PickApp.cpp" />
+    <ClCompile Include="QuatApp\AnimationHelper.cpp" />
+    <ClCompile Include="QuatApp\FrameResource.cpp" />
+    <ClCompile Include="QuatApp\QuatApp.cpp" />
     <ClCompile Include="ShapesApp\FrameResource.cpp" />
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
     <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
@@ -109,9 +117,14 @@
     <ClInclude Include="LitWaves\LitWaves.h" />
     <ClInclude Include="math\AABB.h" />
     <ClInclude Include="math\Color.h" />
+    <ClInclude Include="math\Frustum.h" />
     <ClInclude Include="math\Mat4.h" />
     <ClInclude Include="math\MathDefs.h" />
+    <ClInclude Include="math\MathUtil.h" />
+    <ClInclude Include="math\Plane.h" />
+    <ClInclude Include="math\Quaternion.h" />
     <ClInclude Include="math\Random.h" />
+    <ClInclude Include="math\Ray.h" />
     <ClInclude Include="math\Vec2.h" />
     <ClInclude Include="math\Vec3.h" />
     <ClInclude Include="math\Vec4.h" />
@@ -121,6 +134,9 @@
     <ClInclude Include="PickApp\FrameResource.h" />
     <ClInclude Include="PickApp\PickApp.h" />
     <ClInclude Include="platform\PlatformConfig.h" />
+    <ClInclude Include="QuatApp\AnimationHelper.h" />
+    <ClInclude Include="QuatApp\FrameResource.h" />
+    <ClInclude Include="QuatApp\QuatApp.h" />
     <ClInclude Include="ShapesApp\FrameResource.h" />
     <ClInclude Include="ShapesApp\ShapesApp.h" />
     <ClInclude Include="ShapesSkullApp\FrameResource.h" />
@@ -292,11 +308,25 @@
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="QuatApp\Common.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="QuatApp\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <ClInclude Include="QuatApp\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <None Include="QuatApp\Sky.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C4680F18-E037-4881-A760-CF9AC4C668C5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>InitDirect3D</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -308,7 +338,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

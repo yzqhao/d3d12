@@ -81,6 +81,9 @@ void InstancingAndCulling::OnResize()
 	D3DApp::OnResize();
 
 	mCamera.SetLens(0.25f*M_PI, AspectRatio(), 1.0f, 1000.0f);
+
+	Math::Mat4 vp = mCamera.GetView() * mCamera.GetProj();
+	mCamFrustum.initFrustum(vp, vp.getInversed());
 }
 
 void InstancingAndCulling::Update(const GameTimer& gt)
@@ -208,8 +211,7 @@ void InstancingAndCulling::UpdateInstanceData(const GameTimer& gt)
 			Math::Mat4 viewToLocal = invView * invWorld;
 
 			// Transform the camera frustum from view space to the object's local space.
-			//BoundingFrustum localSpaceFrustum;
-			//mCamFrustum.Transform(localSpaceFrustum, viewToLocal);
+			Math::Frustum localSpaceFrustum = mCamFrustum.transformed(viewToLocal);
 
 			// Perform the box/frustum intersection test in local space.
 			//if ((localSpaceFrustum.Contains(e->Bounds) != DirectX::DISJOINT) || (mFrustumCullingEnabled == false))
@@ -609,7 +611,7 @@ void InstancingAndCulling::BuildRenderItems()
 	skullRitem->Bounds = skullRitem->Geo->DrawArgs["skull"].Bounds;
 
 	// Generate instance data.
-	const int n = 5;
+	const int n = 3;
 	skullRitem->Instances.resize(n * n * n);
 
 	float width = 200.0f;

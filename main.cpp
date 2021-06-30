@@ -20,6 +20,7 @@
 #include "DynamicCube/DynamicCube.h"
 #include "NormalMap/NormalMap.h"
 #include "PickApp/PickApp.h"
+#include "QuatApp/QuatApp.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -47,9 +48,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//CameraAndDynamicIndexingApp theApp(hInstance);
 		//InstancingAndCulling theApp(hInstance);		// TODO : ÊÓ×¶ÌåÌÞ³ý
 		//CubeMap theApp(hInstance);
-		//DynamicCube theApp(hInstance);
+		//DynamicCube theApp(hInstance); 
 		//NormalMap theApp(hInstance);
-		PickApp theApp(hInstance);
+		//PickApp theApp(hInstance);
+		QuatApp theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 
