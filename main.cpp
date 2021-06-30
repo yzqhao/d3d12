@@ -21,6 +21,7 @@
 #include "NormalMap/NormalMap.h"
 #include "PickApp/PickApp.h"
 #include "QuatApp/QuatApp.h"
+#include "SkinnedMesh/SkinnedMesh.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 	PSTR cmdLine, int showCmd)
@@ -51,7 +52,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//DynamicCube theApp(hInstance); 
 		//NormalMap theApp(hInstance);
 		//PickApp theApp(hInstance);
-		QuatApp theApp(hInstance);
+		//QuatApp theApp(hInstance);
+		SkinnedMesh theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

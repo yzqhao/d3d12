@@ -82,6 +82,9 @@
     <Filter Include="QuatApp">
       <UniqueIdentifier>{de9ddbda-9b58-4ec8-bc5a-315753e157f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SkinnedMesh">
+      <UniqueIdentifier>{4f1bf64c-fb62-4517-9da4-371e6568b1aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -266,6 +269,18 @@
     </ClCompile>
     <ClCompile Include="QuatApp\AnimationHelper.cpp">
       <Filter>QuatApp</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMesh\FrameResource.cpp">
+      <Filter>SkinnedMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMesh\SkinnedMesh.cpp">
+      <Filter>SkinnedMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMesh\LoadM3d.cpp">
+      <Filter>SkinnedMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedMesh\SkinnedData.cpp">
+      <Filter>SkinnedMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +482,18 @@
     <ClInclude Include="QuatApp\AnimationHelper.h">
       <Filter>QuatApp</Filter>
     </ClInclude>
+    <ClInclude Include="SkinnedMesh\FrameResource.h">
+      <Filter>SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedMesh\SkinnedMesh.h">
+      <Filter>SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedMesh\LoadM3d.h">
+      <Filter>SkinnedMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedMesh\SkinnedData.h">
+      <Filter>SkinnedMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -591,6 +618,18 @@
     </None>
     <None Include="QuatApp\Sky.hlsl">
       <Filter>QuatApp</Filter>
+    </None>
+    <None Include="SkinnedMesh\Common.hlsl">
+      <Filter>SkinnedMesh</Filter>
+    </None>
+    <None Include="SkinnedMesh\Default.hlsl">
+      <Filter>SkinnedMesh</Filter>
+    </None>
+    <None Include="SkinnedMesh\LightingUtil.hlsl">
+      <Filter>SkinnedMesh</Filter>
+    </None>
+    <None Include="SkinnedMesh\Sky.hlsl">
+      <Filter>SkinnedMesh</Filter>
     </None>
   </ItemGroup>
 </Project>

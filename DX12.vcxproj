@@ -75,6 +75,10 @@
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
     <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
     <ClCompile Include="ShapesSkullApp\ShapesSkullApp.cpp" />
+    <ClCompile Include="SkinnedMesh\FrameResource.cpp" />
+    <ClCompile Include="SkinnedMesh\LoadM3d.cpp" />
+    <ClCompile Include="SkinnedMesh\SkinnedData.cpp" />
+    <ClCompile Include="SkinnedMesh\SkinnedMesh.cpp" />
     <ClCompile Include="StencilDemo\FrameResource.cpp" />
     <ClCompile Include="StencilDemo\StencilDemo.cpp" />
     <ClCompile Include="TexBox\TexBox.cpp" />
@@ -141,6 +145,10 @@
     <ClInclude Include="ShapesApp\ShapesApp.h" />
     <ClInclude Include="ShapesSkullApp\FrameResource.h" />
     <ClInclude Include="ShapesSkullApp\ShapesSkullApp.h" />
+    <ClInclude Include="SkinnedMesh\FrameResource.h" />
+    <ClInclude Include="SkinnedMesh\LoadM3d.h" />
+    <ClInclude Include="SkinnedMesh\SkinnedData.h" />
+    <ClInclude Include="SkinnedMesh\SkinnedMesh.h" />
     <ClInclude Include="StencilDemo\FrameResource.h" />
     <ClInclude Include="StencilDemo\StencilDemo.h" />
     <ClInclude Include="TexBox\TexBox.h" />
@@ -319,6 +327,20 @@
       <FileType>Document</FileType>
     </ClInclude>
     <None Include="QuatApp\Sky.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SkinnedMesh\Common.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="SkinnedMesh\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="SkinnedMesh\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="SkinnedMesh\Sky.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

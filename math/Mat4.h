@@ -37,6 +37,10 @@ public:
     static void createOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, Mat4* dst);
     static void createPerspective(float fieldOfView, float aspectRatio, float zNearPlane, float zFarPlane, Mat4* dst);
 
+	float& get(int row, int column) { return m[row + (column * 4)]; }
+	const float& get(int row, int column)const { return m[row + (column * 4)]; }
+
+
     bool isIdentity() const;
     void setIdentity();
 
