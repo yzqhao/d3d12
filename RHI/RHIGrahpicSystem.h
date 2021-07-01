@@ -11,6 +11,9 @@
 class RHIResourceIdentifier;
 class RHIVSShader;
 class RHIPSShader;
+class RHIVertexFormat;
+class RHIVertexBuffer;
+class RHIIndexBuffer;
 
 class RHIGrahpicSystem
 {
@@ -33,12 +36,24 @@ public:
 	virtual bool BMsaaState() = 0;
 
 	virtual bool OnLoadVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
-	virtual bool OnReleaseVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnReleaseVShaderProgram(RHIResourceIdentifier* pID) = 0;
 
-	virtual bool OnLoadPShaderProgram(RHIPSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
-	virtual bool OnReleasePShaderProgram(RHIPSShader* pVShaderProgram, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnLoadPShaderProgram(RHIPSShader* pPShaderProgram, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnReleasePShaderProgram(RHIResourceIdentifier* pID) = 0;
+
+	virtual bool OnLoadVBufferFormat(RHIVertexFormat* pVertexFormat, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnReleaseVBufferFormat(RHIResourceIdentifier* pID) = 0;
+
+	virtual bool OnLoadVBufferDate(RHIVertexBuffer* pVertexBuffe, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnReleaseVBufferDate(RHIResourceIdentifier* pID) = 0;
+
+	virtual bool OnLoadIBufferDate(RHIIndexBuffer* pIndexBuffer, RHIResourceIdentifier*& pID) = 0;
+	virtual bool OnReleaseIBufferDate(RHIResourceIdentifier* pID) = 0;
 
 protected:
 
 
 };
+
+#define B_CHECK_RHI_SYSTEM(ptr) if (ptr) { return false; }
+#define V_CHECK_RHI_SYSTEM(ptr) if (ptr) { return ; }

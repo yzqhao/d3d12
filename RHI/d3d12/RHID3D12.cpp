@@ -1,6 +1,8 @@
 #include "RHID3D12.h"
 #include "../RHIVSShader.h"
 #include "../RHIPSShader.h"
+#include "../RHIVertexFormat.h"
+#include "../RHIVertexBuffer.h"
 
 static RHID3D12* s_rhi = nullptr;
 
@@ -446,7 +448,7 @@ bool RHID3D12::OnLoadVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIde
 	return true;
 }
 
-bool RHID3D12::OnReleaseVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIdentifier*& pID)
+bool RHID3D12::OnReleaseVShaderProgram(RHIResourceIdentifier* pID)
 {
 	RHIShaderID* pShaderID = (RHIShaderID*)pID;
 	SAFE_DELETE(pShaderID)
@@ -473,9 +475,70 @@ bool RHID3D12::OnLoadPShaderProgram(RHIPSShader* pPShaderProgram, RHIResourceIde
 	return true;
 }
 
-bool RHID3D12::OnReleasePShaderProgram(RHIPSShader* pPShaderProgram, RHIResourceIdentifier*& pID)
+bool RHID3D12::OnReleasePShaderProgram(RHIResourceIdentifier* pID)
 {
 	RHIShaderID* pShaderID = (RHIShaderID*)pID;
 	SAFE_DELETE(pShaderID)
 	return true;
+}
+
+bool RHID3D12::OnLoadVBufferFormat(RHIVertexFormat * pVertexFormat, RHIResourceIdentifier *&pID)
+{ 
+	if (!pVertexFormat->m_FormatArray.size())
+		return false;
+
+	RHIVBufferFormatID* pFromatID = new RHIVBufferFormatID;
+	pID = pFromatID;
+	CreateInputLayout(pVertexFormat->m_FormatArray, pFromatID);
+
+	return true; 
+}
+
+bool RHID3D12::OnReleaseVBufferFormat(RHIResourceIdentifier* pVBufferID)
+{ 
+	SAFE_DELETE(pVBufferID);
+	return true;
+}
+
+bool RHID3D12::OnLoadVBufferDate(RHIVertexBuffer* pVertexBuffer, RHIResourceIdentifier*& pID)
+{
+	RHIVBufferID * pVBufferID = NULL;
+	pVBufferID = new RHIVBufferID;
+
+	pID = pVBufferID;
+
+	unsigned int uiOneVextexSize = pVertexBuffer->GetOneVertexSize();
+
+	unsigned int uiTotalSize = uiOneVextexSize * pVertexBuffer->GetVertexNum();
+
+	OnLoadVertexBufferEx(uiOneVextexSize, uiTotalSize, pVertexBuffer, pVBufferID);
+	return true;
+}
+
+bool RHID3D12::OnReleaseVBufferDate(RHIResourceIdentifier* pID)
+{
+	SAFE_DELETE(pID);
+	return true;
+}
+
+bool RHID3D12::OnLoadIBufferDate(RHIIndexBuffer* pIBuffer, RHIResourceIdentifier *&pID)
+{ 
+	RHIIBufferID * pIBufferID = NULL;
+	pIBufferID = new RHIIBufferID;
+	pID = pIBufferID;
+
+	void* pBuffer = NULL;
+	if (pIBuffer->GetIndexDate())
+	{
+		pBuffer = pIBuffer->GetIndexDate()->GetDate();
+	}
+	unsigned int ByteWidth = pIBuffer->GetByteSize();
+	//OnLoadIndexBufferEx(ByteWidth, pBuffer, pIBufferID);
+	return true;
+	
+}
+bool RHID3D12::OnReleaseIBufferDate(RHIResourceIdentifier* pIBufferID)
+{ 
+	SAFE_DELETE(pIBufferID);
+	return 1;
 }

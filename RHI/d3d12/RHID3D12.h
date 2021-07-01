@@ -5,6 +5,9 @@
 #include "../../common/d3dUtil.h"
 #include "../../common/UploadBuffer.h"
 #include "D3D12Resource.h"
+#include "../RHIVertexFormat.h"
+#include "../RHIVertexBuffer.h"
+#include "../RHIIndexBuffer.h"
 
 class RHID3D12 final : public RHIGrahpicSystem
 {
@@ -34,10 +37,19 @@ public:
 	ID3D12Device* GetD3D12Device() const { return md3dDevice; }
 
 	virtual bool OnLoadVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIdentifier*& pID) override;
-	virtual bool OnReleaseVShaderProgram(RHIVSShader* pVShaderProgram, RHIResourceIdentifier*& pID) override;
+	virtual bool OnReleaseVShaderProgram(RHIResourceIdentifier* pID) override;
 
 	virtual bool OnLoadPShaderProgram(RHIPSShader* pPShaderProgram, RHIResourceIdentifier*& pID) override;
-	virtual bool OnReleasePShaderProgram(RHIPSShader* pPShaderProgram, RHIResourceIdentifier*& pID) override;
+	virtual bool OnReleasePShaderProgram(RHIResourceIdentifier* pID) override;
+
+	virtual bool OnLoadVBufferFormat(RHIVertexFormat* pVertexFormat, RHIResourceIdentifier*& pID) override;
+	virtual bool OnReleaseVBufferFormat(RHIResourceIdentifier* pID) override;
+
+	virtual bool OnLoadVBufferDate(RHIVertexBuffer* pVertexBuffer, RHIResourceIdentifier*& pID) override;
+	virtual bool OnReleaseVBufferDate(RHIResourceIdentifier* pID) override;
+
+	virtual bool OnLoadIBufferDate(RHIIndexBuffer* pIndexBuffer, RHIResourceIdentifier*& pID) override;
+	virtual bool OnReleaseIBufferDate(RHIResourceIdentifier* pID) override;
 
 protected:
 
@@ -48,6 +60,11 @@ protected:
 	void CreatePShaderFromCache(RHIPSShader* pPShaderProgram, RHIShaderID* pID);
 	void CreatePShaderFromString(RHIPSShader* pPShaderProgram, RHIShaderID* pID);
 	void OnLoadPShaderFromString(RHIPSShader* pPShaderProgram, RHIShaderID* pVProgramID);
+
+	bool CreateInputLayout(const std::vector<RHIVertexFormat::VERTEXFORMAT_TYPE>& FormatArray, RHIVBufferFormatID * pVBufferFormatID);
+
+	void OnLoadVertexBufferEx(uint uiOneVextexSize, uint uiTotalSize, RHIVertexBuffer* pVBuffer, RHIVBufferID * pVBufferID);
+	void OnLoadVertexBufferEx(uint uiTotalSize, RHIIndexBuffer* pVBuffer, RHIIBufferID * pVBufferID);
 
 private:
 

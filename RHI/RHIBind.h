@@ -55,6 +55,8 @@ public:
 	FORCEINLINE uint GetLockFlag()const;
 	FORCEINLINE void SetMemType(uint uiMemType);
 	FORCEINLINE uint GetMemType()const;
+	FORCEINLINE bool IsStatic()const;
+	FORCEINLINE void SetStatic(bool bs);
 
 protected:
 
@@ -106,3 +108,14 @@ FORCEINLINE uint RHIBind::GetMemType()const
 {
 	return m_uiMemType;
 }
+
+FORCEINLINE bool RHIBind::IsStatic()const
+{
+	return m_bIsStatic;
+}
+
+FORCEINLINE void RHIBind::SetStatic(bool bs)
+{
+	m_bIsStatic = bs;
+}
+

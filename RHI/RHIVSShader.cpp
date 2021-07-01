@@ -34,7 +34,7 @@ bool RHIVSShader::OnReleaseResource(RHIResourceIdentifier* pID)
 	if (!m_pUser)
 		return 0;
 
-	if (!m_pUser->OnReleaseVShaderProgram(this, pID))
+	if (!m_pUser->OnReleaseVShaderProgram(pID))
 		return 0;
 
 	return 1;

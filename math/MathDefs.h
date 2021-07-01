@@ -69,6 +69,11 @@ inline T Min(T lhs, U rhs) { return lhs < rhs ? lhs : rhs; }
 template <class T, class U>
 inline T Max(T lhs, U rhs) { return lhs > rhs ? lhs : rhs; }
 
+inline unsigned int CalcAlign(unsigned int n, unsigned int align)
+{
+	return ((n + align - 1) & (~(align - 1)));
+}
+
 /// Clamp a number to a range.
 template <class T>
 inline T Clamp(T value, T min, T max)

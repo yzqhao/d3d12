@@ -34,15 +34,16 @@ public:
 		return m_nameInShader;
 	}
 
-protected:
-
-	std::string m_name;
-	std::string m_nameInShader;
 	unsigned char* m_pData{};
 	uint m_uiSize{};
 	uint m_uiValueType{};
 	uint m_uiRegisterIndex{};
 	uint m_uiRegisterNum{};
+
+protected:
+
+	std::string m_name;
+	std::string m_nameInShader;
 };
 
 FORCEINLINE void* RHIUserConstant::GetData()const

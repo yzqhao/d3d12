@@ -25,62 +25,17 @@
     <Filter Include="BoxApp">
       <UniqueIdentifier>{ee280307-723b-4cc4-bce7-0769784788c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="BoxAppTwoSlot">
-      <UniqueIdentifier>{2dc79062-0b98-4bc8-a0d7-22bcde8227d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LandAndWaves">
-      <UniqueIdentifier>{9e857699-3aac-4e5b-a5ec-85331fe5c441}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShapesApp">
-      <UniqueIdentifier>{5d4ef10e-7c1f-4b2d-9134-1a23bb31a4cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShapesSkullApp">
-      <UniqueIdentifier>{981e7ab2-0d10-4300-a4f0-fd79f39bf692}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LitWaves">
-      <UniqueIdentifier>{325040f0-748e-443c-b108-0a2748058034}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LitColumns">
-      <UniqueIdentifier>{f438cdac-fd09-4c82-a041-dfa866aebe2e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TexBox">
-      <UniqueIdentifier>{608cc336-5fa3-4b75-8d1f-81848af14304}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TexWaves">
-      <UniqueIdentifier>{001de38c-61c4-4aa5-af8b-f094dcb4c85c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="BlendWaves">
-      <UniqueIdentifier>{51f62c86-8600-4c2f-9dc5-1ef1f3506788}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MultiTexBox">
-      <UniqueIdentifier>{a6d79b06-ece9-4f2e-91d4-5e14bb4d92a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TexColumns">
-      <UniqueIdentifier>{b9241bfa-63dc-40d8-bfd6-59260a2cab4e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StencilDemo">
-      <UniqueIdentifier>{b1c4991a-404b-4abe-a8a7-744c8ae5dce4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CameraAndDynamicIndexingApp">
-      <UniqueIdentifier>{b66cbc59-4def-45c3-b374-25c9726f7278}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="InstancingAndCulling">
-      <UniqueIdentifier>{952a1ce6-fe59-4ca9-b63a-b5a1d3b0ab3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CubeMap">
-      <UniqueIdentifier>{b550cff5-ea08-43e6-82e7-5eb13fd08b58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DynamicCube">
-      <UniqueIdentifier>{82583fc6-8f6a-4d4a-b1fe-1f65ac39d4ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="NormalMap">
-      <UniqueIdentifier>{7dae9799-d558-4522-b0c1-c041d44c984e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PickApp">
-      <UniqueIdentifier>{452ff411-c16f-44df-b4f5-cdacb44438ca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="RHI">
       <UniqueIdentifier>{b4e792dd-792c-4776-8fca-8cda996905a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic">
+      <UniqueIdentifier>{bb905830-819e-4af8-8c5c-6270eece36c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RHI\d3d12">
+      <UniqueIdentifier>{f9d7020e-db1d-446f-a4ec-7d801fd2c6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thiry">
+      <UniqueIdentifier>{3b36e0c6-5419-4ef1-8f0d-c14f5b7b3ff4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,127 +78,76 @@
     <ClCompile Include="BoxApp\BoxApp.cpp">
       <Filter>BoxApp</Filter>
     </ClCompile>
-    <ClCompile Include="ShapesApp\FrameResource.cpp">
-      <Filter>ShapesApp</Filter>
-    </ClCompile>
-    <ClCompile Include="ShapesApp\ShapesApp.cpp">
-      <Filter>ShapesApp</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxAppTwoSlot\BoxAppTwoSlot.cpp">
-      <Filter>BoxAppTwoSlot</Filter>
-    </ClCompile>
-    <ClCompile Include="LandAndWaves\FrameResource.cpp">
-      <Filter>LandAndWaves</Filter>
-    </ClCompile>
-    <ClCompile Include="LandAndWaves\LandAndWaves.cpp">
-      <Filter>LandAndWaves</Filter>
-    </ClCompile>
     <ClCompile Include="math\Random.cpp">
       <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="ShapesSkullApp\FrameResource.cpp">
-      <Filter>ShapesSkullApp</Filter>
-    </ClCompile>
-    <ClCompile Include="ShapesSkullApp\ShapesSkullApp.cpp">
-      <Filter>ShapesSkullApp</Filter>
     </ClCompile>
     <ClCompile Include="common\MeshLoader.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="LitWaves\FrameResource.cpp">
-      <Filter>LitWaves</Filter>
-    </ClCompile>
-    <ClCompile Include="LitWaves\LitWaves.cpp">
-      <Filter>LitWaves</Filter>
-    </ClCompile>
     <ClCompile Include="common\Waves.cpp">
       <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="LitColumns\FrameResource.cpp">
-      <Filter>LitColumns</Filter>
-    </ClCompile>
-    <ClCompile Include="LitColumns\LitColumns.cpp">
-      <Filter>LitColumns</Filter>
-    </ClCompile>
-    <ClCompile Include="TexBox\TexBox.cpp">
-      <Filter>TexBox</Filter>
-    </ClCompile>
-    <ClCompile Include="TexWaves\FrameResource.cpp">
-      <Filter>TexWaves</Filter>
-    </ClCompile>
-    <ClCompile Include="TexWaves\TexWaves.cpp">
-      <Filter>TexWaves</Filter>
-    </ClCompile>
-    <ClCompile Include="BlendWaves\FrameResource.cpp">
-      <Filter>BlendWaves</Filter>
-    </ClCompile>
-    <ClCompile Include="BlendWaves\BlendWaves.cpp">
-      <Filter>BlendWaves</Filter>
     </ClCompile>
     <ClCompile Include="common\BundleReader.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="MultiTexBox\MultiTexBox.cpp">
-      <Filter>MultiTexBox</Filter>
-    </ClCompile>
-    <ClCompile Include="TexColumns\FrameResource.cpp">
-      <Filter>TexColumns</Filter>
-    </ClCompile>
-    <ClCompile Include="TexColumns\TexColumns.cpp">
-      <Filter>TexColumns</Filter>
-    </ClCompile>
-    <ClCompile Include="StencilDemo\FrameResource.cpp">
-      <Filter>StencilDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="StencilDemo\StencilDemo.cpp">
-      <Filter>StencilDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.cpp">
-      <Filter>CameraAndDynamicIndexingApp</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraAndDynamicIndexingApp\FrameResource.cpp">
-      <Filter>CameraAndDynamicIndexingApp</Filter>
-    </ClCompile>
     <ClCompile Include="common\Camera.cpp">
       <Filter>common</Filter>
-    </ClCompile>
-    <ClCompile Include="InstancingAndCulling\FrameResource.cpp">
-      <Filter>InstancingAndCulling</Filter>
-    </ClCompile>
-    <ClCompile Include="InstancingAndCulling\InstancingAndCulling.cpp">
-      <Filter>InstancingAndCulling</Filter>
     </ClCompile>
     <ClCompile Include="math\AABB.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="CubeMap\CubeMap.cpp">
-      <Filter>CubeMap</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeMap\FrameResource.cpp">
-      <Filter>CubeMap</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicCube\DynamicCube.cpp">
-      <Filter>DynamicCube</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicCube\FrameResource.cpp">
-      <Filter>DynamicCube</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicCube\CubeRenderTarget.cpp">
-      <Filter>DynamicCube</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalMap\FrameResource.cpp">
-      <Filter>NormalMap</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalMap\NormalMap.cpp">
-      <Filter>NormalMap</Filter>
-    </ClCompile>
-    <ClCompile Include="PickApp\FrameResource.cpp">
-      <Filter>PickApp</Filter>
-    </ClCompile>
-    <ClCompile Include="PickApp\PickApp.cpp">
-      <Filter>PickApp</Filter>
-    </ClCompile>
     <ClCompile Include="RHI\RHIGrahpicSystem.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\d3d12\RHID3D12.cpp">
+      <Filter>RHI\d3d12</Filter>
+    </ClCompile>
+    <ClCompile Include="thiry\xxHash\xxhash.c">
+      <Filter>thiry</Filter>
+    </ClCompile>
+    <ClCompile Include="thiry\xxHash\xxhsum.c">
+      <Filter>thiry</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIShader.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\d3d12\D3D12Api.cpp">
+      <Filter>RHI\d3d12</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIUserConstant.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIBind.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIVSShader.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIPSShader.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\d3d12\RHID3D12Shader.cpp">
+      <Filter>RHI\d3d12</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIShaderKey.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHITexture.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\d3d12\RHID3D12VertexIndex.cpp">
+      <Filter>RHI\d3d12</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIDataBuffer.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIIndexBuffer.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIVertexBuffer.cpp">
+      <Filter>RHI</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\RHIVertexFormat.cpp">
       <Filter>RHI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,127 +203,82 @@
     <ClInclude Include="BoxApp\BoxApp.h">
       <Filter>BoxApp</Filter>
     </ClInclude>
-    <ClInclude Include="ShapesApp\FrameResource.h">
-      <Filter>ShapesApp</Filter>
-    </ClInclude>
-    <ClInclude Include="ShapesApp\ShapesApp.h">
-      <Filter>ShapesApp</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h">
-      <Filter>BoxAppTwoSlot</Filter>
-    </ClInclude>
-    <ClInclude Include="LandAndWaves\FrameResource.h">
-      <Filter>LandAndWaves</Filter>
-    </ClInclude>
-    <ClInclude Include="LandAndWaves\LandAndWaves.h">
-      <Filter>LandAndWaves</Filter>
-    </ClInclude>
     <ClInclude Include="math\Random.h">
       <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="ShapesSkullApp\FrameResource.h">
-      <Filter>ShapesSkullApp</Filter>
-    </ClInclude>
-    <ClInclude Include="ShapesSkullApp\ShapesSkullApp.h">
-      <Filter>ShapesSkullApp</Filter>
     </ClInclude>
     <ClInclude Include="common\MeshLoader.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="LitWaves\FrameResource.h">
-      <Filter>LitWaves</Filter>
-    </ClInclude>
-    <ClInclude Include="LitWaves\LitWaves.h">
-      <Filter>LitWaves</Filter>
-    </ClInclude>
     <ClInclude Include="common\Waves.h">
       <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="LitColumns\FrameResource.h">
-      <Filter>LitColumns</Filter>
-    </ClInclude>
-    <ClInclude Include="LitColumns\LitColumns.h">
-      <Filter>LitColumns</Filter>
-    </ClInclude>
-    <ClInclude Include="TexBox\TexBox.h">
-      <Filter>TexBox</Filter>
-    </ClInclude>
-    <ClInclude Include="TexWaves\FrameResource.h">
-      <Filter>TexWaves</Filter>
-    </ClInclude>
-    <ClInclude Include="TexWaves\TexWaves.h">
-      <Filter>TexWaves</Filter>
-    </ClInclude>
-    <ClInclude Include="BlendWaves\FrameResource.h">
-      <Filter>BlendWaves</Filter>
-    </ClInclude>
-    <ClInclude Include="BlendWaves\BlendWaves.h">
-      <Filter>BlendWaves</Filter>
     </ClInclude>
     <ClInclude Include="common\BundleReader.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="MultiTexBox\MultiTexBox.h">
-      <Filter>MultiTexBox</Filter>
-    </ClInclude>
-    <ClInclude Include="TexColumns\FrameResource.h">
-      <Filter>TexColumns</Filter>
-    </ClInclude>
-    <ClInclude Include="TexColumns\TexColumns.h">
-      <Filter>TexColumns</Filter>
-    </ClInclude>
-    <ClInclude Include="StencilDemo\FrameResource.h">
-      <Filter>StencilDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="StencilDemo\StencilDemo.h">
-      <Filter>StencilDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.h">
-      <Filter>CameraAndDynamicIndexingApp</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraAndDynamicIndexingApp\FrameResource.h">
-      <Filter>CameraAndDynamicIndexingApp</Filter>
-    </ClInclude>
     <ClInclude Include="common\Camera.h">
       <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="InstancingAndCulling\FrameResource.h">
-      <Filter>InstancingAndCulling</Filter>
-    </ClInclude>
-    <ClInclude Include="InstancingAndCulling\InstancingAndCulling.h">
-      <Filter>InstancingAndCulling</Filter>
     </ClInclude>
     <ClInclude Include="math\AABB.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="CubeMap\CubeMap.h">
-      <Filter>CubeMap</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeMap\FrameResource.h">
-      <Filter>CubeMap</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicCube\DynamicCube.h">
-      <Filter>DynamicCube</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicCube\FrameResource.h">
-      <Filter>DynamicCube</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicCube\CubeRenderTarget.h">
-      <Filter>DynamicCube</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalMap\FrameResource.h">
-      <Filter>NormalMap</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalMap\NormalMap.h">
-      <Filter>NormalMap</Filter>
-    </ClInclude>
-    <ClInclude Include="PickApp\FrameResource.h">
-      <Filter>PickApp</Filter>
-    </ClInclude>
-    <ClInclude Include="PickApp\PickApp.h">
-      <Filter>PickApp</Filter>
-    </ClInclude>
     <ClInclude Include="RHI\RHIGrahpicSystem.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\GraphicsDefs.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic\FlagSet.h">
+      <Filter>Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\d3d12\RHID3D12.h">
+      <Filter>RHI\d3d12</Filter>
+    </ClInclude>
+    <ClInclude Include="thiry\xxHash\xxhash.h">
+      <Filter>thiry</Filter>
+    </ClInclude>
+    <ClInclude Include="thiry\fasthash\fasthash.h">
+      <Filter>thiry</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIShader.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\d3d12\D3D12GPUObject.h">
+      <Filter>RHI\d3d12</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\d3d12\D3D12Api.h">
+      <Filter>RHI\d3d12</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIUserConstant.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIBind.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIVSShader.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIPSShader.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\d3d12\D3D12Resource.h">
+      <Filter>RHI\d3d12</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIShaderKey.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHITexture.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIDataBuffer.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIIndexBuffer.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIVertexBuffer.h">
+      <Filter>RHI</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\RHIVertexFormat.h">
       <Filter>RHI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -430,113 +289,8 @@
     <None Include="BoxApp\color.hlsl">
       <Filter>BoxApp</Filter>
     </None>
-    <None Include="ShapesApp\color.hlsl">
-      <Filter>ShapesApp</Filter>
-    </None>
-    <None Include="BoxAppTwoSlot\color.hlsl">
-      <Filter>BoxAppTwoSlot</Filter>
-    </None>
-    <None Include="LandAndWaves\color.hlsl">
-      <Filter>LandAndWaves</Filter>
-    </None>
-    <None Include="ShapesSkullApp\color.hlsl">
-      <Filter>ShapesSkullApp</Filter>
-    </None>
-    <None Include="LitWaves\Default.hlsl">
-      <Filter>LitWaves</Filter>
-    </None>
-    <None Include="LitWaves\LightingUtil.hlsl">
-      <Filter>LitWaves</Filter>
-    </None>
-    <None Include="LitColumns\Default.hlsl">
-      <Filter>LitColumns</Filter>
-    </None>
-    <None Include="LitColumns\LightingUtil.hlsl">
-      <Filter>LitColumns</Filter>
-    </None>
-    <None Include="TexBox\color.hlsl">
-      <Filter>TexBox</Filter>
-    </None>
-    <None Include="TexWaves\Default.hlsl">
-      <Filter>TexWaves</Filter>
-    </None>
-    <None Include="TexWaves\LightingUtil.hlsl">
-      <Filter>TexWaves</Filter>
-    </None>
-    <None Include="BlendWaves\Default.hlsl">
-      <Filter>BlendWaves</Filter>
-    </None>
-    <None Include="BlendWaves\LightingUtil.hlsl">
-      <Filter>BlendWaves</Filter>
-    </None>
-    <None Include="MultiTexBox\color.hlsl">
-      <Filter>MultiTexBox</Filter>
-    </None>
-    <None Include="TexColumns\Default.hlsl">
-      <Filter>TexColumns</Filter>
-    </None>
-    <None Include="TexColumns\LightingUtil.hlsl">
-      <Filter>TexColumns</Filter>
-    </None>
-    <None Include="StencilDemo\Default.hlsl">
-      <Filter>StencilDemo</Filter>
-    </None>
-    <None Include="StencilDemo\LightingUtil.hlsl">
-      <Filter>StencilDemo</Filter>
-    </None>
-    <None Include="CameraAndDynamicIndexingApp\Default.hlsl">
-      <Filter>CameraAndDynamicIndexingApp</Filter>
-    </None>
-    <None Include="CameraAndDynamicIndexingApp\LightingUtil.hlsl">
-      <Filter>CameraAndDynamicIndexingApp</Filter>
-    </None>
-    <None Include="InstancingAndCulling\Default.hlsl">
-      <Filter>InstancingAndCulling</Filter>
-    </None>
-    <None Include="InstancingAndCulling\LightingUtil.hlsl">
-      <Filter>InstancingAndCulling</Filter>
-    </None>
-    <None Include="CubeMap\Default.hlsl">
-      <Filter>CubeMap</Filter>
-    </None>
-    <None Include="CubeMap\LightingUtil.hlsl">
-      <Filter>CubeMap</Filter>
-    </None>
-    <None Include="CubeMap\Common.hlsl">
-      <Filter>CubeMap</Filter>
-    </None>
-    <None Include="CubeMap\Sky.hlsl">
-      <Filter>CubeMap</Filter>
-    </None>
-    <None Include="DynamicCube\Common.hlsl">
-      <Filter>DynamicCube</Filter>
-    </None>
-    <None Include="DynamicCube\Default.hlsl">
-      <Filter>DynamicCube</Filter>
-    </None>
-    <None Include="DynamicCube\Sky.hlsl">
-      <Filter>DynamicCube</Filter>
-    </None>
-    <None Include="DynamicCube\LightingUtil.hlsl">
-      <Filter>DynamicCube</Filter>
-    </None>
-    <None Include="NormalMap\Common.hlsl">
-      <Filter>NormalMap</Filter>
-    </None>
-    <None Include="NormalMap\Default.hlsl">
-      <Filter>NormalMap</Filter>
-    </None>
-    <None Include="NormalMap\LightingUtil.hlsl">
-      <Filter>NormalMap</Filter>
-    </None>
-    <None Include="NormalMap\Sky.hlsl">
-      <Filter>NormalMap</Filter>
-    </None>
-    <None Include="PickApp\Default.hlsl">
-      <Filter>PickApp</Filter>
-    </None>
-    <None Include="PickApp\LightingUtil.hlsl">
-      <Filter>PickApp</Filter>
+    <None Include="thiry\fasthash\fasthash.inl">
+      <Filter>thiry</Filter>
     </None>
   </ItemGroup>
 </Project>

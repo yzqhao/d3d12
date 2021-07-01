@@ -19,12 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BlendWaves\FrameResource.cpp" />
-    <ClCompile Include="BlendWaves\BlendWaves.cpp" />
-    <ClCompile Include="BoxAppTwoSlot\BoxAppTwoSlot.cpp" />
     <ClCompile Include="BoxApp\BoxApp.cpp" />
-    <ClCompile Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.cpp" />
-    <ClCompile Include="CameraAndDynamicIndexingApp\FrameResource.cpp" />
     <ClCompile Include="common\BundleReader.cpp" />
     <ClCompile Include="common\Camera.cpp" />
     <ClCompile Include="common\d3dApp.cpp" />
@@ -34,20 +29,7 @@
     <ClCompile Include="common\GeometryGenerator.cpp" />
     <ClCompile Include="common\MeshLoader.cpp" />
     <ClCompile Include="common\Waves.cpp" />
-    <ClCompile Include="CubeMap\CubeMap.cpp" />
-    <ClCompile Include="CubeMap\FrameResource.cpp" />
-    <ClCompile Include="DynamicCube\CubeRenderTarget.cpp" />
-    <ClCompile Include="DynamicCube\DynamicCube.cpp" />
-    <ClCompile Include="DynamicCube\FrameResource.cpp" />
     <ClCompile Include="InitDirect3DApp\InitDirect3DApp.cpp" />
-    <ClCompile Include="InstancingAndCulling\FrameResource.cpp" />
-    <ClCompile Include="InstancingAndCulling\InstancingAndCulling.cpp" />
-    <ClCompile Include="LandAndWaves\FrameResource.cpp" />
-    <ClCompile Include="LandAndWaves\LandAndWaves.cpp" />
-    <ClCompile Include="LitColumns\FrameResource.cpp" />
-    <ClCompile Include="LitColumns\LitColumns.cpp" />
-    <ClCompile Include="LitWaves\FrameResource.cpp" />
-    <ClCompile Include="LitWaves\LitWaves.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -58,31 +40,27 @@
     <ClCompile Include="math\Vec2.cpp" />
     <ClCompile Include="math\Vec3.cpp" />
     <ClCompile Include="math\Vec4.cpp" />
-    <ClCompile Include="MultiTexBox\MultiTexBox.cpp" />
-    <ClCompile Include="NormalMap\FrameResource.cpp" />
-    <ClCompile Include="NormalMap\NormalMap.cpp" />
-    <ClCompile Include="PickApp\FrameResource.cpp" />
-    <ClCompile Include="PickApp\PickApp.cpp" />
+    <ClCompile Include="RHI\d3d12\D3D12Api.cpp" />
+    <ClCompile Include="RHI\d3d12\RHID3D12.cpp" />
+    <ClCompile Include="RHI\d3d12\RHID3D12Shader.cpp" />
+    <ClCompile Include="RHI\d3d12\RHID3D12VertexIndex.cpp" />
+    <ClCompile Include="RHI\RHIBind.cpp" />
+    <ClCompile Include="RHI\RHIDataBuffer.cpp" />
     <ClCompile Include="RHI\RHIGrahpicSystem.cpp" />
-    <ClCompile Include="ShapesApp\FrameResource.cpp" />
-    <ClCompile Include="ShapesApp\ShapesApp.cpp" />
-    <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
-    <ClCompile Include="ShapesSkullApp\ShapesSkullApp.cpp" />
-    <ClCompile Include="StencilDemo\FrameResource.cpp" />
-    <ClCompile Include="StencilDemo\StencilDemo.cpp" />
-    <ClCompile Include="TexBox\TexBox.cpp" />
-    <ClCompile Include="TexColumns\FrameResource.cpp" />
-    <ClCompile Include="TexColumns\TexColumns.cpp" />
-    <ClCompile Include="TexWaves\FrameResource.cpp" />
-    <ClCompile Include="TexWaves\TexWaves.cpp" />
+    <ClCompile Include="RHI\RHIIndexBuffer.cpp" />
+    <ClCompile Include="RHI\RHIPSShader.cpp" />
+    <ClCompile Include="RHI\RHIShader.cpp" />
+    <ClCompile Include="RHI\RHIShaderKey.cpp" />
+    <ClCompile Include="RHI\RHITexture.cpp" />
+    <ClCompile Include="RHI\RHIUserConstant.cpp" />
+    <ClCompile Include="RHI\RHIVertexBuffer.cpp" />
+    <ClCompile Include="RHI\RHIVertexFormat.cpp" />
+    <ClCompile Include="RHI\RHIVSShader.cpp" />
+    <ClCompile Include="thiry\xxHash\xxhash.c" />
+    <ClCompile Include="thiry\xxHash\xxhsum.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlendWaves\FrameResource.h" />
-    <ClInclude Include="BlendWaves\BlendWaves.h" />
-    <ClInclude Include="BoxAppTwoSlot\BoxAppTwoSlot.h" />
     <ClInclude Include="BoxApp\BoxApp.h" />
-    <ClInclude Include="CameraAndDynamicIndexingApp\CameraAndDynamicIndexingApp.h" />
-    <ClInclude Include="CameraAndDynamicIndexingApp\FrameResource.h" />
     <ClInclude Include="common\BundleReader.h" />
     <ClInclude Include="common\Camera.h" />
     <ClInclude Include="common\d3dApp.h" />
@@ -94,20 +72,9 @@
     <ClInclude Include="common\Macros.h" />
     <ClInclude Include="common\MeshLoader.h" />
     <ClInclude Include="common\Waves.h" />
-    <ClInclude Include="CubeMap\CubeMap.h" />
-    <ClInclude Include="CubeMap\FrameResource.h" />
-    <ClInclude Include="DynamicCube\CubeRenderTarget.h" />
-    <ClInclude Include="DynamicCube\DynamicCube.h" />
-    <ClInclude Include="DynamicCube\FrameResource.h" />
+    <ClInclude Include="Graphic\FlagSet.h" />
+    <ClInclude Include="Graphic\GraphicsDefs.h" />
     <ClInclude Include="InitDirect3DApp\InitDirect3DApp.h" />
-    <ClInclude Include="InstancingAndCulling\FrameResource.h" />
-    <ClInclude Include="InstancingAndCulling\InstancingAndCulling.h" />
-    <ClInclude Include="LandAndWaves\FrameResource.h" />
-    <ClInclude Include="LandAndWaves\LandAndWaves.h" />
-    <ClInclude Include="LitColumns\FrameResource.h" />
-    <ClInclude Include="LitColumns\LitColumns.h" />
-    <ClInclude Include="LitWaves\FrameResource.h" />
-    <ClInclude Include="LitWaves\LitWaves.h" />
     <ClInclude Include="math\AABB.h" />
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\Mat4.h" />
@@ -116,181 +83,35 @@
     <ClInclude Include="math\Vec2.h" />
     <ClInclude Include="math\Vec3.h" />
     <ClInclude Include="math\Vec4.h" />
-    <ClInclude Include="MultiTexBox\MultiTexBox.h" />
-    <ClInclude Include="NormalMap\FrameResource.h" />
-    <ClInclude Include="NormalMap\NormalMap.h" />
-    <ClInclude Include="PickApp\FrameResource.h" />
-    <ClInclude Include="PickApp\PickApp.h" />
     <ClInclude Include="platform\PlatformConfig.h" />
+    <ClInclude Include="RHI\d3d12\D3D12Api.h" />
+    <ClInclude Include="RHI\d3d12\D3D12GPUObject.h" />
+    <ClInclude Include="RHI\d3d12\D3D12Resource.h" />
+    <ClInclude Include="RHI\d3d12\RHID3D12.h" />
+    <ClInclude Include="RHI\RHIBind.h" />
+    <ClInclude Include="RHI\RHIDataBuffer.h" />
     <ClInclude Include="RHI\RHIGrahpicSystem.h" />
-    <ClInclude Include="ShapesApp\FrameResource.h" />
-    <ClInclude Include="ShapesApp\ShapesApp.h" />
-    <ClInclude Include="ShapesSkullApp\FrameResource.h" />
-    <ClInclude Include="ShapesSkullApp\ShapesSkullApp.h" />
-    <ClInclude Include="StencilDemo\FrameResource.h" />
-    <ClInclude Include="StencilDemo\StencilDemo.h" />
-    <ClInclude Include="TexBox\TexBox.h" />
-    <ClInclude Include="TexColumns\FrameResource.h" />
-    <ClInclude Include="TexColumns\TexColumns.h" />
-    <ClInclude Include="TexWaves\FrameResource.h" />
-    <ClInclude Include="TexWaves\TexWaves.h" />
+    <ClInclude Include="RHI\RHIIndexBuffer.h" />
+    <ClInclude Include="RHI\RHIPSShader.h" />
+    <ClInclude Include="RHI\RHIShader.h" />
+    <ClInclude Include="RHI\RHIShaderKey.h" />
+    <ClInclude Include="RHI\RHITexture.h" />
+    <ClInclude Include="RHI\RHIUserConstant.h" />
+    <ClInclude Include="RHI\RHIVertexBuffer.h" />
+    <ClInclude Include="RHI\RHIVertexFormat.h" />
+    <ClInclude Include="RHI\RHIVSShader.h" />
+    <ClInclude Include="thiry\fasthash\fasthash.h" />
+    <ClInclude Include="thiry\xxHash\xxhash.h" />
     <ClInclude Include="UploadBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
       <FileType>Document</FileType>
     </None>
+    <None Include="thiry\fasthash\fasthash.inl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BoxApp\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ShapesApp\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="BoxAppTwoSlot\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LandAndWaves\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ShapesSkullApp\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LitWaves\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="LitWaves\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LitColumns\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="LitColumns\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TexBox\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TexWaves\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="TexWaves\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="BlendWaves\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="BlendWaves\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MultiTexBox\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TexColumns\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="TexColumns\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="StencilDemo\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="StencilDemo\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CameraAndDynamicIndexingApp\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="CameraAndDynamicIndexingApp\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="InstancingAndCulling\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="InstancingAndCulling\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CubeMap\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="CubeMap\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CubeMap\Common.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CubeMap\Sky.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DynamicCube\Common.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="DynamicCube\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="DynamicCube\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="DynamicCube\Sky.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="NormalMap\Common.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="NormalMap\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="NormalMap\LightingUtil.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="NormalMap\Sky.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PickApp\Default.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="PickApp\LightingUtil.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
