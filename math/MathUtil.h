@@ -9,6 +9,7 @@
 #include "Color.h"
 #include "AABB.h"
 #include "Ray.h"
+#include "Frustum.h"
 
 NS_JYE_MATH_BEGIN
 
@@ -30,6 +31,8 @@ namespace MathUtil
 	bool intersects(const Ray& ray, const AABB& box, float* distance = nullptr);
 	// AABB和AABB相交检测，如果相交
 	bool intersects(const AABB& box1, const AABB& box2);
+	// AABB包围盒是否在Frustum内
+	bool intersects(const Frustum& frustum, const AABB& box);
 };
 
 NS_JYE_MATH_END

@@ -4,6 +4,7 @@
 #include "../common/GeometryGenerator.h"
 #include "../common/MeshLoader.h"
 #include "../common/DDSTextureLoader.h"
+#include "../math/MathUtil.h"
 
 InstancingAndCulling::InstancingAndCulling(HINSTANCE hInstance)
 	: D3DApp(hInstance)
@@ -81,6 +82,7 @@ void InstancingAndCulling::OnResize()
 	D3DApp::OnResize();
 
 	mCamera.SetLens(0.25f*M_PI, AspectRatio(), 1.0f, 1000.0f);
+	mCamera.UpdateViewMatrix();
 
 	Math::Mat4 vp = mCamera.GetView() * mCamera.GetProj();
 	mCamFrustum.initFrustum(vp, vp.getInversed());
@@ -209,12 +211,13 @@ void InstancingAndCulling::UpdateInstanceData(const GameTimer& gt)
 
 			// View space to the object's local space.
 			Math::Mat4 viewToLocal = invView * invWorld;
+			viewToLocal.transpose();
 
 			// Transform the camera frustum from view space to the object's local space.
 			Math::Frustum localSpaceFrustum = mCamFrustum.transformed(viewToLocal);
 
 			// Perform the box/frustum intersection test in local space.
-			//if ((localSpaceFrustum.Contains(e->Bounds) != DirectX::DISJOINT) || (mFrustumCullingEnabled == false))
+			if (Math::MathUtil::intersects(localSpaceFrustum, e->Bounds) || (mFrustumCullingEnabled == false))
 			{
 				InstancingAndCullingFR::InstanceData data;
 				data.World = world.getTransposed();

@@ -177,4 +177,23 @@ bool MathUtil::intersects(const AABB& box1, const AABB& box2)
 	return (std::abs(cen.x) <= hs.x) && (std::abs(cen.y) <= hs.y) && (std::abs(cen.z) <= hs.z);
 }
 
+bool Math::MathUtil::intersects(const Frustum& frustum, const AABB& box)
+{
+	Math::Vec3 point;
+	for (int i = 0; i < Frustum::FACE_COUNT; ++i)
+	{
+		Math:Vec3 normal = frustum._planes[i]._normal;
+		point.x = normal.x < 0 ? box._max.x : box._min.x;
+		point.y = normal.y < 0 ? box._max.y : box._min.y;
+		point.z = normal.z < 0 ? box._max.z : box._min.z;
+
+		if (frustum._planes[i].getSide(point) == PointSide::FRONT_PLANE)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 NS_JYE_MATH_END

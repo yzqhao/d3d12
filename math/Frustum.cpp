@@ -45,7 +45,7 @@ void Frustum::transform(const Mat4& transform)
 
 Frustum Frustum::transformed(const Mat4& transform) const
 {
-	Frustum transformed;
+	Frustum transformed(*this);
 	for (int i = 0; i < FRUSTUM_CORNER_COUNT; ++i)
 		transformed._corners[i] *= transform;
 
@@ -68,6 +68,7 @@ void Frustum::UpdatePlanes()
 		for (auto& plane : _planes)
 		{
 			plane._normal = -plane._normal;
+			plane._normal.normalize();
 			plane._d = -plane._d;
 		}
 	}
