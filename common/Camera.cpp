@@ -12,12 +12,12 @@ Camera::~Camera()
 
 Math::Vec3 Camera::GetPosition()const
 {
-	return Math::Vec3(mPosition.x, -mPosition.y, mPosition.z);
+	return Math::Vec3(mPosition.x, mPosition.y, mPosition.z);
 }
 
 void Camera::SetPosition(float x, float y, float z)
 {
-	mPosition = Math::Vec3(x, -y, z);
+	mPosition = Math::Vec3(x, y, z);
 	mViewDirty = true;
 }
 
@@ -204,7 +204,7 @@ void Camera::UpdateViewMatrix()
 		float z = -Math::dot(L, P);
 
 		mRight = R;
-		mUp = -U;
+		mUp = U;
 		mLook = L;
 
 		mView.m[0] = mRight.x;

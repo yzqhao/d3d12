@@ -205,264 +205,104 @@ float Mat4::determinant() const
 
 bool Mat4::inversed()
 {
-    // https://stackoverflow.com/questions/1148309/inverting-a-4x4-matrix
-    double inv[16], det;
-    int i;
+	float a0 = m[0] * m[5] - m[1] * m[4];
+	float a1 = m[0] * m[6] - m[2] * m[4];
+	float a2 = m[0] * m[7] - m[3] * m[4];
+	float a3 = m[1] * m[6] - m[2] * m[5];
+	float a4 = m[1] * m[7] - m[3] * m[5];
+	float a5 = m[2] * m[7] - m[3] * m[6];
+	float b0 = m[8] * m[13] - m[9] * m[12];
+	float b1 = m[8] * m[14] - m[10] * m[12];
+	float b2 = m[8] * m[15] - m[11] * m[12];
+	float b3 = m[9] * m[14] - m[10] * m[13];
+	float b4 = m[9] * m[15] - m[11] * m[13];
+	float b5 = m[10] * m[15] - m[11] * m[14];
 
-    inv[0] = m[5]  * m[10] * m[15] - 
-             m[5]  * m[11] * m[14] - 
-             m[9]  * m[6]  * m[15] + 
-             m[9]  * m[7]  * m[14] +
-             m[13] * m[6]  * m[11] - 
-             m[13] * m[7]  * m[10];
+	// Calculate the determinant.
+	float det = a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
 
-    inv[4] = -m[4]  * m[10] * m[15] + 
-              m[4]  * m[11] * m[14] + 
-              m[8]  * m[6]  * m[15] - 
-              m[8]  * m[7]  * m[14] - 
-              m[12] * m[6]  * m[11] + 
-              m[12] * m[7]  * m[10];
+	// Close to zero, can't invert.
+	if (std::abs(det) <= M_EPSILON)
+		return false;
 
-    inv[8] = m[4]  * m[9] * m[15] - 
-             m[4]  * m[11] * m[13] - 
-             m[8]  * m[5] * m[15] + 
-             m[8]  * m[7] * m[13] + 
-             m[12] * m[5] * m[11] - 
-             m[12] * m[7] * m[9];
+	// Support the case where m == dst.
+	Mat4 inverse;
+	inverse.m[0] = m[5] * b5 - m[6] * b4 + m[7] * b3;
+	inverse.m[1] = -m[1] * b5 + m[2] * b4 - m[3] * b3;
+	inverse.m[2] = m[13] * a5 - m[14] * a4 + m[15] * a3;
+	inverse.m[3] = -m[9] * a5 + m[10] * a4 - m[11] * a3;
 
-    inv[12] = -m[4]  * m[9] * m[14] + 
-               m[4]  * m[10] * m[13] +
-               m[8]  * m[5] * m[14] - 
-               m[8]  * m[6] * m[13] - 
-               m[12] * m[5] * m[10] + 
-               m[12] * m[6] * m[9];
+	inverse.m[4] = -m[4] * b5 + m[6] * b2 - m[7] * b1;
+	inverse.m[5] = m[0] * b5 - m[2] * b2 + m[3] * b1;
+	inverse.m[6] = -m[12] * a5 + m[14] * a2 - m[15] * a1;
+	inverse.m[7] = m[8] * a5 - m[10] * a2 + m[11] * a1;
 
-    inv[1] = -m[1]  * m[10] * m[15] + 
-              m[1]  * m[11] * m[14] + 
-              m[9]  * m[2] * m[15] - 
-              m[9]  * m[3] * m[14] - 
-              m[13] * m[2] * m[11] + 
-              m[13] * m[3] * m[10];
+	inverse.m[8] = m[4] * b4 - m[5] * b2 + m[7] * b0;
+	inverse.m[9] = -m[0] * b4 + m[1] * b2 - m[3] * b0;
+	inverse.m[10] = m[12] * a4 - m[13] * a2 + m[15] * a0;
+	inverse.m[11] = -m[8] * a4 + m[9] * a2 - m[11] * a0;
 
-    inv[5] = m[0]  * m[10] * m[15] - 
-             m[0]  * m[11] * m[14] - 
-             m[8]  * m[2] * m[15] + 
-             m[8]  * m[3] * m[14] + 
-             m[12] * m[2] * m[11] - 
-             m[12] * m[3] * m[10];
-
-    inv[9] = -m[0]  * m[9] * m[15] + 
-              m[0]  * m[11] * m[13] + 
-              m[8]  * m[1] * m[15] - 
-              m[8]  * m[3] * m[13] - 
-              m[12] * m[1] * m[11] + 
-              m[12] * m[3] * m[9];
-
-    inv[13] = m[0]  * m[9] * m[14] - 
-              m[0]  * m[10] * m[13] - 
-              m[8]  * m[1] * m[14] + 
-              m[8]  * m[2] * m[13] + 
-              m[12] * m[1] * m[10] - 
-              m[12] * m[2] * m[9];
-
-    inv[2] = m[1]  * m[6] * m[15] - 
-             m[1]  * m[7] * m[14] - 
-             m[5]  * m[2] * m[15] + 
-             m[5]  * m[3] * m[14] + 
-             m[13] * m[2] * m[7] - 
-             m[13] * m[3] * m[6];
-
-    inv[6] = -m[0]  * m[6] * m[15] + 
-              m[0]  * m[7] * m[14] + 
-              m[4]  * m[2] * m[15] - 
-              m[4]  * m[3] * m[14] - 
-              m[12] * m[2] * m[7] + 
-              m[12] * m[3] * m[6];
-
-    inv[10] = m[0]  * m[5] * m[15] - 
-              m[0]  * m[7] * m[13] - 
-              m[4]  * m[1] * m[15] + 
-              m[4]  * m[3] * m[13] + 
-              m[12] * m[1] * m[7] - 
-              m[12] * m[3] * m[5];
-
-    inv[14] = -m[0]  * m[5] * m[14] + 
-               m[0]  * m[6] * m[13] + 
-               m[4]  * m[1] * m[14] - 
-               m[4]  * m[2] * m[13] - 
-               m[12] * m[1] * m[6] + 
-               m[12] * m[2] * m[5];
-
-    inv[3] = -m[1] * m[6] * m[11] + 
-              m[1] * m[7] * m[10] + 
-              m[5] * m[2] * m[11] - 
-              m[5] * m[3] * m[10] - 
-              m[9] * m[2] * m[7] + 
-              m[9] * m[3] * m[6];
-
-    inv[7] = m[0] * m[6] * m[11] - 
-             m[0] * m[7] * m[10] - 
-             m[4] * m[2] * m[11] + 
-             m[4] * m[3] * m[10] + 
-             m[8] * m[2] * m[7] - 
-             m[8] * m[3] * m[6];
-
-    inv[11] = -m[0] * m[5] * m[11] + 
-               m[0] * m[7] * m[9] + 
-               m[4] * m[1] * m[11] - 
-               m[4] * m[3] * m[9] - 
-               m[8] * m[1] * m[7] + 
-               m[8] * m[3] * m[5];
-
-    inv[15] = m[0] * m[5] * m[10] - 
-              m[0] * m[6] * m[9] - 
-              m[4] * m[1] * m[10] + 
-              m[4] * m[2] * m[9] + 
-              m[8] * m[1] * m[6] - 
-              m[8] * m[2] * m[5];
-
-    det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
-
-    if (det == 0)
-        return false;
+	inverse.m[12] = -m[4] * b3 + m[5] * b1 - m[6] * b0;
+	inverse.m[13] = m[0] * b3 - m[1] * b1 + m[2] * b0;
+	inverse.m[14] = -m[12] * a3 + m[13] * a1 - m[14] * a0;
+	inverse.m[15] = m[8] * a3 - m[9] * a1 + m[10] * a0;
 
     det = 1.0 / det;
-
-    for (i = 0; i < 16; i++)
-        m[i] = inv[i] * det;
+    for (int i = 0; i < 16; i++)
+        m[i] = inverse.m[i] * det;
 
     return true;
 }
 
 Mat4 Mat4::getInversed() const
 {
-    // https://stackoverflow.com/questions/1148309/inverting-a-4x4-matrix
-    double inv[16], det;
-    int i;
+	float a0 = m[0] * m[5] - m[1] * m[4];
+	float a1 = m[0] * m[6] - m[2] * m[4];
+	float a2 = m[0] * m[7] - m[3] * m[4];
+	float a3 = m[1] * m[6] - m[2] * m[5];
+	float a4 = m[1] * m[7] - m[3] * m[5];
+	float a5 = m[2] * m[7] - m[3] * m[6];
+	float b0 = m[8] * m[13] - m[9] * m[12];
+	float b1 = m[8] * m[14] - m[10] * m[12];
+	float b2 = m[8] * m[15] - m[11] * m[12];
+	float b3 = m[9] * m[14] - m[10] * m[13];
+	float b4 = m[9] * m[15] - m[11] * m[13];
+	float b5 = m[10] * m[15] - m[11] * m[14];
 
-    inv[0] = m[5]  * m[10] * m[15] - 
-             m[5]  * m[11] * m[14] - 
-             m[9]  * m[6]  * m[15] + 
-             m[9]  * m[7]  * m[14] +
-             m[13] * m[6]  * m[11] - 
-             m[13] * m[7]  * m[10];
+	// Calculate the determinant.
+	float det = a0 * b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
 
-    inv[4] = -m[4]  * m[10] * m[15] + 
-              m[4]  * m[11] * m[14] + 
-              m[8]  * m[6]  * m[15] - 
-              m[8]  * m[7]  * m[14] - 
-              m[12] * m[6]  * m[11] + 
-              m[12] * m[7]  * m[10];
+	// Close to zero, can't invert.
+	if (std::abs(det) <= M_EPSILON)
+		return false;
 
-    inv[8] = m[4]  * m[9] * m[15] - 
-             m[4]  * m[11] * m[13] - 
-             m[8]  * m[5] * m[15] + 
-             m[8]  * m[7] * m[13] + 
-             m[12] * m[5] * m[11] - 
-             m[12] * m[7] * m[9];
+	// Support the case where m == dst.
+	Mat4 inverse;
+	inverse.m[0] = m[5] * b5 - m[6] * b4 + m[7] * b3;
+	inverse.m[1] = -m[1] * b5 + m[2] * b4 - m[3] * b3;
+	inverse.m[2] = m[13] * a5 - m[14] * a4 + m[15] * a3;
+	inverse.m[3] = -m[9] * a5 + m[10] * a4 - m[11] * a3;
 
-    inv[12] = -m[4]  * m[9] * m[14] + 
-               m[4]  * m[10] * m[13] +
-               m[8]  * m[5] * m[14] - 
-               m[8]  * m[6] * m[13] - 
-               m[12] * m[5] * m[10] + 
-               m[12] * m[6] * m[9];
+	inverse.m[4] = -m[4] * b5 + m[6] * b2 - m[7] * b1;
+	inverse.m[5] = m[0] * b5 - m[2] * b2 + m[3] * b1;
+	inverse.m[6] = -m[12] * a5 + m[14] * a2 - m[15] * a1;
+	inverse.m[7] = m[8] * a5 - m[10] * a2 + m[11] * a1;
 
-    inv[1] = -m[1]  * m[10] * m[15] + 
-              m[1]  * m[11] * m[14] + 
-              m[9]  * m[2] * m[15] - 
-              m[9]  * m[3] * m[14] - 
-              m[13] * m[2] * m[11] + 
-              m[13] * m[3] * m[10];
+	inverse.m[8] = m[4] * b4 - m[5] * b2 + m[7] * b0;
+	inverse.m[9] = -m[0] * b4 + m[1] * b2 - m[3] * b0;
+	inverse.m[10] = m[12] * a4 - m[13] * a2 + m[15] * a0;
+	inverse.m[11] = -m[8] * a4 + m[9] * a2 - m[11] * a0;
 
-    inv[5] = m[0]  * m[10] * m[15] - 
-             m[0]  * m[11] * m[14] - 
-             m[8]  * m[2] * m[15] + 
-             m[8]  * m[3] * m[14] + 
-             m[12] * m[2] * m[11] - 
-             m[12] * m[3] * m[10];
+	inverse.m[12] = -m[4] * b3 + m[5] * b1 - m[6] * b0;
+	inverse.m[13] = m[0] * b3 - m[1] * b1 + m[2] * b0;
+	inverse.m[14] = -m[12] * a3 + m[13] * a1 - m[14] * a0;
+	inverse.m[15] = m[8] * a3 - m[9] * a1 + m[10] * a0;
 
-    inv[9] = -m[0]  * m[9] * m[15] + 
-              m[0]  * m[11] * m[13] + 
-              m[8]  * m[1] * m[15] - 
-              m[8]  * m[3] * m[13] - 
-              m[12] * m[1] * m[11] + 
-              m[12] * m[3] * m[9];
+	det = 1.0 / det;
+	for (int i = 0; i < 16; i++)
+		inverse.m[i] = inverse.m[i] * det;
 
-    inv[13] = m[0]  * m[9] * m[14] - 
-              m[0]  * m[10] * m[13] - 
-              m[8]  * m[1] * m[14] + 
-              m[8]  * m[2] * m[13] + 
-              m[12] * m[1] * m[10] - 
-              m[12] * m[2] * m[9];
-
-    inv[2] = m[1]  * m[6] * m[15] - 
-             m[1]  * m[7] * m[14] - 
-             m[5]  * m[2] * m[15] + 
-             m[5]  * m[3] * m[14] + 
-             m[13] * m[2] * m[7] - 
-             m[13] * m[3] * m[6];
-
-    inv[6] = -m[0]  * m[6] * m[15] + 
-              m[0]  * m[7] * m[14] + 
-              m[4]  * m[2] * m[15] - 
-              m[4]  * m[3] * m[14] - 
-              m[12] * m[2] * m[7] + 
-              m[12] * m[3] * m[6];
-
-    inv[10] = m[0]  * m[5] * m[15] - 
-              m[0]  * m[7] * m[13] - 
-              m[4]  * m[1] * m[15] + 
-              m[4]  * m[3] * m[13] + 
-              m[12] * m[1] * m[7] - 
-              m[12] * m[3] * m[5];
-
-    inv[14] = -m[0]  * m[5] * m[14] + 
-               m[0]  * m[6] * m[13] + 
-               m[4]  * m[1] * m[14] - 
-               m[4]  * m[2] * m[13] - 
-               m[12] * m[1] * m[6] + 
-               m[12] * m[2] * m[5];
-
-    inv[3] = -m[1] * m[6] * m[11] + 
-              m[1] * m[7] * m[10] + 
-              m[5] * m[2] * m[11] - 
-              m[5] * m[3] * m[10] - 
-              m[9] * m[2] * m[7] + 
-              m[9] * m[3] * m[6];
-
-    inv[7] = m[0] * m[6] * m[11] - 
-             m[0] * m[7] * m[10] - 
-             m[4] * m[2] * m[11] + 
-             m[4] * m[3] * m[10] + 
-             m[8] * m[2] * m[7] - 
-             m[8] * m[3] * m[6];
-
-    inv[11] = -m[0] * m[5] * m[11] + 
-               m[0] * m[7] * m[9] + 
-               m[4] * m[1] * m[11] - 
-               m[4] * m[3] * m[9] - 
-               m[8] * m[1] * m[7] + 
-               m[8] * m[3] * m[5];
-
-    inv[15] = m[0] * m[5] * m[10] - 
-              m[0] * m[6] * m[9] - 
-              m[4] * m[1] * m[10] + 
-              m[4] * m[2] * m[9] + 
-              m[8] * m[1] * m[6] - 
-              m[8] * m[2] * m[5];
-
-    det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
-
-    if (det == 0)
-        return ZERO;
-
-    Mat4 res;
-    det = 1.0 / det;
-    for (i = 0; i < 16; i++)
-        res.m[i] = inv[i] * det;
-
-    return res;
+    return inverse;
 }
 
 void Mat4::getScale(Vec3& scale) const
