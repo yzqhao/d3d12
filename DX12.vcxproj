@@ -33,6 +33,7 @@
     <ClCompile Include="common\GameTimer.cpp" />
     <ClCompile Include="common\GeometryGenerator.cpp" />
     <ClCompile Include="common\MeshLoader.cpp" />
+    <ClCompile Include="common\MeteorLoader.cpp" />
     <ClCompile Include="common\Waves.cpp" />
     <ClCompile Include="CubeMap\CubeMap.cpp" />
     <ClCompile Include="CubeMap\FrameResource.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="common\GeometryGenerator.h" />
     <ClInclude Include="common\Macros.h" />
     <ClInclude Include="common\MeshLoader.h" />
+    <ClInclude Include="common\MeteorLoader.h" />
     <ClInclude Include="common\Waves.h" />
     <ClInclude Include="CubeMap\CubeMap.h" />
     <ClInclude Include="CubeMap\FrameResource.h" />
@@ -344,36 +346,41 @@
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SkinnedMesh\Meteor.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C4680F18-E037-4881-A760-CF9AC4C668C5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>InitDirect3D</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>

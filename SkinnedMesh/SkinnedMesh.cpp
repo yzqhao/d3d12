@@ -4,6 +4,12 @@
 #include "../common/GeometryGenerator.h"
 #include "../common/MeshLoader.h"
 #include "../common/DDSTextureLoader.h"
+#include "../common/MeteorLoader.h"
+
+static std::string s_meteorActorVS = "MeteorActorVS";
+static std::string s_meteorActorPS = "MeteorActorPS";
+static std::string s_meteorActorInputLayout = "MeteorActorInputLayout";
+static std::string s_skinMeteorOpaque = "skinnedMeteorOpaque";
 
 SkinnedMesh::SkinnedMesh(HINSTANCE hInstance)
 	: D3DApp(hInstance)
@@ -113,6 +119,29 @@ void SkinnedMesh::LoadSkinnedModel()
 	std::vector<M3DLoader::SkinnedVertex> vertices;
 	std::vector<std::uint16_t> indices;
 
+	/*MeteorLoader ml;
+	ml.Load("./", 0);
+
+	for (auto& mesh : ml.meshs)
+	{
+		M3DLoader::SkinnedVertex ver;
+		ver.Pos = mesh.Pos;
+		ver.TexC = mesh.TexC;
+		ver.BoneWeights = mesh.BoneWeights;
+		for (int wi = 0; wi < 4; ++wi)
+		{
+			ver.BoneIndices[wi] = mesh.BoneIndices[wi];
+		}
+		vertices.emplace_back(ver);
+	}
+
+	mSkinnedSubsets.resize(ml.materials.size());
+	for (UINT i = 0; i < (UINT)mSkinnedSubsets.size(); ++i)
+	{
+		mSkinnedSubsets[i].FaceCount = 0;
+		mSkinnedSubsets[i].FaceStart = 0;
+	}*/
+
 	M3DLoader m3dLoader;
 	m3dLoader.LoadM3d(mSkinnedModelFilename, vertices, indices,
 		mSkinnedSubsets, mSkinnedMats, mSkinnedInfo);
@@ -123,25 +152,33 @@ void SkinnedMesh::LoadSkinnedModel()
 	mSkinnedModelInst->ClipName = "Take1";
 	mSkinnedModelInst->TimePos = 0.0f;
 
-	const UINT vbByteSize = (UINT)vertices.size() * sizeof(SkinnedMeshFR::SkinnedVertex);
+	// meteor vertex
+	std::vector<SkinnedMeshFR::SkinnedMeteorVertex> meteor_vertices;
+	for (auto& v: vertices)
+	{
+		SkinnedMeshFR::SkinnedMeteorVertex t = { v.Pos, v.TexC, v.BoneWeights, {v.BoneIndices[0], v.BoneIndices[1], v.BoneIndices[2], v.BoneIndices[3]} };
+		meteor_vertices.emplace_back(t);
+	}
+
+	const UINT vbByteSize = (UINT)meteor_vertices.size() * sizeof(SkinnedMeshFR::SkinnedMeteorVertex);
 	const UINT ibByteSize = (UINT)indices.size() * sizeof(std::uint16_t);
 
 	auto geo = std::make_unique<MeshGeometry>();
 	geo->Name = mSkinnedModelFilename;
 
 	ThrowIfFailed(D3DCreateBlob(vbByteSize, &geo->VertexBufferCPU));
-	CopyMemory(geo->VertexBufferCPU->GetBufferPointer(), vertices.data(), vbByteSize);
+	CopyMemory(geo->VertexBufferCPU->GetBufferPointer(), meteor_vertices.data(), vbByteSize);
 
 	ThrowIfFailed(D3DCreateBlob(ibByteSize, &geo->IndexBufferCPU));
 	CopyMemory(geo->IndexBufferCPU->GetBufferPointer(), indices.data(), ibByteSize);
 
 	geo->VertexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice,
-		mCommandList, vertices.data(), vbByteSize, geo->VertexBufferUploader);
+		mCommandList, meteor_vertices.data(), vbByteSize, geo->VertexBufferUploader);
 
 	geo->IndexBufferGPU = d3dUtil::CreateDefaultBuffer(md3dDevice,
 		mCommandList, indices.data(), ibByteSize, geo->IndexBufferUploader);
 
-	geo->VertexByteStride = sizeof(SkinnedMeshFR::SkinnedVertex);
+	geo->VertexByteStride = sizeof(SkinnedMeshFR::SkinnedMeteorVertex);
 	geo->VertexBufferByteSize = vbByteSize;
 	geo->IndexFormat = DXGI_FORMAT_R16_UINT;
 	geo->IndexBufferByteSize = ibByteSize;
@@ -384,6 +421,9 @@ void SkinnedMesh::Draw(const GameTimer& gt)
 		mCommandList->SetPipelineState(mPSOs["skinnedOpaque"]);
 		DrawRenderItems(mCommandList, mRitemLayer[(int)RenderLayer::SkinnedOpaque]);
 
+		mCommandList->SetPipelineState(mPSOs[s_skinMeteorOpaque]);
+		DrawRenderItems(mCommandList, mRitemLayer[(int)RenderLayer::SkinnedMeteorOpaque]);
+
 		mCommandList->SetPipelineState(mPSOs["sky"]);
 		DrawRenderItems(mCommandList, mRitemLayer[(int)RenderLayer::Sky]);
 	}
@@ -431,6 +471,9 @@ void SkinnedMesh::BuildShadersAndInputLayout()
 
 	mShaders["skinnedVS"] = d3dUtil::CompileShader(L"SkinnedMesh\\Default.hlsl", skinnedDefines, "VS", "vs_5_1");
 
+	mShaders[s_meteorActorVS] = d3dUtil::CompileShader(L"SkinnedMesh\\Meteor.hlsl", skinnedDefines, "VS", "vs_5_1");
+	mShaders[s_meteorActorPS] = d3dUtil::CompileShader(L"SkinnedMesh\\Meteor.hlsl", nullptr, "PS", "ps_5_1");
+
 	mInputLayout =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
@@ -447,6 +490,14 @@ void SkinnedMesh::BuildShadersAndInputLayout()
 		{ "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "WEIGHTS", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 44, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		{ "BONEINDICES", 0, DXGI_FORMAT_R8G8B8A8_UINT, 0, 56, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+	};
+
+	mInputLayouts[s_meteorActorInputLayout] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "WEIGHTS", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		{ "BONEINDICES", 0, DXGI_FORMAT_R8G8B8A8_UINT, 0, 32, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 	};
 
 }
@@ -496,6 +547,20 @@ void SkinnedMesh::BuildPSO()
 		mShaders["opaquePS"]->GetBufferSize()
 	};
 	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&skinnedOpaquePsoDesc, IID_PPV_ARGS(&mPSOs["skinnedOpaque"])));
+
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC skinnedMeteorOpaquePsoDesc = psoDesc;
+	skinnedMeteorOpaquePsoDesc.InputLayout = { mInputLayouts[s_meteorActorInputLayout].data(), (UINT)mInputLayouts[s_meteorActorInputLayout].size() };
+	skinnedMeteorOpaquePsoDesc.VS =
+	{
+		reinterpret_cast<BYTE*>(mShaders[s_meteorActorVS]->GetBufferPointer()),
+		mShaders[s_meteorActorVS]->GetBufferSize()
+	};
+	skinnedMeteorOpaquePsoDesc.PS =
+	{
+		reinterpret_cast<BYTE*>(mShaders[s_meteorActorPS]->GetBufferPointer()),
+		mShaders[s_meteorActorPS]->GetBufferSize()
+	};
+	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&skinnedMeteorOpaquePsoDesc, IID_PPV_ARGS(&mPSOs[s_skinMeteorOpaque])));
 
 	//
 	// PSO for sky.
@@ -716,7 +781,6 @@ void SkinnedMesh::BuildRenderItems()
 
 	std::unique_ptr<RenderItem> gridRitem = std::make_unique<RenderItem>();
 	gridRitem->World = Math::Mat4::IDENTITY;
-	gridRitem->World.transpose();
 	gridRitem->TexTransform.scale(8.0f, 8.0f, 1.0f);
 	gridRitem->ObjCBIndex = 1;
 	gridRitem->Mat = mMaterials["tile0"].get();
@@ -749,7 +813,6 @@ void SkinnedMesh::BuildRenderItems()
 		rightSphereWorld.translate(+5.0f, 3.5f, -10.0f + i * 5.0f);
 
 		leftCylRitem->World = leftCylWorld;
-		leftCylRitem->World.transpose();
 		leftCylRitem->TexTransform = brickTexTransform;
 		leftCylRitem->ObjCBIndex = objCBIndex++;
 		leftCylRitem->Mat = mMaterials["bricks0"].get();
@@ -760,7 +823,6 @@ void SkinnedMesh::BuildRenderItems()
 		leftCylRitem->BaseVertexLocation = leftCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		rightCylRitem->World = rightCylWorld;
-		rightCylRitem->World.transpose();
 		rightCylRitem->TexTransform = brickTexTransform;
 		rightCylRitem->ObjCBIndex = objCBIndex++;
 		rightCylRitem->Mat = mMaterials["bricks0"].get();
@@ -771,7 +833,6 @@ void SkinnedMesh::BuildRenderItems()
 		rightCylRitem->BaseVertexLocation = rightCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		leftSphereRitem->World = leftSphereWorld;
-		leftSphereRitem->World.transpose();
 		leftSphereRitem->ObjCBIndex = objCBIndex++;
 		leftSphereRitem->Mat = mMaterials["mirror0"].get();
 		leftSphereRitem->Geo = mGeometries["shapeGeo"].get();
@@ -781,7 +842,6 @@ void SkinnedMesh::BuildRenderItems()
 		leftSphereRitem->BaseVertexLocation = leftSphereRitem->Geo->DrawArgs["sphere"].BaseVertexLocation;
 
 		rightSphereRitem->World = rightSphereWorld;
-		rightSphereRitem->World.transpose();
 		rightSphereRitem->ObjCBIndex = objCBIndex++;
 		rightSphereRitem->Mat = mMaterials["mirror0"].get();
 		rightSphereRitem->Geo = mGeometries["shapeGeo"].get();
@@ -814,8 +874,7 @@ void SkinnedMesh::BuildRenderItems()
 		modelRot.rotateY(M_PI);
 		Math::Mat4 modelOffset;
 		modelOffset.translate(0.0f, 0.0f, -5.0f);
-		ritem->World = modelOffset * modelRot * modelScale;
-		ritem->World.transpose();
+		ritem->World = modelScale * modelRot * modelOffset;
 
 		ritem->TexTransform = Math::Mat4::IDENTITY;
 		ritem->ObjCBIndex = objCBIndex++;
@@ -831,7 +890,8 @@ void SkinnedMesh::BuildRenderItems()
 		ritem->SkinnedCBIndex = 0;
 		ritem->SkinnedModelInst = mSkinnedModelInst.get();
 
-		mRitemLayer[(int)RenderLayer::SkinnedOpaque].push_back(ritem.get());
+		//mRitemLayer[(int)RenderLayer::SkinnedOpaque].push_back(ritem.get());
+		mRitemLayer[(int)RenderLayer::SkinnedMeteorOpaque].push_back(ritem.get());
 		mAllRitems.push_back(std::move(ritem));
 	}
 }

@@ -282,6 +282,9 @@
     <ClCompile Include="SkinnedMesh\SkinnedData.cpp">
       <Filter>SkinnedMesh</Filter>
     </ClCompile>
+    <ClCompile Include="common\MeteorLoader.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Mat4.h">
@@ -494,6 +497,9 @@
     <ClInclude Include="SkinnedMesh\SkinnedData.h">
       <Filter>SkinnedMesh</Filter>
     </ClInclude>
+    <ClInclude Include="common\MeteorLoader.h">
+      <Filter>common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -629,6 +635,9 @@
       <Filter>SkinnedMesh</Filter>
     </None>
     <None Include="SkinnedMesh\Sky.hlsl">
+      <Filter>SkinnedMesh</Filter>
+    </None>
+    <None Include="SkinnedMesh\Meteor.hlsl">
       <Filter>SkinnedMesh</Filter>
     </None>
   </ItemGroup>

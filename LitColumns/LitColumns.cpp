@@ -90,7 +90,6 @@ void LitColumns::OnResize()
 	D3DApp::OnResize();
 
 	Math::Mat4::createPerspective(45, AspectRatio(), 1.0f, 1000.0f, &mProj);
-	mProj.transpose();
 }
 
 void LitColumns::Update(const GameTimer& gt)
@@ -130,7 +129,6 @@ void LitColumns::UpdateCamera(const GameTimer& gt)
 	Math::Vec3 up(0.0f, 1.0f, 0.0f);
 
 	Math::Mat4::createLookAt(pos, target, up, &mView);
-	mView.transpose();
 }
 
 void LitColumns::OnKeyboardInput(const GameTimer& gt)
@@ -403,7 +401,6 @@ void LitColumns::BuildRenderItems()
 	std::unique_ptr<RenderItem> boxRitem = std::make_unique<RenderItem>();
 	boxRitem->World.scale(2.0f, 2.0f, 2.0f);
 	boxRitem->World.translate(0.0f, 0.5f, 0.0f);
-	boxRitem->World.transpose();
 	boxRitem->ObjCBIndex = 0;
 	boxRitem->Mat = mMaterials["stone0"].get();
 	boxRitem->Geo = mGeometries["shapeGeo"].get();
@@ -415,7 +412,6 @@ void LitColumns::BuildRenderItems()
 
 	std::unique_ptr<RenderItem> gridRitem = std::make_unique<RenderItem>();
 	gridRitem->World = Math::Mat4::IDENTITY;
-	gridRitem->World.transpose();
 	gridRitem->ObjCBIndex = 1;
 	gridRitem->Mat = mMaterials["tile0"].get();
 	gridRitem->Geo = mGeometries["shapeGeo"].get();
@@ -444,7 +440,6 @@ void LitColumns::BuildRenderItems()
 		rightSphereWorld.translate(+5.0f, 3.5f, -10.0f + i * 5.0f);
 
 		leftCylRitem->World = leftCylWorld;
-		leftCylRitem->World.transpose();
 		leftCylRitem->ObjCBIndex = objCBIndex++;
 		leftCylRitem->Mat = mMaterials["bricks0"].get();
 		leftCylRitem->Geo = mGeometries["shapeGeo"].get();
@@ -454,7 +449,6 @@ void LitColumns::BuildRenderItems()
 		leftCylRitem->BaseVertexLocation = leftCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		rightCylRitem->World = rightCylWorld;
-		rightCylRitem->World.transpose();
 		rightCylRitem->ObjCBIndex = objCBIndex++;
 		rightCylRitem->Mat = mMaterials["bricks0"].get();
 		rightCylRitem->Geo = mGeometries["shapeGeo"].get();
@@ -464,7 +458,6 @@ void LitColumns::BuildRenderItems()
 		rightCylRitem->BaseVertexLocation = rightCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		leftSphereRitem->World = leftSphereWorld;
-		leftSphereRitem->World.transpose();
 		leftSphereRitem->ObjCBIndex = objCBIndex++;
 		leftSphereRitem->Mat = mMaterials["bricks0"].get();
 		leftSphereRitem->Geo = mGeometries["shapeGeo"].get();
@@ -474,7 +467,6 @@ void LitColumns::BuildRenderItems()
 		leftSphereRitem->BaseVertexLocation = leftSphereRitem->Geo->DrawArgs["sphere"].BaseVertexLocation;
 
 		rightSphereRitem->World = rightSphereWorld;
-		rightSphereRitem->World.transpose();
 		rightSphereRitem->ObjCBIndex = objCBIndex++;
 		rightSphereRitem->Mat = mMaterials["bricks0"].get();
 		rightSphereRitem->Geo = mGeometries["shapeGeo"].get();
@@ -493,7 +485,6 @@ void LitColumns::BuildRenderItems()
 	skullitem->World = Math::Mat4::IDENTITY;
 	skullitem->World.translate(0.0f, 1.0f, 0.0f);
 	skullitem->World.scale(0.5f, 0.5f, 0.5f);
-	skullitem->World.transpose();
 	skullitem->ObjCBIndex = objCBIndex++;
 	skullitem->Mat = mMaterials["skullMat"].get();
 	skullitem->Geo = mGeometries["shapeGeo"].get();

@@ -125,7 +125,6 @@ VertexOut VS(VertexIn vin, uint instanceID : SV_InstanceID)
 
 	// Transform to homogeneous clip space.
 	vout.PosH = mul(posW, gViewProj);
-	vout.PosH.y = -vout.PosH.y;
 
 	// Output vertex attributes for interpolation across triangle.
 	float4 texC = mul(float4(vin.TexC, 0.0f, 1.0f), texTransform);

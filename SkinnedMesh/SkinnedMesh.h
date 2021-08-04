@@ -117,6 +117,7 @@ private:
 	{
 		Opaque = 0,
 		SkinnedOpaque,
+		SkinnedMeteorOpaque,
 		Sky,
 		Count
 	};
@@ -145,6 +146,7 @@ private:
 
 	std::vector<D3D12_INPUT_ELEMENT_DESC> mInputLayout;
 	std::vector<D3D12_INPUT_ELEMENT_DESC> mSkinnedInputLayout;
+	std::unordered_map<std::string, std::vector<D3D12_INPUT_ELEMENT_DESC>> mInputLayouts;
 
 	std::unordered_map<std::string, ID3D12PipelineState*> mPSOs;
 

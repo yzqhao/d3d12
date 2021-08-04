@@ -8,17 +8,20 @@
 
 NS_JYE_MATH_BEGIN
 
-// ÐÐÖ÷Ðò
-/**
- * 0  1  2  3
- * 4  5  6  7
- * 8  9  10 11
- * 12 13 14 15
- */
 class Mat4 
 {
 public:
-    float m[16];
+	union
+	{
+		struct
+		{
+			float a11, a21, a31, a41;
+			float a12, a22, a32, a42;
+			float a13, a23, a33, a43;
+			float a14, a24, a34, a44;
+		};
+		float m[16];
+	};
 
     Mat4();
     Mat4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24,
@@ -67,7 +70,7 @@ public:
     void transpose();
     Mat4 getTransposed() const;
 
-	const float* getPtr() const { return &m[0]; }
+	const float* getPtr() const { return &a11; }
 
     static const Mat4 ZERO;     
     static const Mat4 IDENTITY;     
@@ -75,36 +78,36 @@ public:
 
 inline Vec3& operator*=(Vec3& v, const Mat4& m)
 {
-    Vec3 temp(v.x * m.m[0] + v.y * m.m[4] + v.z * m.m[8] + m.m[12],
-            v.x * m.m[1] + v.y * m.m[5] + v.z * m.m[9] + m.m[13],
-            v.x * m.m[2] + v.y * m.m[6] + v.z * m.m[10] + m.m[14]);
+    Vec3 temp(v.x * m.a11 + v.y * m.a21 + v.z * m.a31 + m.a41,
+            v.x * m.a12 + v.y * m.a22 + v.z * m.a32 + m.a42,
+            v.x * m.a13 + v.y * m.a23 + v.z * m.a33 + m.a43);
     v = temp;
     return v;
 }
 
 inline Vec3 operator*(const Vec3& v, const Mat4& m)
 {
-    return Vec3(v.x * m.m[0] + v.y * m.m[4] + v.z * m.m[8] + m.m[12],
-                v.x * m.m[1] + v.y * m.m[5] + v.z * m.m[9] + m.m[13],
-                v.x * m.m[2] + v.y * m.m[6] + v.z * m.m[10] + m.m[14]);
+    return Vec3(v.x * m.a11 + v.y * m.a21 + v.z * m.a31 + m.a41,
+                v.x * m.a12 + v.y * m.a22 + v.z * m.a32 + m.a42,
+                v.x * m.a13 + v.y * m.a23 + v.z * m.a33 + m.a43);
 }
 
 inline Vec4& operator*=(Vec4& v, const Mat4& m)
 {
-    Vec4 temp(v.x * m.m[0] + v.y * m.m[4] + v.z * m.m[8] + v.w * m.m[12],
-            v.x * m.m[1] + v.y * m.m[5] + v.z * m.m[9] + v.w * m.m[13],
-            v.x * m.m[2] + v.y * m.m[6] + v.z * m.m[10] + v.w * m.m[14],
-            v.x * m.m[3] + v.y * m.m[7] + v.z * m.m[11] + v.w * m.m[15]);
+    Vec4 temp(v.x * m.a11 + v.y * m.a21 + v.z * m.a31 + v.w * m.a41,
+            v.x * m.a12 + v.y * m.a22 + v.z * m.a32 + v.w * m.a42,
+            v.x * m.a13 + v.y * m.a23 + v.z * m.a33 + v.w * m.a43,
+            v.x * m.a14 + v.y * m.a24 + v.z * m.a34 + v.w * m.a44);
     v = temp;
     return v;
 }
 
 inline Vec4 operator*(const Vec4& v, const Mat4& m)
 {
-    return Vec4(v.x * m.m[0] + v.y * m.m[4] + v.z * m.m[8] + v.w * m.m[12],
-                v.x * m.m[1] + v.y * m.m[5] + v.z * m.m[9] + v.w * m.m[13],
-                v.x * m.m[2] + v.y * m.m[6] + v.z * m.m[10] + v.w * m.m[14],
-                v.x * m.m[3] + v.y * m.m[7] + v.z * m.m[11] + v.w * m.m[15]);
+    return Vec4(v.x * m.a11 + v.y * m.a21 + v.z * m.a31 + v.w * m.a41,
+                v.x * m.a12 + v.y * m.a22 + v.z * m.a32 + v.w * m.a42,
+                v.x * m.a13 + v.y * m.a23 + v.z * m.a33 + v.w * m.a43,
+                v.x * m.a14 + v.y * m.a24 + v.z * m.a34 + v.w * m.a44);
 }
 
 NS_JYE_MATH_END

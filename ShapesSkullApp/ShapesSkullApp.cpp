@@ -89,7 +89,6 @@ void ShapesSkullApp::OnResize()
 	D3DApp::OnResize();
 
 	Math::Mat4::createPerspective(45, AspectRatio(), 1.0f, 1000.0f, &mProj);
-	mProj.transpose();
 }
 
 void ShapesSkullApp::Update(const GameTimer& gt)
@@ -128,7 +127,6 @@ void ShapesSkullApp::UpdateCamera(const GameTimer& gt)
 	Math::Vec3 up(0.0f, 1.0f, 0.0f);
 
 	Math::Mat4::createLookAt(pos, target, up, &mView);
-	mView.transpose();
 }
 
 void ShapesSkullApp::OnKeyboardInput(const GameTimer& gt)
@@ -345,7 +343,6 @@ void ShapesSkullApp::BuildRenderItems()
 	std::unique_ptr<RenderItem> boxRitem = std::make_unique<RenderItem>();
 	boxRitem->World.scale(2.0f, 2.0f, 2.0f);
 	boxRitem->World.translate(0.0f, 0.5f, 0.0f);
-	boxRitem->World.transpose();
 	boxRitem->ObjCBIndex = 0;
 	boxRitem->Geo = mGeometries["shapeGeo"].get();
 	boxRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -356,7 +353,6 @@ void ShapesSkullApp::BuildRenderItems()
 
 	std::unique_ptr<RenderItem> gridRitem = std::make_unique<RenderItem>();
 	gridRitem->World = Math::Mat4::IDENTITY;
-	gridRitem->World.transpose();
 	gridRitem->ObjCBIndex = 1;
 	gridRitem->Geo = mGeometries["shapeGeo"].get();
 	gridRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -384,7 +380,6 @@ void ShapesSkullApp::BuildRenderItems()
 		rightSphereWorld.translate(+5.0f, 3.5f, -10.0f + i * 5.0f);
 
 		leftCylRitem->World = leftCylWorld;
-		leftCylRitem->World.transpose();
 		leftCylRitem->ObjCBIndex = objCBIndex++;
 		leftCylRitem->Geo = mGeometries["shapeGeo"].get();
 		leftCylRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -393,7 +388,6 @@ void ShapesSkullApp::BuildRenderItems()
 		leftCylRitem->BaseVertexLocation = leftCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		rightCylRitem->World = rightCylWorld;
-		rightCylRitem->World.transpose();
 		rightCylRitem->ObjCBIndex = objCBIndex++;
 		rightCylRitem->Geo = mGeometries["shapeGeo"].get();
 		rightCylRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -402,7 +396,6 @@ void ShapesSkullApp::BuildRenderItems()
 		rightCylRitem->BaseVertexLocation = rightCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		leftSphereRitem->World = leftSphereWorld;
-		leftSphereRitem->World.transpose();
 		leftSphereRitem->ObjCBIndex = objCBIndex++;
 		leftSphereRitem->Geo = mGeometries["shapeGeo"].get();
 		leftSphereRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -411,7 +404,6 @@ void ShapesSkullApp::BuildRenderItems()
 		leftSphereRitem->BaseVertexLocation = leftSphereRitem->Geo->DrawArgs["sphere"].BaseVertexLocation;
 
 		rightSphereRitem->World = rightSphereWorld;
-		rightSphereRitem->World.transpose();
 		rightSphereRitem->ObjCBIndex = objCBIndex++;
 		rightSphereRitem->Geo = mGeometries["shapeGeo"].get();
 		rightSphereRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -429,7 +421,6 @@ void ShapesSkullApp::BuildRenderItems()
 	skullitem->World = Math::Mat4::IDENTITY;
 	skullitem->World.translate(0.0f, 1.0f, 0.0f);
 	skullitem->World.scale(0.5f, 0.5f, 0.5f);
-	skullitem->World.transpose();
 	skullitem->ObjCBIndex = objCBIndex++;
 	skullitem->Geo = mGeometries["shapeGeo"].get();
 	skullitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

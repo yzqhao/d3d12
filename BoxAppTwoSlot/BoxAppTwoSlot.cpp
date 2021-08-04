@@ -86,7 +86,6 @@ void BoxAppTwoSlot::OnResize()
 	D3DApp::OnResize();
 
 	Math::Mat4::createPerspective(45, AspectRatio(), 1.0f, 1000.0f, &mProj);
-	mProj.transpose();
 }
 
 void BoxAppTwoSlot::Update(const GameTimer& gt)
@@ -101,7 +100,6 @@ void BoxAppTwoSlot::Update(const GameTimer& gt)
 	Math::Vec3 up(0.0f, 1.0f, 0.0f);
 
 	Math::Mat4::createLookAt(pos, target, up, &mView);
-	mView.transpose();
 
 	// Update the constant buffer with the latest worldViewProj matrix.
 	ObjectConstants objConstants;

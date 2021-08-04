@@ -183,11 +183,10 @@ void M3DLoader::ReadBoneOffsets(std::ifstream& fin, UINT numBones, std::vector<M
     for(UINT i = 0; i < numBones; ++i)
     {
         fin >> ignore >> 
-            boneOffsets[i].get(0,0) >> boneOffsets[i].get(1,0) >> boneOffsets[i].get(2,0) >> boneOffsets[i].get(3,0) >>
-            boneOffsets[i].get(0,1) >> boneOffsets[i].get(1,1) >> boneOffsets[i].get(2,1) >> boneOffsets[i].get(3,1) >>
-            boneOffsets[i].get(0,2) >> boneOffsets[i].get(1,2) >> boneOffsets[i].get(2,2) >> boneOffsets[i].get(3,2) >>
-            boneOffsets[i].get(0,3) >> boneOffsets[i].get(1,3) >> boneOffsets[i].get(2,3) >> boneOffsets[i].get(3,3);
-		//boneOffsets[i].transpose();
+            boneOffsets[i].get(0,0) >> boneOffsets[i].get(0,1) >> boneOffsets[i].get(0,2) >> boneOffsets[i].get(0,3) >>
+            boneOffsets[i].get(1,0) >> boneOffsets[i].get(1,1) >> boneOffsets[i].get(1,2) >> boneOffsets[i].get(1,3) >>
+            boneOffsets[i].get(2,0) >> boneOffsets[i].get(2,1) >> boneOffsets[i].get(2,2) >> boneOffsets[i].get(2,3) >>
+            boneOffsets[i].get(3,0) >> boneOffsets[i].get(3,1) >> boneOffsets[i].get(3,2) >> boneOffsets[i].get(3,3);
     }
 }
 

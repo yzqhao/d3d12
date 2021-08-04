@@ -441,7 +441,6 @@ void PickApp::BuildRenderItems()
 {
 	auto carRitem = std::make_unique<RenderItem>();
 	carRitem->World.translate({ 0.0f, 1.0f, 0.0f });
-	carRitem->World.transpose();
 	carRitem->ObjCBIndex = 0;
 	carRitem->Mat = mMaterials["gray0"].get();
 	carRitem->Geo = mGeometries["carGeo"].get();

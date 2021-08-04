@@ -17,7 +17,7 @@ Math::Vec3 Camera::GetPosition()const
 
 void Camera::SetPosition(float x, float y, float z)
 {
-	mPosition = Math::Vec3(x, y, z);
+	mPosition.set(x, y, z);
 	mViewDirty = true;
 }
 
@@ -100,14 +100,13 @@ void Camera::SetLens(float fovY, float aspect, float zn, float zf)
 	mFarWindowHeight  = 2.0f * mFarZ * tanf( 0.5f*mFovY );
 
 	Math::Mat4::createPerspective(MATH_RAD_TO_DEG(mFovY), mAspect, mNearZ, mFarZ, &mProj);
-	mProj.transpose();
 }
 
 void Camera::LookAt(const Math::Vec3& pos, const Math::Vec3& target, const Math::Vec3& up)
 {
 	Math::Vec3 L = (target - pos).getNormalized();
-	Math::Vec3 R = Math::crossProduct(L, up).getNormalized();
-	Math::Vec3 U = Math::crossProduct(R, L);
+	Math::Vec3 R = Math::crossProduct(up, L).getNormalized();
+	Math::Vec3 U = Math::crossProduct(L, R);
 
 	SetPosition(pos.x, pos.y, pos.z);
 	mLook = L;
@@ -147,7 +146,7 @@ void Camera::Pitch(float angle)
 	// Rotate up and look vector about the right vector.
 
 	Math::Mat4 R;
-	R.rotate(mRight, -angle);
+	R.rotate(mRight, angle);
 
 	mUp *= R;
 	mLook *= R;
@@ -160,7 +159,7 @@ void Camera::RotateY(float angle)
 	// Rotate the basis vectors about the world y-axis.
 
 	Math::Mat4 R;
-	R.rotateY(-angle);
+	R.rotateY(angle);
 
 	mRight *= R;
 	mUp *= R;
@@ -174,7 +173,7 @@ void Camera::Roll(float angle)
 	// Rotate the basis vectors about the world y-axis.
 
 	Math::Mat4 R;
-	R.rotateY(-angle);
+	R.rotateY(angle);
 
 	mRight *= R;
 	mUp *= R;
@@ -193,10 +192,10 @@ void Camera::UpdateViewMatrix()
 
 		// Keep camera's axes orthogonal to each other and of unit length.
 		L.normalize();
-		U = Math::crossProduct(R, L).getNormalized();
+		U = Math::crossProduct(L, R).getNormalized();
 
 		// U, L already ortho-normal, so no need to normalize cross product.
-		R = Math::crossProduct(L, U);
+		R = Math::crossProduct(U, L);
 
 		// Fill in the view matrix entries.
 		float x = -Math::dot(R, P);
@@ -207,27 +206,25 @@ void Camera::UpdateViewMatrix()
 		mUp = U;
 		mLook = L;
 
-		mView.m[0] = mRight.x;
-		mView.m[1] = mRight.y;
-		mView.m[2] = mRight.z;
-		mView.m[3] = x;
+		mView.a11 = mRight.x;
+		mView.a21 = mRight.y;
+		mView.a31 = mRight.z;
+		mView.a41 = x;
 
-		mView.m[4] = mUp.x;
-		mView.m[5] = mUp.y;
-		mView.m[6] = mUp.z;
-		mView.m[7] = y;
+		mView.a12 = mUp.x;
+		mView.a22 = mUp.y;
+		mView.a32 = mUp.z;
+		mView.a42 = y;
 
-		mView.m[8] = mLook.x;
-		mView.m[9] = mLook.y;
-		mView.m[10] = mLook.z;
-		mView.m[11] = z;
+		mView.a13 = mLook.x;
+		mView.a23 = mLook.y;
+		mView.a33 = mLook.z;
+		mView.a43 = z;
 
-		mView.m[12] = 0.0f;
-		mView.m[13] = 0.0f;
-		mView.m[14] = 0.0f;
-		mView.m[15] = 1.0f;
-
-		//mView.transpose();
+		mView.a14 = 0.0f;
+		mView.a24 = 0.0f;
+		mView.a34 = 0.0f;
+		mView.a44 = 1.0f;
 
 		mViewDirty = false;
 	}

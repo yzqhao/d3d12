@@ -211,7 +211,6 @@ void InstancingAndCulling::UpdateInstanceData(const GameTimer& gt)
 
 			// View space to the object's local space.
 			Math::Mat4 viewToLocal = invView * invWorld;
-			viewToLocal.transpose();
 
 			// Transform the camera frustum from view space to the object's local space.
 			Math::Frustum localSpaceFrustum = mCamFrustum.transformed(viewToLocal);
@@ -220,8 +219,8 @@ void InstancingAndCulling::UpdateInstanceData(const GameTimer& gt)
 			if (Math::MathUtil::intersects(localSpaceFrustum, e->Bounds) || (mFrustumCullingEnabled == false))
 			{
 				InstancingAndCullingFR::InstanceData data;
-				data.World = world.getTransposed();
-				data.TexTransform = texTransform.getTransposed();
+				data.World = world;
+				data.TexTransform = texTransform;
 				data.MaterialIndex = instanceData[i].MaterialIndex;
 
 				// Write the instance data to structured buffer for the visible objects.

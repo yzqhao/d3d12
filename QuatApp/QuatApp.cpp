@@ -99,7 +99,6 @@ void QuatApp::Update(const GameTimer& gt)
 	}
 
 	mSkullAnimation.Interpolate(mAnimTimePos, mSkullRitem->World);
-	mSkullRitem->World.transpose();
 	mSkullRitem->NumFramesDirty = gNumFrameResources;
 
 	// Cycle through the circular frame resource array.
@@ -604,7 +603,6 @@ void QuatApp::BuildRenderItems()
 	std::unique_ptr<RenderItem> boxRitem = std::make_unique<RenderItem>();
 	boxRitem->World.scale(2.0f, 1.0f, 2.0f);
 	boxRitem->World.translate(0.0f, 0.5f, 0.0f);
-	boxRitem->World.transpose();
 	boxRitem->TexTransform.scale(1.0f, 1.0f, 1.0f);
 	boxRitem->ObjCBIndex = 1;
 	boxRitem->Mat = mMaterials["bricks0"].get();
@@ -619,7 +617,6 @@ void QuatApp::BuildRenderItems()
 	auto skullRitem = std::make_unique<RenderItem>();
 	skullRitem->World.scale(0.4f, 0.4f, 0.4f);
 	skullRitem->World.translate(0.0f, 1.0f, 0.0f);
-	skullRitem->World.transpose();
 	skullRitem->ObjCBIndex = 2;
 	skullRitem->Mat = mMaterials["skullMat"].get();
 	skullRitem->Geo = mGeometries["skullGeo"].get();
@@ -634,7 +631,6 @@ void QuatApp::BuildRenderItems()
 
 	std::unique_ptr<RenderItem> gridRitem = std::make_unique<RenderItem>();
 	gridRitem->World = Math::Mat4::IDENTITY;
-	gridRitem->World.transpose();
 	gridRitem->TexTransform.scale(8.0f, 8.0f, 1.0f);
 	gridRitem->ObjCBIndex = 3;
 	gridRitem->Mat = mMaterials["tile0"].get();
@@ -667,7 +663,6 @@ void QuatApp::BuildRenderItems()
 		rightSphereWorld.translate(+5.0f, 3.5f, -10.0f + i * 5.0f);
 
 		leftCylRitem->World = leftCylWorld;
-		leftCylRitem->World.transpose();
 		leftCylRitem->TexTransform = brickTexTransform;
 		leftCylRitem->ObjCBIndex = objCBIndex++;
 		leftCylRitem->Mat = mMaterials["bricks0"].get();
@@ -678,7 +673,6 @@ void QuatApp::BuildRenderItems()
 		leftCylRitem->BaseVertexLocation = leftCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		rightCylRitem->World = rightCylWorld;
-		rightCylRitem->World.transpose();
 		rightCylRitem->TexTransform = brickTexTransform;
 		rightCylRitem->ObjCBIndex = objCBIndex++;
 		rightCylRitem->Mat = mMaterials["bricks0"].get();
@@ -689,7 +683,6 @@ void QuatApp::BuildRenderItems()
 		rightCylRitem->BaseVertexLocation = rightCylRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation;
 
 		leftSphereRitem->World = leftSphereWorld;
-		leftSphereRitem->World.transpose();
 		leftSphereRitem->ObjCBIndex = objCBIndex++;
 		leftSphereRitem->Mat = mMaterials["mirror0"].get();
 		leftSphereRitem->Geo = mGeometries["shapeGeo"].get();
@@ -699,7 +692,6 @@ void QuatApp::BuildRenderItems()
 		leftSphereRitem->BaseVertexLocation = leftSphereRitem->Geo->DrawArgs["sphere"].BaseVertexLocation;
 
 		rightSphereRitem->World = rightSphereWorld;
-		rightSphereRitem->World.transpose();
 		rightSphereRitem->ObjCBIndex = objCBIndex++;
 		rightSphereRitem->Mat = mMaterials["mirror0"].get();
 		rightSphereRitem->Geo = mGeometries["shapeGeo"].get();

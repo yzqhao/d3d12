@@ -154,13 +154,12 @@ void SkinnedData::GetFinalTransforms(const std::string& clipName, float timePos,
 	for(UINT i = 1; i < numBones; ++i)
 	{
 		int parentIndex = mBoneHierarchy[i];
-		toRootTransforms[i] = toRootTransforms[parentIndex] * toParentTransforms[i];
+		toRootTransforms[i] = toParentTransforms[i] * toRootTransforms[parentIndex];
 	}
 
 	// Premultiply by the bone offset transform to get the final transform.
 	for(UINT i = 0; i < numBones; ++i)
 	{
-		finalTransforms[i] = toRootTransforms[i] * mBoneOffsets[i];
-		finalTransforms[i].transpose();
+		finalTransforms[i] = mBoneOffsets[i] * toRootTransforms[i];
 	}
 }

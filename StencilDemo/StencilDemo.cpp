@@ -5,15 +5,6 @@
 #include "../math/Random.h"
 #include "../common/MeshLoader.h"
 
-static Math::Vec4 SphericalToCartesian(float radius, float theta, float phi)
-{
-	return Math::Vec4(
-		radius * sinf(phi) * cosf(theta),
-		radius * cosf(phi),
-		radius * sinf(phi) * sinf(theta),
-		1.0f);
-}
-
 StencilDemo::StencilDemo(HINSTANCE hInstance)
 	: D3DApp(hInstance)
 {
@@ -107,7 +98,6 @@ void StencilDemo::OnResize()
 	D3DApp::OnResize();
 
 	Math::Mat4::createPerspective(45, AspectRatio(), 1.0f, 1000.0f, &mProj);
-	mProj.transpose();
 }
 
 void StencilDemo::Update(const GameTimer& gt)
@@ -129,7 +119,6 @@ void StencilDemo::Update(const GameTimer& gt)
 		CloseHandle(eventHandle);
 	}
 
-	AnimateMaterials(gt);
 	UpdateObjectCBs(gt);
 	UpdateMaterialCB(gt);
 	UpdateMainPassCB(gt);
@@ -149,7 +138,6 @@ void StencilDemo::UpdateCamera(const GameTimer& gt)
 	Math::Vec3 up(0.0f, 1.0f, 0.0f);
 
 	Math::Mat4::createLookAt(pos, target, up, &mView);
-	mView.transpose();
 }
 
 void StencilDemo::UpdateReflectedPassCB(const GameTimer& gt)
@@ -158,7 +146,7 @@ void StencilDemo::UpdateReflectedPassCB(const GameTimer& gt)
 
 	Math::Vec4 mirrorPlane(0.0f, 0.0f, 1.0f, 0.0f); // xy plane
 	Math::Mat4 R = Math::Mat4::IDENTITY;
-	R.m[10] = -1;
+	R.a33 = -1;
 
 	// Reflect the lighting.
 	for (int i = 0; i < 3; ++i)
@@ -199,16 +187,15 @@ void StencilDemo::OnKeyboardInput(const GameTimer& gt)
 	Math::Mat4 skullRotate;
 	skullRotate.rotateY( - 0.5f * M_PI); 
 	Math::Mat4 skullScale;
-	skullRotate.scale(0.45f, 0.45f, 0.45f);
+	skullScale.scale(0.45f, 0.45f, 0.45f);
 	Math::Mat4 skullOffset;
 	skullOffset.translate(mSkullTranslation.x, mSkullTranslation.y, mSkullTranslation.z);
-	mSkullRitem->World = skullOffset  * skullScale * skullRotate;
-	mSkullRitem->World.transpose();
+	mSkullRitem->World = skullRotate * skullScale * skullOffset;
 	
 	// Update reflection world matrix.
 	Math::Vec4 mirrorPlane(0.0f, 0.0f, 1.0f, 0.0f); // xy plane
 	Math::Mat4 R = Math::Mat4::IDENTITY;
-	R.m[10] = -1;
+	R.a33 = -1;
 	mReflectedSkullRitem->World = mSkullRitem->World * R;
 
 	// Update shadow world matrix.
@@ -222,11 +209,6 @@ void StencilDemo::OnKeyboardInput(const GameTimer& gt)
 	mReflectedSkullRitem->NumFramesDirty = 3;
 	mShadowedSkullRitem->NumFramesDirty = 3;
 
-}
-
-void StencilDemo::AnimateMaterials(const GameTimer& gt)
-{
-	
 }
 
 void StencilDemo::UpdateObjectCBs(const GameTimer& gt)

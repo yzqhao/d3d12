@@ -33,10 +33,10 @@ Mat4 MathUtil::Transformation(const Vec3& scale, const Quaternion& quat, const V
 	float const wx2(quat.w * x2), wy2(quat.w * y2), wz2(quat.w * z2);
 
 	return std::move(Mat4(
-		scale.x * (1 - yy2 - zz2), scale.y * (xy2 - wz2), scale.z * (xz2 + wy2), trans.x,
-		scale.x * (xy2 + wz2), scale.y * (1 - xx2 - zz2), scale.z * (yz2 - wx2), trans.y,
-		scale.x * (xz2 - wy2), scale.y * (yz2 + wx2), scale.z * (1 - xx2 - yy2), trans.z,
-		0, 0, 0, 1));
+		scale.x * (1 - yy2 - zz2), scale.x * (xy2 + wz2), scale.x * (xz2 - wy2), 0,
+		scale.y * (xy2 - wz2), scale.y * (1 - xx2 - zz2), scale.y * (yz2 + wx2), 0,
+		scale.z * (xz2 + wy2), scale.z * (yz2 - wx2),  scale.z * (1 - xx2 - yy2), 0,
+		trans.x, trans.y, trans.z, 1));
 }
 
 Vec4 MathUtil::ColorToVec4(const Color& c)

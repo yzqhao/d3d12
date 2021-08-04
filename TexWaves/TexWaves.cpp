@@ -109,7 +109,6 @@ void TexWaves::OnResize()
 	D3DApp::OnResize();
 
 	Math::Mat4::createPerspective(45, AspectRatio(), 1.0f, 1000.0f, &mProj);
-	mProj.transpose();
 }
 
 void TexWaves::Update(const GameTimer& gt)
@@ -151,7 +150,6 @@ void TexWaves::UpdateCamera(const GameTimer& gt)
 	Math::Vec3 up(0.0f, 1.0f, 0.0f);
 
 	Math::Mat4::createLookAt(pos, target, up, &mView);
-	mView.transpose();
 }
 
 void TexWaves::UpdateWaves(const GameTimer& gt)
@@ -223,8 +221,8 @@ void TexWaves::AnimateMaterials(const GameTimer& gt)
 	// Scroll the water material texture coordinates.
 	auto waterMat = mMaterials["water"].get();
 
-	float& tu = waterMat->MatTransform.m[12];
-	float& tv = waterMat->MatTransform.m[13];
+	float& tu = waterMat->MatTransform.a41;
+	float& tv = waterMat->MatTransform.a42;
 
 	tu += 0.1f * gt.DeltaTime();
 	tv += 0.02f * gt.DeltaTime();
@@ -234,8 +232,6 @@ void TexWaves::AnimateMaterials(const GameTimer& gt)
 
 	if (tv >= 1.0f)
 		tv -= 1.0f;
-
-	waterMat->MatTransform.transpose();
 
 	// Material has changed, so need to update cbuffer.
 	waterMat->NumFramesDirty = 3;
@@ -670,7 +666,6 @@ void TexWaves::BuildRenderItems()
 
 	auto boxRitem = std::make_unique<RenderItem>();
 	boxRitem->World.translate({ 3.0f, 2.0f, -9.0f });
-	boxRitem->World.transpose();
 	boxRitem->ObjCBIndex = 2;
 	boxRitem->Mat = mMaterials["wirefence"].get();
 	boxRitem->Geo = mGeometries["boxGeo"].get();

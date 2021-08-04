@@ -81,6 +81,14 @@ struct SkinnedVertex
     BYTE BoneIndices[4];
 };
 
+struct SkinnedMeteorVertex
+{
+	Math::Vec3 Pos;
+	Math::Vec2 TexC;
+	Math::Vec3 BoneWeights;
+	BYTE BoneIndices[4];
+};
+
 // Stores the resources needed for the CPU to build the command lists
 // for a frame.  
 struct FrameResource
