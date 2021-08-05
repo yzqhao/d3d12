@@ -33,6 +33,8 @@ namespace MathUtil
 	bool intersects(const AABB& box1, const AABB& box2);
 	// AABB包围盒是否在Frustum内
 	bool intersects(const Frustum& frustum, const AABB& box);
+	// 射线与三角形相交检测，如果相交，则Dist返回射线起点到交点距离
+	bool intersects(const Ray& ray, Vec3 v0, Vec3 v1, Vec3 v2, float* distance = nullptr);
 };
 
 NS_JYE_MATH_END

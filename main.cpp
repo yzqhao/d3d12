@@ -51,9 +51,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//CubeMap theApp(hInstance);
 		//DynamicCube theApp(hInstance); 
 		//NormalMap theApp(hInstance);
-		//PickApp theApp(hInstance);
+		PickApp theApp(hInstance);
 		//QuatApp theApp(hInstance);
-		SkinnedMesh theApp(hInstance);
+		//SkinnedMesh theApp(hInstance);
 		if (!theApp.Initialize())
 			return 0;
 

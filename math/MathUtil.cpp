@@ -177,12 +177,12 @@ bool MathUtil::intersects(const AABB& box1, const AABB& box2)
 	return (std::abs(cen.x) <= hs.x) && (std::abs(cen.y) <= hs.y) && (std::abs(cen.z) <= hs.z);
 }
 
-bool Math::MathUtil::intersects(const Frustum& frustum, const AABB& box)
+bool MathUtil::intersects(const Frustum& frustum, const AABB& box)
 {
-	Math::Vec3 point;
+	Vec3 point;
 	for (int i = 0; i < Frustum::FACE_COUNT; ++i)
 	{
-		Math:Vec3 normal = frustum._planes[i]._normal;
+		Vec3 normal = frustum._planes[i]._normal;
 		point.x = normal.x < 0 ? box._max.x : box._min.x;
 		point.y = normal.y < 0 ? box._max.y : box._min.y;
 		point.z = normal.z < 0 ? box._max.z : box._min.z;
@@ -194,6 +194,65 @@ bool Math::MathUtil::intersects(const Frustum& frustum, const AABB& box)
 	}
 
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Compute the intersection of a ray (Origin, Direction) with a triangle
+// (V0, V1, V2).  Return true if there is an intersection and also set *pDist
+// to the distance along the ray to the intersection.
+//-----------------------------------------------------------------------------
+bool MathUtil::intersects(const Ray& ray, Vec3 v0, Vec3 v1, Vec3 v2, float* distance)
+{
+	// Find vectors for two edges sharing vert0
+	Vec3 edge1 = v1 - v0;
+	Vec3 edge2 = v2 - v0;
+
+	// Begin calculating determinant - also used to calculate U parameter
+	Vec3 pvec = crossProduct(ray.getDirection(), edge2);
+
+	// If determinant is near zero, ray lies in plane of triangle
+	float det = dot(pvec, edge1);
+	Vec3 tvec;
+	if (det > 0)
+	{
+		tvec = ray.getOrigin() - v0;
+	}
+	else
+	{
+		tvec = v0 - ray.getOrigin();
+		det = -det;
+	}
+
+	if (det < 0.0f)
+	{
+		return false;
+	}
+
+	// Calculate U parameter and test bounds
+	float u = dot(pvec, tvec);
+	if (u < 0.0f || u > det)
+	{
+		return false;
+	}
+
+	// Prepare to test V parameter
+	Vec3 qvec = crossProduct(tvec, edge1);
+
+	// Calculate V parameter and test bounds
+	float v = dot(qvec, ray.getDirection());
+	if (v < 0.0f || u + v > det)
+	{
+		return false;
+	}
+
+	// Calculate t, scale parameters, ray intersects triangle
+	float t = dot(qvec, edge2);
+	float fInvDet = 1.0f / det;
+	t *= fInvDet;
+
+	*distance = t;
+
+	return t > 0.f;
 }
 
 NS_JYE_MATH_END

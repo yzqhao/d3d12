@@ -17,6 +17,7 @@ public:
 	void setDirection(const Vec3& dir) { _direction = dir; }
 	void setOrigin(const Vec3& origin) { _origin = origin; }
 	const Vec3& getOrigin()const { return _origin; }
+	const Vec3& getDirection()const { return _direction; }
 	Vec3 getPoint(float t) const { return _origin + _direction * t; }
 
 	// 点到射线的距离

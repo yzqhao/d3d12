@@ -4,6 +4,8 @@
 #include "../common/GeometryGenerator.h"
 #include "../common/MeshLoader.h"
 #include "../common/DDSTextureLoader.h"
+#include "../math/Ray.h"
+#include "../math/MathUtil.h"
 
 PickApp::PickApp(HINSTANCE hInstance)
 	: D3DApp(hInstance)
@@ -266,6 +268,9 @@ void PickApp::Draw(const GameTimer& gt)
 		mCommandList->SetGraphicsRootDescriptorTable(3, mSrvDescriptorHeap->GetGPUDescriptorHandleForHeapStart());
 
 		DrawRenderItems(mCommandList, mRitemLayer[(int)RenderLayer::Opaque]);
+
+		mCommandList->SetPipelineState(mPSOs["highlight"]);
+		DrawRenderItems(mCommandList, mRitemLayer[(int)RenderLayer::Highlight]);
 	}
 
 	// Indicate a state transition on the resource usage.
@@ -337,6 +342,34 @@ void PickApp::BuildPSO()
 	psoDesc.SampleDesc.Quality = m4xMsaaState ? (m4xMsaaQuality - 1) : 0;
 	psoDesc.DSVFormat = mDepthStencilFormat;
 	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&mPSOs["opaque"])));
+
+	//
+	// PSO for highlight objects
+	//
+
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC highlightPsoDesc = psoDesc;
+
+	// Change the depth test from < to <= so that if we draw the same triangle twice, it will
+	// still pass the depth test.  This is needed because we redraw the picked triangle with a
+	// different material to highlight it.  If we do not use <=, the triangle will fail the 
+	// depth test the 2nd time we try and draw it.
+	highlightPsoDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS_EQUAL;
+
+	// Standard transparency blending.
+	D3D12_RENDER_TARGET_BLEND_DESC transparencyBlendDesc;
+	transparencyBlendDesc.BlendEnable = true;
+	transparencyBlendDesc.LogicOpEnable = false;
+	transparencyBlendDesc.SrcBlend = D3D12_BLEND_SRC_ALPHA;
+	transparencyBlendDesc.DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+	transparencyBlendDesc.BlendOp = D3D12_BLEND_OP_ADD;
+	transparencyBlendDesc.SrcBlendAlpha = D3D12_BLEND_ONE;
+	transparencyBlendDesc.DestBlendAlpha = D3D12_BLEND_ZERO;
+	transparencyBlendDesc.BlendOpAlpha = D3D12_BLEND_OP_ADD;
+	transparencyBlendDesc.LogicOp = D3D12_LOGIC_OP_NOOP;
+	transparencyBlendDesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+
+	highlightPsoDesc.BlendState.RenderTarget[0] = transparencyBlendDesc;
+	ThrowIfFailed(md3dDevice->CreateGraphicsPipelineState(&highlightPsoDesc, IID_PPV_ARGS(&mPSOs["highlight"])));
 }
 
 void PickApp::BuildRootSignature()
@@ -559,7 +592,7 @@ void PickApp::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vec
 void PickApp::Pick(int sx, int sy)
 {	// 转换到物体的局部空间做相交检测
 	Math::Mat4 P = mCamera.GetProj();
-#if 0
+
 	// Compute picking ray in view space.
 	float vx = (+2.0f * sx / mClientWidth - 1.0f) / P.m[0];
 	float vy = (-2.0f * sy / mClientHeight + 1.0f) / P.m[5];
@@ -568,6 +601,7 @@ void PickApp::Pick(int sx, int sy)
 	Math::Vec4 rayOrigin(0.0f, 0.0f, 0.0f, 1.0f);
 	Math::Vec4 rayDir(vx, vy, 1.0f, 0.0f);
 
+	mCamera.UpdateViewMatrix();
 	Math::Mat4 V = mCamera.GetView();
 	Math::Mat4 invView = mCamera.GetView().getInversed();
 
@@ -588,7 +622,7 @@ void PickApp::Pick(int sx, int sy)
 		Math::Mat4 invWorld = W.getInversed();
 
 		// Tranform ray to vi space of Mesh.
-		Math::Mat4 toLocal = invWorld * invView;
+		Math::Mat4 toLocal = invView * invWorld;
 
 		rayOrigin *= toLocal;
 		rayDir *= toLocal;
@@ -602,16 +636,17 @@ void PickApp::Pick(int sx, int sy)
 		// If we did not hit the bounding box, then it is impossible that we hit 
 		// the Mesh, so do not waste effort doing ray/triangle tests.
 		float tmin = 0.0f;
-		if (ri->box.Intersects(rayOrigin, rayDir, tmin))
+		Math::Ray ray({ rayOrigin.x, rayOrigin.y, rayOrigin.z }, { rayDir3.x, rayDir3.y, rayDir3.z });
+		if (Math::MathUtil::intersects(ray, ri->box, &tmin))
 		{
 			// NOTE: For the demo, we know what to cast the vertex/index data to.  If we were mixing
 			// formats, some metadata would be needed to figure out what to cast it to.
 			auto vertices = (PickAppFR::Vertex*)geo->VertexBufferCPU->GetBufferPointer();
-			auto indices = (std::uint32_t*)geo->IndexBufferCPU->GetBufferPointer();
+			auto indices = (std::uint16_t*)geo->IndexBufferCPU->GetBufferPointer();
 			UINT triCount = ri->IndexCount / 3;
 
 			// Find the nearest ray/triangle intersection.
-			tmin = 1.0;
+			tmin = 999999.0;
 			for (UINT i = 0; i < triCount; ++i)
 			{
 				// Indices for this triangle.
@@ -626,7 +661,7 @@ void PickApp::Pick(int sx, int sy)
 
 				// We have to iterate over all the triangles in order to find the nearest intersection.
 				float t = 0.0f;
-				if (TriangleTests::Intersects(rayOrigin, rayDir, v0, v1, v2, t))
+				if (Math::MathUtil::intersects(ray, v0, v1, v2, &t))
 				{
 					if (t < tmin)
 					{
@@ -649,7 +684,6 @@ void PickApp::Pick(int sx, int sy)
 			}
 		}
 	}
-#endif
 }
 
 std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> PickApp::GetStaticSamplers()
