@@ -61,6 +61,7 @@
     <ClCompile Include="math\Quaternion.cpp" />
     <ClCompile Include="math\Random.cpp" />
     <ClCompile Include="math\Ray.cpp" />
+    <ClCompile Include="math\Sphere.cpp" />
     <ClCompile Include="math\Vec2.cpp" />
     <ClCompile Include="math\Vec3.cpp" />
     <ClCompile Include="math\Vec4.cpp" />
@@ -72,6 +73,9 @@
     <ClCompile Include="QuatApp\AnimationHelper.cpp" />
     <ClCompile Include="QuatApp\FrameResource.cpp" />
     <ClCompile Include="QuatApp\QuatApp.cpp" />
+    <ClCompile Include="ShadowMap\FrameResource.cpp" />
+    <ClCompile Include="ShadowMap\ShadowMapApp.cpp" />
+    <ClCompile Include="ShadowMap\ShadowMap.cpp" />
     <ClCompile Include="ShapesApp\FrameResource.cpp" />
     <ClCompile Include="ShapesApp\ShapesApp.cpp" />
     <ClCompile Include="ShapesSkullApp\FrameResource.cpp" />
@@ -131,6 +135,7 @@
     <ClInclude Include="math\Quaternion.h" />
     <ClInclude Include="math\Random.h" />
     <ClInclude Include="math\Ray.h" />
+    <ClInclude Include="math\Sphere.h" />
     <ClInclude Include="math\Vec2.h" />
     <ClInclude Include="math\Vec3.h" />
     <ClInclude Include="math\Vec4.h" />
@@ -143,6 +148,9 @@
     <ClInclude Include="QuatApp\AnimationHelper.h" />
     <ClInclude Include="QuatApp\FrameResource.h" />
     <ClInclude Include="QuatApp\QuatApp.h" />
+    <ClInclude Include="ShadowMap\FrameResource.h" />
+    <ClInclude Include="ShadowMap\ShadowMapApp.h" />
+    <ClInclude Include="ShadowMap\ShadowMap.h" />
     <ClInclude Include="ShapesApp\FrameResource.h" />
     <ClInclude Include="ShapesApp\ShapesApp.h" />
     <ClInclude Include="ShapesSkullApp\FrameResource.h" />
@@ -348,6 +356,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SkinnedMesh\Meteor.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShadowMap\Common.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="ShadowMap\Default.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="ShadowMap\LightingUtil.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="ShadowMap\Sky.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShadowMap\ShadowDebug.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="ShadowMap\Shadows.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

@@ -170,6 +170,21 @@ bool MathUtil::intersects(const Ray& ray, const AABB& box, float* distance)
 
 }
 
+bool MathUtil::intersects(const Ray& ray, const Sphere& sphere)
+{
+	Vec3 l = sphere.GetCenter() - ray.getOrigin();
+	float s = dot(l, ray.getDirection());
+	float squaredL = dot(l, l);
+	float squaredRadius = sphere.GetRadius() * sphere.GetRadius();
+	if (s < 0 && squaredL > squaredRadius)
+		return false;
+	float squaredM = squaredL - s * s;
+	if (squaredM > squaredRadius)
+		return false;
+
+	return true;
+}
+
 bool MathUtil::intersects(const AABB& box1, const AABB& box2)
 {
 	Vec3 cen = box1.center() - box2.center();

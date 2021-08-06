@@ -10,6 +10,7 @@
 #include "AABB.h"
 #include "Ray.h"
 #include "Frustum.h"
+#include "Sphere.h"
 
 NS_JYE_MATH_BEGIN
 
@@ -29,6 +30,8 @@ namespace MathUtil
 	Vec4 ColorToVec4(const Color& c);
 	// Ray和AABB相交检测，如果相交，则distance返回射线起点到交点距离
 	bool intersects(const Ray& ray, const AABB& box, float* distance = nullptr);
+	// Ray和球相交检测，如果相交，则distance返回射线起点到交点距离
+	bool intersects(const Ray& ray, const Sphere& sph);
 	// AABB和AABB相交检测，如果相交
 	bool intersects(const AABB& box1, const AABB& box2);
 	// AABB包围盒是否在Frustum内

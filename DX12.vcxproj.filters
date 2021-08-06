@@ -85,6 +85,9 @@
     <Filter Include="SkinnedMesh">
       <UniqueIdentifier>{4f1bf64c-fb62-4517-9da4-371e6568b1aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShadowMap">
+      <UniqueIdentifier>{f61e537c-e142-4648-86c4-a926f76defc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -284,6 +287,18 @@
     </ClCompile>
     <ClCompile Include="common\MeteorLoader.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="math\Sphere.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap\FrameResource.cpp">
+      <Filter>ShadowMap</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap\ShadowMapApp.cpp">
+      <Filter>ShadowMap</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap\ShadowMap.cpp">
+      <Filter>ShadowMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -500,6 +515,18 @@
     <ClInclude Include="common\MeteorLoader.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="math\Sphere.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap\FrameResource.h">
+      <Filter>ShadowMap</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap\ShadowMapApp.h">
+      <Filter>ShadowMap</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap\ShadowMap.h">
+      <Filter>ShadowMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.hlsl">
@@ -639,6 +666,24 @@
     </None>
     <None Include="SkinnedMesh\Meteor.hlsl">
       <Filter>SkinnedMesh</Filter>
+    </None>
+    <None Include="ShadowMap\Common.hlsl">
+      <Filter>ShadowMap</Filter>
+    </None>
+    <None Include="ShadowMap\Default.hlsl">
+      <Filter>ShadowMap</Filter>
+    </None>
+    <None Include="ShadowMap\LightingUtil.hlsl">
+      <Filter>ShadowMap</Filter>
+    </None>
+    <None Include="ShadowMap\Sky.hlsl">
+      <Filter>ShadowMap</Filter>
+    </None>
+    <None Include="ShadowMap\Shadows.hlsl">
+      <Filter>ShadowMap</Filter>
+    </None>
+    <None Include="ShadowMap\ShadowDebug.hlsl">
+      <Filter>ShadowMap</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -7,6 +7,8 @@
 #include "../math/Ray.h"
 #include "../math/MathUtil.h"
 
+//#define INTERSECT_SPHERE
+
 PickApp::PickApp(HINSTANCE hInstance)
 	: D3DApp(hInstance)
 {
@@ -637,7 +639,13 @@ void PickApp::Pick(int sx, int sy)
 		// the Mesh, so do not waste effort doing ray/triangle tests.
 		float tmin = 0.0f;
 		Math::Ray ray({ rayOrigin.x, rayOrigin.y, rayOrigin.z }, { rayDir3.x, rayDir3.y, rayDir3.z });
+#ifdef INTERSECT_SPHERE
+		Math::Sphere sph;
+		sph.set(ri->box);
+		if (Math::MathUtil::intersects(ray, sph))
+#else
 		if (Math::MathUtil::intersects(ray, ri->box, &tmin))
+#endif
 		{
 			// NOTE: For the demo, we know what to cast the vertex/index data to.  If we were mixing
 			// formats, some metadata would be needed to figure out what to cast it to.

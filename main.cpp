@@ -20,6 +20,7 @@
 #include "DynamicCube/DynamicCube.h"
 #include "NormalMap/NormalMap.h"
 #include "PickApp/PickApp.h"
+#include "ShadowMap/ShadowMapApp.h"
 #include "QuatApp/QuatApp.h"
 #include "SkinnedMesh/SkinnedMesh.h"
 
@@ -51,7 +52,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 		//CubeMap theApp(hInstance);
 		//DynamicCube theApp(hInstance); 
 		//NormalMap theApp(hInstance);
-		PickApp theApp(hInstance);
+		//PickApp theApp(hInstance);
+		ShadowMapApp theApp(hInstance);
 		//QuatApp theApp(hInstance);
 		//SkinnedMesh theApp(hInstance);
 		if (!theApp.Initialize())
